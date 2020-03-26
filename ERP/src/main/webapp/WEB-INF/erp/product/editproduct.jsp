@@ -135,7 +135,7 @@ sub category :
 <label class="">
 Measurement:
 </label>
-<select class="form-control m-select2" name="measurement" id="unitid" >
+<select class="form-control m-select2" name="unitmodel.id" id="unitid" >
    <option value="0">select unit of Measurement</option>
    
  </select>
@@ -202,13 +202,9 @@ Please enter fax
 Tax:
 </label>
 <div class="m-input-icon m-input-icon--right">
-<select class="form-control m-select2" name="tax" id="tax" >
+<select class="form-control m-select2" name="taxmodel.id" id="taxid" >
    <option value="0">select Tax</option>
-   <option value="1">5 %</option>
-   <option value="2">10 %</option>
-   <option value="3">12 %</option>
-   <option value="4">18 %</option>
- </select>
+   </select>
 </div>
 <!-- <span class="m-form__help">
 Please enter your address
@@ -286,11 +282,11 @@ Cancel
 $(document).ready(function()
 		{
 	$("#description").val("${product.description}");
-	//$("#measurement").val("${product.measurement}");
-	$("#tax").val("${product.tax}");
+	
+	
 	console.log("-----------------------------");
 	
-	//console.log("${product.measurement}");
+	
 			
 			
 			
@@ -307,7 +303,15 @@ $(document).ready(function()
 	  });
 			
 			
-	
+	$.get("/alltax", function(data, status){
+		console.log(data);
+		$.each(data,function(i,o){
+			console.log(o.id);
+			$("#taxid").append('<option value='+o.id+'>'+o.tax+'</option>');
+			
+		  });
+		$("#taxid").val("${product.taxmodel.id}");
+	  });
 			
 	console.log("==================");
 	

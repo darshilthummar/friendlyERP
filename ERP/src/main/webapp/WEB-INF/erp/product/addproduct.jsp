@@ -137,7 +137,7 @@ Sub-Category :
 <label class="">
 Measurement:
 </label>
-<select class="form-control m-select2" name="measurement" id="unitid" >
+<select class="form-control m-select2" name="unitmodel.id" id="unitid" >
    <option value="0">select unit of Measurement</option>
    
  </select>
@@ -204,7 +204,7 @@ Please enter fax
 Tax:
 </label>
 <div class="m-input-icon m-input-icon--right">
-<select class="form-control m-select2" name="tax" id="taxid" >
+<select class="form-control m-select2" name="taxmodel.id" id="taxid" >
    <option value="0">select Tax</option>
    </select>
 </div>
@@ -269,7 +269,7 @@ $.get("/alltax", function(data, status){
 	console.log(data);
 	$.each(data,function(i,o){
 		console.log(o.id);
-		$("#taxid").append('<option value='+o.tax+'>'+o.tax+'</option>');
+		$("#taxid").append('<option value='+o.id+'>'+o.tax+'</option>');
 		
 	  });
 	
@@ -280,7 +280,7 @@ $.get("/allunit", function(data, status){
 	$.each(data,function(i,o){
 		console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		console.log(o.unitcode);
-		$("#unitid").append('<option value='+o.unitcode+'>'+o.unitcode+'</option>');
+		$("#unitid").append('<option value='+o.id+'>'+o.unitcode+'</option>');
 		
 	  });
 	
