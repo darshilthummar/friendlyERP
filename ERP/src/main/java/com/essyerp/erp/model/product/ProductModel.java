@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.essyerp.erp.model.Tax.TaxModel;
 import com.essyerp.erp.model.Unit.UnitModel;
 import com.essyerp.erp.model.category.CategoryModel;
 import com.essyerp.erp.model.category.SubcategoryModel;
@@ -48,21 +49,15 @@ private String purchasePrice;
 @Column(name="sales_price")
 private String salesPrice;
 
-@Column(name="tax")
-private String tax;
-
+@ManyToOne(fetch = FetchType.LAZY, optional = false)
+@JoinColumn(name = "tax", nullable = false,referencedColumnName = "id")
+private TaxModel taxmodel;
 
 @ManyToOne(fetch = FetchType.LAZY, optional = false)
 @JoinColumn(name = "measurement", nullable = false,referencedColumnName = "id")
 private UnitModel unitmodel;
 
-public UnitModel getUitmodel() {
-	return unitmodel;
-}
 
-public void setUitmodel(UnitModel uitmodel) {
-	this.unitmodel = uitmodel;
-}
 
 @Column(name="image")
 private String image;
@@ -138,15 +133,25 @@ public void setSalesPrice(String salesPrice) {
 	this.salesPrice = salesPrice;
 }
 
-public String getTax() {
-	return tax;
+
+
+
+
+public TaxModel getTaxmodel() {
+	return taxmodel;
 }
 
-public void setTax(String tax) {
-	this.tax = tax;
+public void setTaxmodel(TaxModel taxmodel) {
+	this.taxmodel = taxmodel;
 }
 
+public UnitModel getUnitmodel() {
+	return unitmodel;
+}
 
+public void setUnitmodel(UnitModel unitmodel) {
+	this.unitmodel = unitmodel;
+}
 
 public String getImage() {
 	return image;

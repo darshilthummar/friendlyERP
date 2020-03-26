@@ -156,7 +156,7 @@ var table = $('#product_table').DataTable(
    	data : 'salesPrice'
    },
    {
-   	data : 'tax'
+   	data : 'taxmodel.tax'
    },
    {
      data : 'id',
