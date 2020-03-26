@@ -49,7 +49,7 @@ License: You must have a valid license purchased only from themeforest(the above
 				<div class="m-grid__item m-grid__item--order-tablet-and-mobile-2 m-login__aside">
 					<div class="m-stack m-stack--hor m-stack--desktop">
 						<div class="m-stack__item m-stack__item--fluid">
-							<div class="m-login__wrapper">
+							<div class="m-login__wrapper" style="padding: 18% 2rem 2rem 2rem">
 								<div class="m-login__logo">
 									
 								</div>
