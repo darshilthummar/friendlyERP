@@ -142,11 +142,11 @@
 																<img src="/assets/app/media/img/users/IMG_0013 2.JPG" class="m--img-rounded m--marginless" alt=""/>
 															</div>
 															<div class="m-card-user__details">
-																<span class="m-card-user__name m--font-weight-500">
-																	Yash
+																<span class="m-card-user__name m--font-weight-500" id="user">
+																
 																</span>
-																<a href="" class="m-card-user__email m--font-weight-300 m-link">
-																	yp160507@gmail.com
+																<a href="/profile" class="m-card-user__email m--font-weight-300 m-link" id="user_email">
+															
 																</a>
 															</div>
 														</div>
@@ -181,18 +181,9 @@
 																</li>
 																<li class="m-nav__item">
 																	<a href="/profile" class="m-nav__link">
-																		<i class="m-nav__link-icon flaticon-chat-1"></i>
+																		<i class="m-nav__link-icon flaticon-lock-1"></i>
 																		<span class="m-nav__link-text">
-																			Messages
-																		</span>
-																	</a>
-																</li>
-																<li class="m-nav__separator m-nav__separator--fit"></li>
-																<li class="m-nav__item">
-																	<a href="/profile" class="m-nav__link">
-																		<i class="m-nav__link-icon flaticon-info"></i>
-																		<span class="m-nav__link-text">
-																			FAQ
+																			Change Password
 																		</span>
 																	</a>
 																</li>
