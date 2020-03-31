@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query(value="SELECT * FROM user WHERE username = ?1 and is_active = 1",nativeQuery=true)
 	User findUser(String username);
 	
-	//User findByUsername(String username);
+	//User findByUserId(Long Id);
     
 	List<User> findByEmail(String email);
 }
