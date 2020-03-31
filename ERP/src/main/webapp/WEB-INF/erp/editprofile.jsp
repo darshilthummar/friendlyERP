@@ -43,64 +43,6 @@
 									My Profile
 								</h3>
 							</div>
-							<div>
-								<div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
-									<div class="m-dropdown__wrapper">
-										<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
-										<div class="m-dropdown__inner">
-											<div class="m-dropdown__body">
-												<div class="m-dropdown__content">
-													<ul class="m-nav">
-														<li class="m-nav__section m-nav__section--first m--hide">
-															<span class="m-nav__section-text">
-																Quick Actions
-															</span>
-														</li>
-														<li class="m-nav__item">
-															<a href="" class="m-nav__link">
-																<i class="m-nav__link-icon flaticon-share"></i>
-																<span class="m-nav__link-text">
-																	Activity
-																</span>
-															</a>
-														</li>
-														<li class="m-nav__item">
-															<a href="" class="m-nav__link">
-																<i class="m-nav__link-icon flaticon-chat-1"></i>
-																<span class="m-nav__link-text">
-																	Messages
-																</span>
-															</a>
-														</li>
-														<li class="m-nav__item">
-															<a href="" class="m-nav__link">
-																<i class="m-nav__link-icon flaticon-info"></i>
-																<span class="m-nav__link-text">
-																	FAQ
-																</span>
-															</a>
-														</li>
-														<li class="m-nav__item">
-															<a href="" class="m-nav__link">
-																<i class="m-nav__link-icon flaticon-lifebuoy"></i>
-																<span class="m-nav__link-text">
-																	Support
-																</span>
-															</a>
-														</li>
-														<li class="m-nav__separator m-nav__separator--fit"></li>
-														<li class="m-nav__item">
-															<a href="#" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm">
-																Submit
-															</a>
-														</li>
-													</ul>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
 						</div>
 					</div>
 					<!-- END: Subheader -->
@@ -192,7 +134,8 @@
 									</div>
 									<div class="tab-content">
 										<div class="tab-pane active" id="m_user_profile_tab_1">
-											<form class="m-form m-form--fit m-form--label-align-right">
+											<form class="m-form m-form--fit m-form--label-align-right" action="/profile/update" method="post">
+											<input type="hidden" name="id" id="id" class="form-control m-input" value="${user.id}">	
 												<div class="m-portlet__body">
 													<div class="form-group m-form__group m--margin-top-10 m--hide">
 														<div class="alert m-alert m-alert--default" role="alert">
@@ -211,13 +154,13 @@
 															First Name
 														</label>
 														<div class="col-sm-3">
-															<input class="form-control m-input" type="text">
+															<input class="form-control m-input" type="text" name="fname">
 														</div>
 														<label for="example-text-input" class="col-2 col-form-label">
 															Last Name
 														</label>
 														<div class="col-sm-3">
-															<input class="form-control m-input" type="text">
+															<input class="form-control m-input" type="text" name="lname">
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
@@ -225,7 +168,7 @@
 															Position
 														</label>
 														<div class="col-8">
-															<input class="form-control m-input" type="text">
+															<input class="form-control m-input" type="text" name="position">
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
@@ -233,7 +176,7 @@
 															Company Name
 														</label>
 														<div class="col-8">
-															<input class="form-control m-input" type="text">
+															<input class="form-control m-input" type="text" name="company">
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
@@ -241,7 +184,7 @@
 															Phone No.
 														</label>
 														<div class="col-8">
-															<input class="form-control m-input" type="text">
+															<input class="form-control m-input" type="text" name="number">
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
@@ -249,7 +192,7 @@
 															GST.No
 														</label>
 														<div class="col-8">
-															<input class="form-control m-input" type="text">
+															<input class="form-control m-input" type="text" name="gst_no">
 														</div>
 													</div>
 													
@@ -266,7 +209,7 @@
 															Address
 														</label>
 														<div class="col-8">
-															<input class="form-control m-input" type="text">
+															<input class="form-control m-input" type="text" name="address">
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
@@ -274,7 +217,7 @@
 															State
 														</label>
 														<div class="col-8">
-															<input class="form-control m-input" type="text">
+															<input class="form-control m-input" type="text" name="state">
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
@@ -282,7 +225,7 @@
 															City
 														</label>
 														<div class="col-8">
-															<input class="form-control m-input" type="text">
+															<input class="form-control m-input" type="text" name="city">
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
@@ -290,7 +233,7 @@
 															Postcode
 														</label>
 														<div class="col-8">
-															<input class="form-control m-input" type="text">
+															<input class="form-control m-input" type="text" name="postcode">
 														</div>
 													</div>
 												</div>
@@ -299,9 +242,9 @@
 														<div class="row">
 															<div class="col-2"></div>
 															<div class="col-7">
-																<a href="/profile/edit" class="btn btn-accent m-btn m-btn--air m-btn--custom">
+																<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">
 																	Save Profile
-																</a>
+																</button>
 																&nbsp;&nbsp;
 																<!-- <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">
 																	Reset
