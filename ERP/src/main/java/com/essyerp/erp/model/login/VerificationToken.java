@@ -1,6 +1,9 @@
 package com.essyerp.erp.model.login;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -20,6 +23,7 @@ public class VerificationToken {
     private LocalDateTime confirmedDateTime;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     @JoinColumn(name = "user_id")
     private User user;
 

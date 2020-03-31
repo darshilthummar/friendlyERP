@@ -30,7 +30,7 @@
 <script type="text/javascript">
 
  var current = location.pathname;
-console.log(current);
+//console.log(current);
 $('#m_ver_menu ul li ul li a').each(function(){
 var $this = $(this);
 // if the current path is like this link, make it active
@@ -40,7 +40,18 @@ $this.parent().parent().parent().parent().addClass('m-menu__item--open');
 }
 });
  
+$( document ).ready(function() {
+    console.log( "ready!" );
+  
+ 
+$.get("/userdata",  // url
+	      function (data, status) {  
+console.log(data);
+ $("#user").html(data.username);
+ $("#user_email").html(data.email);
+});
 
+});
 </script>
 
 </body>

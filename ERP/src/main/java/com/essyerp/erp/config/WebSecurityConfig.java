@@ -18,6 +18,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
+	@Autowired
+	CustomizeAuthenticationSuccessHandler customizeAuthenticationSuccessHandler; 
 	
 	@Bean(name = "passwordEncoder")
 	public PasswordEncoder passwordencoder()
@@ -39,11 +41,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 				.permitAll()
 				.antMatchers("/login").permitAll()
 //				.antMatchers("/index").access("hasRole('ROLE_ADMIN')")
-				.anyRequest().authenticated().and().formLogin()
-				.loginPage("/login").usernameParameter("username").passwordParameter("password")
+				.anyRequest().authenticated().and().formLogin().loginPage("/login")
+				.successHandler(customizeAuthenticationSuccessHandler).usernameParameter("username")
+				.passwordParameter("password")
 				.and().logout()
-				.logoutSuccessUrl("/login?logout").deleteCookies("JSESSIONID").invalidateHttpSession(true).and().csrf()
-				.disable();
+				.logoutSuccessUrl("/login?logout").deleteCookies("auth_code", "JSESSIONID").invalidateHttpSession(true).and().exceptionHandling()
+				.accessDeniedPage("/403").and().csrf().disable();
 		http.headers().frameOptions().sameOrigin();
 		http.sessionManagement().invalidSessionUrl("/login").maximumSessions(100).maxSessionsPreventsLogin(true);
 		http.sessionManagement().sessionFixation().migrateSession()

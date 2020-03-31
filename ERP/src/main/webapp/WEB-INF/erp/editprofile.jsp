@@ -120,7 +120,7 @@
 											</div>
 											<div class="m-card-profile__details">
 												<span class="m-card-profile__name">
-													${user.username}
+												${user.username}
 												</span>
 												<a class="m-card-profile__email m-link">
 												${user.email}
@@ -182,9 +182,9 @@
 										<div class="m-portlet__head-tools">
 											<ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
 												<li class="nav-item m-tabs__item">
-													<a class="nav-link m-tabs__link active" data-toggle="tab"  role="tab" >
+													<a class="nav-link m-tabs__link active" data-toggle="tab"  role="tab">
 														<i class="flaticon-share m--hide"></i>
-														Profile
+														Update Profile
 													</a>
 												</li>
 											</ul>
@@ -207,49 +207,49 @@
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
-														<label for="example-text-input" class="col-3 col-form-label">
+														<label for="example-text-input" class="col-2 col-form-label">
 															First Name
 														</label>
-														<div class="col-lg-2">
-															<h5 style="padding-top: 5px;"> Yash</h5>
+														<div class="col-sm-3">
+															<input class="form-control m-input" type="text">
 														</div>
 														<label for="example-text-input" class="col-2 col-form-label">
 															Last Name
 														</label>
-														<div class="col-lg-2">
-															<h5 style="padding-top: 5px;"> patel</h5>
+														<div class="col-sm-3">
+															<input class="form-control m-input" type="text">
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
-														<label for="example-text-input" class="col-3 col-form-label">
+														<label for="example-text-input" class="col-2 col-form-label">
 															Position
 														</label>
-														<div class="col-7">
-															<h5 style="padding-top: 5px;"> CEO</h5>
+														<div class="col-8">
+															<input class="form-control m-input" type="text">
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
-														<label for="example-text-input" class="col-3 col-form-label">
+														<label for="example-text-input" class="col-2 col-form-label">
 															Company Name
 														</label>
-														<div class="col-7">
-														<h5 style="padding-top: 5px;"> Greencrop</h5>
+														<div class="col-8">
+															<input class="form-control m-input" type="text">
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
-														<label for="example-text-input" class="col-3 col-form-label">
+														<label for="example-text-input" class="col-2 col-form-label">
 															Phone No.
 														</label>
-														<div class="col-7">
-														<h5 style="padding-top: 5px;">99784 45563‬</h5>
+														<div class="col-8">
+															<input class="form-control m-input" type="text">
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
-														<label for="example-text-input" class="col-3 col-form-label">
+														<label for="example-text-input" class="col-2 col-form-label">
 															GST.No
 														</label>
-														<div class="col-7">
-														<h5 style="padding-top: 5px;">‬</h5>
+														<div class="col-8">
+															<input class="form-control m-input" type="text">
 														</div>
 													</div>
 													
@@ -262,35 +262,35 @@
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
-														<label for="example-text-input" class="col-3 col-form-label">
+														<label for="example-text-input" class="col-2 col-form-label">
 															Address
 														</label>
-														<div class="col-7">
-														<h5 style="padding-top: 5px;"> </h5>
+														<div class="col-8">
+															<input class="form-control m-input" type="text">
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
-														<label for="example-text-input" class="col-3 col-form-label">
+														<label for="example-text-input" class="col-2 col-form-label">
 															State
 														</label>
-														<div class="col-7">
-														<h5 style="padding-top: 5px;"> </h5>
+														<div class="col-8">
+															<input class="form-control m-input" type="text">
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
-														<label for="example-text-input" class="col-3 col-form-label">
+														<label for="example-text-input" class="col-2 col-form-label">
 															City
 														</label>
-														<div class="col-7">
-														<h5 style="padding-top: 5px;"> </h5>
+														<div class="col-8">
+															<input class="form-control m-input" type="text">
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
-														<label for="example-text-input" class="col-3 col-form-label">
+														<label for="example-text-input" class="col-2 col-form-label">
 															Postcode
 														</label>
-														<div class="col-7">
-														<h5 style="padding-top: 5px;"> </h5>
+														<div class="col-8">
+															<input class="form-control m-input" type="text">
 														</div>
 													</div>
 												</div>
@@ -299,12 +299,12 @@
 														<div class="row">
 															<div class="col-2"></div>
 															<div class="col-7">
-																<a href="/profile/edit/${user.id}" class="btn btn-accent m-btn m-btn--air m-btn--custom">
-																	Edit Profile
+																<a href="/profile/edit" class="btn btn-accent m-btn m-btn--air m-btn--custom">
+																	Save Profile
 																</a>
 																&nbsp;&nbsp;
 																<!-- <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">
-																	Cancel
+																	Reset
 																</button> -->
 															</div>
 														</div>
@@ -331,9 +331,7 @@
 		
 	
 	<script>
-	$( document ).ready(function() {
-	    console.log("REDY" );
-	});
+	
 	</script>
 	
 	</body>
