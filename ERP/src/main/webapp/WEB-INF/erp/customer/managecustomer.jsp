@@ -57,6 +57,9 @@
 										</h3>
 									</div>
 								</div>
+							<a target="_blank" class="m-btn btn btn-success" href="/report/pdf" style="margin-top: 15px">PDF</a>
+							<a class="m-btn btn btn-warning" href="/report/xls" style="margin-top: 15px">XLS</a>
+								
 								<div class="m-portlet__head-tools">
 									<ul class="m-portlet__nav">
 										<li class="m-portlet__nav-item">
@@ -73,6 +76,7 @@
 								</div>
 							</div>
 							<div class="m-portlet__body">
+							
 								<!--begin: Datatable -->
 								<table class="table table-striped- table-bordered table-hover table-checkable my_table_1" id="customer_table_1">
 									<thead style="text-align: center;">

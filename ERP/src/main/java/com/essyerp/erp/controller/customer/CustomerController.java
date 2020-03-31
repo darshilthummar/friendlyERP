@@ -1,5 +1,6 @@
 package com.essyerp.erp.controller.customer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +10,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,10 @@ import com.essyerp.erp.repo.CityRepo;
 import com.essyerp.erp.repo.CountryRepo;
 import com.essyerp.erp.repo.CustomerRepo;
 import com.essyerp.erp.repo.StateRepo;
+import com.essyerp.erp.service.UserServiceReport;
+
+
+import net.sf.jasperreports.engine.JRException;
 
 
 
@@ -57,6 +63,9 @@ public class CustomerController
 	
 	@Autowired
 	CityRepo cityRepo;
+	
+	@Autowired
+	private UserServiceReport userServiceReport;
 	
 	@GetMapping("/addcustomer")
 	public String addCustomer()
@@ -211,6 +220,14 @@ public class CustomerController
 	public Long countSupplier()
 	{
 		return customerRepo.countContect("supplier");
+		
+	}
+	
+	@GetMapping("/report/{formate}")
+	@ResponseBody
+	public String generateReport(@PathVariable String formate , HttpServletResponse response) throws JRException, IOException
+	{
+		return userServiceReport.exportReport(formate,response);
 		
 	}
 }
