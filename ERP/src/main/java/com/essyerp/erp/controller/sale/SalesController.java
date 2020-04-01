@@ -1,8 +1,13 @@
 package com.essyerp.erp.controller.sale;
 
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -21,11 +26,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.essyerp.erp.model.product.ProductModel;
 import com.essyerp.erp.model.sale.SalesModel;
+import com.essyerp.erp.model.stock.StockModel;
+import com.essyerp.erp.model.stock.StockTransaction;
 import com.essyerp.erp.repo.CityRepo;
 import com.essyerp.erp.repo.CountryRepo;
 import com.essyerp.erp.repo.CustomerRepo;
@@ -33,6 +41,10 @@ import com.essyerp.erp.repo.ProductRepo;
 import com.essyerp.erp.repo.SalesItemRepo;
 import com.essyerp.erp.repo.SalesRepo;
 import com.essyerp.erp.repo.StateRepo;
+import com.essyerp.erp.repo.StockRepo;
+import com.essyerp.erp.repo.StockTransactionRepo;
+import com.essyerp.erp.service.sales.SalesService;
+import com.essyerp.erp.service.stock.StockService;
 
 @Controller
 @RequestMapping(value= {"/sales"})
@@ -61,6 +73,17 @@ public class SalesController
 	@Autowired
 	SalesItemRepo salesItemRepo;
 	
+	@Autowired
+	SalesService salesService;
+	
+	@Autowired
+	StockRepo stockRepo; 
+	
+	@Autowired
+	StockService stockService;
+	
+	@Autowired
+	StockTransactionRepo stockTransactionRepo;
 	
 	@GetMapping("/addSales")
 	public ModelAndView addCustomer()
@@ -68,6 +91,8 @@ public class SalesController
 		ModelAndView view =new ModelAndView("/sales/addSales");
 		view.addObject("customerList", customerRepo.findByCuser("customer"));
 		view.addObject("productList", ProductRepo.findAll());
+		view.addObject("inviceNo", salesRepo.MaxInvoiceNo()+1);
+		view.addObject("prefix", "IN");
 		return view;
 	}
 	
@@ -109,15 +134,59 @@ public class SalesController
 	
 
 	@RequestMapping("/addSales/save")
-	public String saveSales(@ModelAttribute SalesModel sm)
+	public String saveSales(@ModelAttribute SalesModel sm, @RequestParam Map<String,String> allRequestParams)
 	{
-		
+		System.err.println("all "+ sm.getPrefix() +"///"+ sm.getSalesItemModel().size());
+		System.err.println("111 "+ sm.getSalesItemModel().get(0).getProduct().getId());
 			
+		if(allRequestParams.get("delete_product") != null && !allRequestParams.get("delete_product").equals("")) {
+			String address=allRequestParams.get("delete_product").substring(0, allRequestParams.get("delete_product").length()-1);
+			List<Long> l= Arrays.asList(address.split(",")).stream().map(Long::parseLong).collect(Collectors.toList());
+			
+			salesService.deleteSalesItem(l);
+			
+		}
+		
 			sm.getSalesItemModel().forEach((si->{
 			si.setSalesModel(sm);
+			
+			if(allRequestParams.get("new").equals("1"))
+			{	
+				long productId=si.getProduct().getId();
+				long qty=si.getQuantity();
+				StockModel stockModel =new StockModel();
+				stockModel.setProduct(si.getProduct());
+				stockModel.setQty(si.getQuantity());
+				stockModel.setDescription("product sale");
+			
+			
+//				int count = stockRepo.findProduct(productId);
+							
+				stockService.updateSubStock(qty,productId);
+				
+				
+				//stock transaction-----
+				
+				StockTransaction StockTransaction=new StockTransaction();
+				StockTransaction.setProduct(si.getProduct());
+				StockTransaction.setInqty(0);
+				StockTransaction.setOutqty(si.getQuantity());
+				StockTransaction.setPrice(si.getRate());
+				StockTransaction.setType("OutProduct");
+				StockTransaction.setDescription("Sales product");
+				
+				Date todayDate=new Date();
+				StockTransaction.setTransactionDate(todayDate);
+				
+				stockTransactionRepo.save(StockTransaction);
+			}
+			
+			
+			
 		}));
 			
-		//sm.setInvoiceno(salesRepo.findMaxInvoiceNo());
+		
+		
 		
 		salesRepo.save(sm);
 		return "redirect:/sales/manageSales";
@@ -169,7 +238,7 @@ public class SalesController
 	System.out.println("=-s-"+salesRepo.findById(id));
 	Optional<SalesModel> SalesModel=salesRepo.findById(id); 
 	System.out.println("-=-ss"+SalesModel.get().getSalesItemModel().get(0).getTotal());
-	m.addAttribute("customerList", customerRepo.findAll());
+	m.addAttribute("customerList", customerRepo.findByCuser("customer"));
 	m.addAttribute("productList", ProductRepo.findAll());
 	m.addAttribute("sales", SalesModel.get());
 //	ModelAndView mv=new ModelAndView("sales/editSales");

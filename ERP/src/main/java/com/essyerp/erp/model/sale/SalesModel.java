@@ -1,5 +1,6 @@
 package com.essyerp.erp.model.sale;
 
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -20,8 +21,10 @@ import com.essyerp.erp.model.customer.CustomerModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import lombok.Data;
 
 
+@Data
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 @Table(name="sales_tbl")
@@ -37,8 +40,10 @@ private CustomerModel customerModel;
 
 
 @Column(name="invoice_number",nullable = false)
-private String invoiceno;
+private int invoiceno;
 
+@Column(name="prefix",nullable = false)
+private String prefix;
 
 @Column(name="payment_type",nullable = false)
 private String paymenttype;
@@ -80,13 +85,7 @@ public void setCustomerModel(CustomerModel customerModel) {
 	this.customerModel = customerModel;
 }
 
-public String getInvoiceno() {
-	return invoiceno;
-}
 
-public void setInvoiceno(String invoiceno) {
-	this.invoiceno = invoiceno;
-}
 
 public String getPaymenttype() {
 	return paymenttype;
@@ -134,6 +133,14 @@ public int getIsdelete() {
 
 public void setIsdelete(int isdelete) {
 	this.isdelete = isdelete;
+}
+
+public int getInvoiceno() {
+	return invoiceno;
+}
+
+public void setInvoiceno(int invoiceno) {
+	this.invoiceno = invoiceno;
 }
 
 

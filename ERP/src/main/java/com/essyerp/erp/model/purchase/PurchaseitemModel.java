@@ -47,7 +47,6 @@ public class PurchaseitemModel {
 	private ProductModel product;
 	
 	@ManyToOne()
-	
 	@JoinColumn(name = "purchase_id",referencedColumnName = "id",nullable = false)
 	private PurchaseModel purchaseModel;
 	
