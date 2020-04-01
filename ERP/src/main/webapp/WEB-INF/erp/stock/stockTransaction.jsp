@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>
-			Easy | Manage Purchase
+			Easy | Stock Transaction
 		</title>
 		
 		<jsp:include page="../topscript.jsp"></jsp:include>
@@ -24,7 +24,7 @@
 						<div class="d-flex align-items-center">
 							<div class="mr-auto">
 								<h3 class="m-subheader__title m-subheader__title--separator">
-									Purchase
+									Stock Transaction
 								</h3>
 								<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 									<li class="m-nav__item m-nav__item--home">
@@ -33,7 +33,7 @@
 										</a>
 									</li>
 									<li class="m-nav__separator">
-										- Purchase/
+										- Transaction/
 									</li>
 									<li class="m-nav__item">
 										<a href="" class="m-nav__link">
@@ -53,24 +53,11 @@
 								<div class="m-portlet__head-caption">
 									<div class="m-portlet__head-title">
 										<h3 class="m-portlet__head-text">
-											Manage Purchase
+											Stock Transaction
 										</h3>
 									</div>
 								</div>
-								<div class="m-portlet__head-tools">
-									<ul class="m-portlet__nav">
-										<li class="m-portlet__nav-item">
-											<a href="addPurchase" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air">
-												<span>
-													<i class="m-menu__link-icon flaticon-users"></i>
-													<span>
-														Add Purchase
-													</span>
-												</span>
-											</a>
-										</li>
-									</ul>
-								</div>
+								
 							</div>
 							<div class="m-portlet__body">
 								<!--begin: Datatable -->
@@ -82,21 +69,21 @@
 												#
 											</th>
 											 <th>
-												Invoice No
+												Product
 											</th>
 											
 											<th>
-												Supplier
+												In Qty
 											</th>
+											<th>
+												Out Qty
+											</th>
+											<th>
+												Transaction Type
+											</th>
+											
 											<th>
 												Date
-											</th>
-											<th>
-												Amount
-											</th>
-											
-											<th>
-												Actions
 											</th>
 										</tr>
 									</thead>
@@ -139,7 +126,7 @@
 				    	 'ajax' : {
 				    		         
 								    'contentType': 'application/json',
-								        'url': 'purchase/data',
+								        'url': 'stockTransaction/data',
 								        'type': 'POST',
 								   		'crossDomain':'true',
 								   		'crossOrigin':'true',
@@ -161,29 +148,24 @@
 							}, 
 							{
 									
-									data:'invoiceno',
-									render: function (data, type, row, meta) {
-								        return row.prefix + '-' + row.invoiceno
-								      }
+									data:'product.pname',
+									
 									
 							},
 						    {
-							      data : 'supplier.cfname',
+							      data : 'inqty',
 							}, 
 							{
-						          data : 'date'
+						          data : 'outqty'
 						    },
 							{
-							      data : 'grandtotal'
+							      data : 'type'
 							}, 
 							
 							
 						     {
-							      data : 'id',
-							      render: function (data, type, row) 
-							      {
-							        return '<div class="row" style="padding-left:10px;"><a href="editPurchase/'+data+'" class="btn btn-warning edit" id="demo" data-id="'+data+'"><i class="fa fa-pencil"></i></a>  <a class="btn btn-danger delete-pro" data-id="'+data+'"><i class="fa fa-trash-o"></i></a></div>';
-							      } 
+							      data : 'transactionDate',
+							     
 							} 
 						    ],
 						    

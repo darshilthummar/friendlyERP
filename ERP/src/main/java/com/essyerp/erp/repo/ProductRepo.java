@@ -18,4 +18,7 @@ public interface ProductRepo extends JpaRepository<ProductModel, Long>,DataTable
 
 	@Query(value="SELECT product_name FROM product_tbl",nativeQuery=true)
 	List<String> findProductname();
+	
+	@Query(value="select count(id) from product_tbl where is_delete=0",nativeQuery=true)
+	public Long countProduct();
 }

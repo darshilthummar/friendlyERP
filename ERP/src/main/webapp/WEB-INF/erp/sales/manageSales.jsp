@@ -81,9 +81,9 @@
 											<th>
 												#
 											</th>
-											<!-- <th>
-												Sales-Id
-											</th> -->
+											 <th>
+												Invoice No
+											</th>
 											
 											<th>
 												Customer
@@ -157,7 +157,16 @@
 						    [
 						    {
 								      data : 'id'
+								      
 							}, 
+							{
+									
+									data:'invoiceno',
+									render: function (data, type, row, meta) {
+								        return row.prefix + '-' + row.invoiceno
+								      }
+									
+							},
 						    {
 							      data : 'customerModel.cfname',
 							}, 
@@ -173,14 +182,22 @@
 							      data : 'id',
 							      render: function (data, type, row) 
 							      {
-							        return '<div class="row" style="padding-left:10px;">  <a class="btn btn-danger delete-pro" data-id="'+data+'"><i class="fa fa-trash-o"></i></a></div>';
+							        return '<div class="row" style="padding-left:10px;"><a href="editSales/'+data+'" class="btn btn-warning edit" id="demo" data-id="'+data+'"><i class="fa fa-pencil"></i></a>  <a class="btn btn-danger delete-pro" data-id="'+data+'"><i class="fa fa-trash-o"></i></a></div>';
 							      } 
 							} 
-						    ]
+						    ],
+						    
+						    columnDefs:[{
+						    	targets: 0,
+						    	orderable: !1,
+						    	render: function(a, e, t, n){
+						    		return (n.row+1);
+						    	}
+						    }],
 								
 						});
-/* 				    <a href="editSales/'+data+'" class="btn btn-warning edit" id="demo" data-id="'+data+'"><i class="fa fa-pencil"></i></a>
- */				//delete code
+				
+				//delete code
 				
 				$('body').on('click','.delete-pro',function(e){
 					 toastr.remove();

@@ -38,6 +38,8 @@ public class CustomizeAuthenticationSuccessHandler implements AuthenticationSucc
 		session.setAttribute("UserId", userFrontVo.getId());	
 		session.setAttribute("UserName", userFrontVo.getUsername());
 		session.setAttribute("Email", userFrontVo.getEmail());
+		session.setAttribute("Password", userFrontVo.getPassword());
+		session.setAttribute("Active", userFrontVo.getIsActive());
 		}
 		
 		

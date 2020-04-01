@@ -75,13 +75,22 @@
 							</div>
 						</div>
 						<!--begin::Form-->
-						<form class="m-form m-form--label-align-right" method="post" action="addSales/save" id="purchase_form">
+						<form class="m-form m-form--label-align-right" method="post" action="/sales/addSales/save" id="purchase_form">
 							<div class="m-portlet__body">
 								<div class="m-form__section m-form__section--first">
-
+								<input type="hidden" value="${sales.id}" name="id">
 
 									<div class="form-group m-form__group row">
-										<input type="hidden" name="invoiceno" id="invoiceno_id">
+									<label class="col-lg-2 col-form-label"> Invice No: </label>
+									<div class="col-lg-4">
+									<input type="hidden" value="${sales.invoiceno}" name="invoiceno">
+									<input type="hidden" value="${sales.prefix}" name="prefix"> 
+									<input type="hidden" value="" name="delete_product" id="delete_product"> 
+									<input type="text" name="invoice_no" id="inviceNo" class="form-control m-input quantity_id" value="${sales.prefix}-${sales.invoiceno}" readonly="readonly">
+									</div>
+									</div>
+									<div class="form-group m-form__group row">
+										<!-- <input type="hidden" name="invoiceno" id="invoiceno_id"> -->
 										<label class="col-lg-2 col-form-label"> Customer: </label>
 										<div class="col-lg-4">
 											<select class="form-control m-select2" name="customerModel.cid" id="customer_id" value="sales.customerModel">
@@ -119,9 +128,14 @@
 										<div class="col-lg-4">
 											<select class="form-control m-select2" name="paymenttype" id="paymenttype_id">
 												<option value="0">select paymentType</option>
-												<option value="Cash Payment">Cash Payment</option>
-												<option value="Bank Payment">Bank Payment</option>
-											</select>
+												
+												<option value="Cash Payment" <c:if test="${sales.paymenttype == 'Cash Payment'}">selected="selected"</c:if>>Cash Payment</option>
+												
+												<option value="Bank Payment" <c:if test="${sales.paymenttype == 'Bank Payment'}"> selected="selected"</c:if>>Bank Payment</option>
+											<%-- 
+											<option value="Input Service Distributor" 
+											<c:if test="${supplierDetail.gstRegistrationType == 'Input Service Distributor'}">selected="selected"</c:if>>Input Service Distributor</option>
+											 --%></select>
 										</div>
 
 
@@ -142,226 +156,111 @@
 
 
 									<!-- main -->
-									<table class="table table-bordered table-framed" id="sales_tTable">
+						<div class="row">
+							<br>
+							<div class="table-responsive">
+							<p id="errormessageadditem" style="color:red;"></p>
+								<table class="table table-bordered table-framed" id="sales_Table">
 									<thead>
-										
-											<tr>
-											<th class="col-md-2">Sr No.</th>
-											<th class="col-md-2"> Product: </th>
-											<th class="col-md-2">Ava.Stock: </th>
-											<th class="col-md-2"> Qnty: </th>
-											<th class="col-md-2">Rate: </th>
-											<th class="col-md-2"> Total: </th>
-											<th class="col-md-1"> Action </th>
-											</tr>
+										<tr>
+											
+											<th class="">Sr No.</th>
+											<th class="">Product</th>
+											<!-- <th class="">Ava.Stock</th> -->
+											<th class="">Qty</th>
+											<th class="">Rate</th>
+											<th class="">Total</th>
+											<th class="">Action</th>
+											
+										</tr>
 									</thead>
 									<tbody  id="item_table">
-									
-									<c:set var="srNo" scope="page" value="0"></c:set>
+									<c:set var="srNo" scope="page" value="-1"></c:set>
+										
 									<c:forEach items="${sales.salesItemModel}" var="salesItemModel">
 									<c:set var="srNo" value="${srNo+1}" scope="page"></c:set>
-									<tr id="${srNo}" name="${purchaseRequestItemVos.purchaseRequestItemId}" style="cursor: pointer;"> 
-									<td class="sno"></td>
-									<td>
-									
-											
-											
+									 	<tr id="${srNo}" name="${salesItemModel.id}" style="cursor: pointer;"> 
+							                <td class="sno text-center"></td>
+						            		<td>
+						            		<input type="hidden" name="salesItemModel[${srNo}].id" value="${salesItemModel.id}">
 												<div class="form-group" style="margin-bottom: 0px;">
-													
-													<div class="m-input-icon m-input-icon--right">
-														<select class="form-control m-input product_id" onchange="calculation${srNo}" name="salesItemModel${srNo}.product.id" id="product_id${srNo}">
-															<option value="0">select Product</option>
+													<div class="m-input-icon m-input-icon--right">										
+													<select class="form-control m-input product_id" onchange="calculation(${srNo})" name="salesItemModel[${srNo}].product.id" id="product_id${srNo}">
+														<option value="0">select Product</option>
 															<c:forEach items="${productList}" var="productList">
-			                    		 <c:choose>
-			                    				<c:when test="${productList.id==salesItemModel.product.id}">
-			                    					<option value="${productList.id}" selected="selected" >${productList.pname}</option>
-			                    				</c:when>
-			                    				<c:otherwise>
-			                         				<option value="${productList.id}">${productList.pname}</option>
-			                         				
-			                    				</c:otherwise>
-	                    					</c:choose> 
-	                    						
-			                    			</c:forEach>
+			                    					 		<c:choose>
+			                    								<c:when test="${productList.id==salesItemModel.product.id}">
+			                    									<option value="${productList.id}" selected="selected" >${productList.pname}</option>
+			                    								</c:when>
+			                    							<c:otherwise>
+			                         							<option value="${productList.id}">${productList.pname}</option>
+			                         						</c:otherwise>
+	                    									</c:choose> 
+	                    									</c:forEach>
 														</select>
 													</div>
 												</div>
-												</td>
-												<td>
-												<div class="col-lg-2">
-													
+											</td>
+											<%-- <td>
+												<div class="form-group" style="margin-bottom: 0px;">
 													<div class="m-input-icon m-input-icon--right">
 														<input type="text" name="" id="avl_stock${srNo}" class="form-control m-input">
-
-
 													</div>
-
-
 												</div>
-												</td>
-												<td>
-												<div class="col-lg-2">
-													
+											</td> --%>
+											<td>
+												<div class="form-group" style="margin-bottom: 0px;">
 													<div class="m-input-icon m-input-icon--right">
-														<input type="text" name="salesItemModel${srNo}.quantity" id="quantity_id${srNo}" class="form-control m-input quantity_id" value="${salesItemModel.quantity}">
-												</div>
-												</div>
-												</td>
-												<td>
-												<div class="col-lg-2">
-													
-													<div class="m-input-icon m-input-icon--right">
-														<input type="text" name="salesItemModel${srNo}.rate" id="rate_id${srNo}" class="form-control m-input rate_id" value="${salesItemModel.rate}">
+														<input type="text" class="form-control m-input" name="salesItemModel[${srNo}].quantity" id="quantity_id${srNo}" onkeyup="getTotal(${srNo})" class="form-control m-input quantity_id" value="${salesItemModel.quantity}">
 													</div>
-
 												</div>
-												</td>
-												<td>
-												<div class="col-lg-2">
-													
-													<div class="m-input-icon m-input-icon--right">
-														<input type="text" name="salesItemModel${srNo}.total" id="total_id${srNo}" class="form-control m-input total_id" value="${salesItemModel.total}">
-													</div>
-											</div>
 											</td>
 											<td>
-												<div class="col-lg-2">
-													
+												<div class="form-group" style="margin-bottom: 0px;">
+													<div class="m-input-icon m-input-icon--right">
+														<input type="text" name="salesItemModel[${srNo}].rate" id="rate_id${srNo}" onkeyup="getTotal(${srNo})" class="form-control m-input rate_id" value="${salesItemModel.rate}">
+													</div>
+												</div>
+											</td>
+											<td>
+												<div class="form-group" style="margin-bottom: 0px;">
+													<div class="m-input-icon m-input-icon--right">
+														<input type="text" name="salesItemModel[${srNo}].total" id="total_id${srNo}" class="form-control m-input total_id" value="${salesItemModel.total}">
+													</div>
+												</div>
+											</td>
+											<td>
+												<div class="form-group" style="margin-bottom: 0px;">
 													<div class="m-input-icon m-input-icon--right">
 														<a class="btn btn-danger delete-pro" data-remove="" ><i class="fa fa-trash-o"></i></a>
 													</div>
-
 												</div>
-												</td>											
-										
-									
+											</td>											
 									</tr>
 									</c:forEach>
-								
 								</tbody>
-								</table>
+							</table>
+						</div>
+					</div>
+								
 									<!-- model -->
 
 
-									<div data-list="">
-										<div data-item="template" class="m--hide">
-
-
-											<div class="" data-index=""></div>
-											<div class="form-group m-form__group row">
-												<div class="col-lg-2">
-
-
-													<div class="m-input-icon m-input-icon--right">
-														<select class="form-control m-input product_id" name="salesItemModel[{index}].product.id" onchange="calculation({index})" id="product_id{index}">
-															<option value="0">select Product</option>
-															
-															<c:forEach items="${productList}" var="productList">
-															<option value="${productList.id}">${productList.pname}</option>
-															</c:forEach>
-
-														</select>
-													</div>
-
-
-												</div>
-												<div class="col-lg-2">
-
-
-													<div class="m-input-icon m-input-icon--right">
-														<input type="text" name="" id="avl_stock{index}" class="form-control m-input avlstock_id">
-
-
-													</div>
-
-
-												</div>
-												<div class="col-lg-2">
-
-
-													<div class="m-input-icon m-input-icon--right">
-														<input type="text" name="salesItemModel[{index}].quantity" id="quantity_id{index}" class="form-control m-input quantity_id" value="0">
-
-
-													</div>
-
-
-												</div>
-												<div class="col-lg-2">
-
-
-													<div class="m-input-icon m-input-icon--right">
-														<input type="text" name="salesItemModel[{index}].rate" id="rate_id{index}" class="form-control m-input rate_id" value="0">
-
-
-													</div>
-
-
-												</div>
-												<div class="col-lg-2">
-
-
-													<div class="m-input-icon m-input-icon--right">
-														<input type="text" name="salesItemModel[{index}].total" id="total_id{index}" class="form-control m-input total_id" value="0">
-
-
-													</div>
-
-
-												</div>
-												<div class="col-lg-2">
-
-
-													<div class="m-input-icon m-input-icon--right">
-														<a class="btn btn-danger delete-pro" data-remove=""><i  class="fa fa-trash-o"></i></a>
-													</div>
-
-
-												</div>
-											</div>
-
-
-										</div>
-									</div>
-
-
-
-
-
-
-
-
-
-
+									
 									<div class="form-group m-form__group row">
 										<div class="col-lg-2"></div>
 										<div class="col-lg-2"></div>
 										<div class="col-lg-2"></div>
 										<div class="col-lg-2 col-form-label">
 											<label style="padding-left: 60px;"> Grand Total: </label>
-
-
 										</div>
-
-
 										<div class="col-lg-2">
-
-
 											<div class="m-input-icon m-input-icon--right">
-												<input type="text" name="grandtotal" id="grandtotal_id"
-													class="form-control m-input m-input--solid"
-													style="background-color: #E8F0FE;" readonly="readonly" value=${sales.grandtotal}>
-
-
+												<input type="text" name="grandtotal" id="grandtotal_id" class="form-control m-input m-input--solid"	style="background-color: #E8F0FE;" readonly="readonly" value=${sales.grandtotal}>
 											</div>
-
-
 										</div>
 										<div class="col-lg-2">
-											<a class="btn btn-warning" id="btnrow"><i
-												class="fa fa-plus"></i></a>
-
-
+											<a class="btn btn-warning" id="btnrow"><i class="fa fa-plus"></i></a>
 										</div>
 									</div>
 								</div>
@@ -399,12 +298,6 @@
 
 
 	<!-- end:: Page -->
-
-
-
-
-
-
 	<jsp:include page="../basescript.jsp" />
 	<script src="/assets/vendors/formvalidation/js/FormValidation.min.js"></script>
 	<script src="/assets/app/js/select2.js"></script>
@@ -429,127 +322,13 @@
 	    console.log( "ready!" );
 	
 
-	     /* $.get("/findAllCustomer", function(data, status){
-	    	console.log(data);
-	    	$.each(data,function(i,o){
-	    	
-
-	    	$("#supplier_id").append('<option value='+o.cid+'>'+o.cfname+'</option>');
-	    	
-
-	    	  });
-	    	
-
-	      }); */
-	   
-
-	    
-
-	/*     $.get("/products",  // url
-	      function (data, status) {  
-      	var list1=data;
-      	console.log("----------------------->>>>>-------------->>>>>>>");
-	      console.log(list1);
-  	$.each(list1, function( i, o ) {
-  	
-
-  	console.log(o.id);
-  	$(".product_id").append('<option value="'+o.id+'">'+o.pname+'</option>');
-  	                        
-
-  	});
-  	
-
-	}); */
-	    
+	    setSrNo();	
+		setId('${srNo}');
+		
 	    
 
 	    console.log("----------------------->>>>>");
-	  /*   $("#product_id").change(function () { */
-	    	/* $("#rate_id").val(null);
- 	$("#total_id").val(null);
- 	$("#grandtotal_id").val(null);
- 	$("#quantity_id").val(null);
-	    	
-
-	    	var id1 = $(this).val();
-	    	$.get("/findByIdproduct/"+id1,  // url
-	      function (data, status) {  
-	    	console.log(data);
-	    	 $("#rate_id").val(data.salesPrice);
-	    	
-
-	    	 
-
-	    	 
-
-	    }); */
-	    /* }); */
-	    /* $("#quantity_id").keyup(function(){ 
-	$("#total_id").empty();
-	$("#grandtotal_id").empty();
-	  var q=$("#quantity_id").val();
-	  var p=$("#rate_id").val();
-	  $("#total_id").val(q*p);
-	  $("#grandtotal_id").val(q*p);
-	});
-	    
-
-	    $("#rate_id").keyup(function(){ 
-	$("#total_id").empty();
-	$("#grandtotal_id").empty();
-	  var q=$("#quantity_id").val();
-	  var p=$("#rate_id").val();
-	  $("#total_id").val(q*p);
-	  $("#grandtotal_id").val(q*p);
-	}); */
-	    $("#invoiceno_id").val(1);
-	   /*  $.get("/findAllpurchase", function(data, status){
-	    	 
-
-	    	console.log("----------------------->>>>>");
-	    	var k=0;
-	    	
-
-	    	$.each(data,function(i,o){
-	    	
-
-	    	k++;
-	    	
-
-	    	  });
-	    	
-
-	    	console.log(k);
-	    	$.get("/findAllpurchase", function(data, status){
-	    	
-
-	    	console.log("----------------------->>>>>");
-	    	var j=0;
-	    	
-
-	    	$.each(data,function(i,o){
-	    	j++;
-	    	if(j==k)
-	    	{
-	    	console.log(o.invoiceno);
-	    	var no3 = o.invoiceno+1; 
-	    	console.log(no3);
-	    	$("#invoiceno_id").val(null);
-	    	$("#invoiceno_id").val(no3);
-	    	}
-	    	
-
-	    	  });
-	    	
-
-	    	console.log(k);
-	    	
-
-	      });
-	      }); 
- */	    
-
+	     
 	    /* index */
 	    
 
@@ -563,44 +342,42 @@
 	    	
 
 	    	});
-
+///-------for delete product-----------
 	    $("#purchase_form").on("click",'a[data-remove]',function(e) {
-	//var i=$(this).closest("[data-jobwork-item]").attr("data-jobwork-item");
-	//e.preventDefault();
-	//var i=$(this).closest("[data-item]").attr("data-item");
-	//$('#jobwork_form').formValidation('removeField',"jobworkItemVos["+i+"].productVariantsVo.productVariantId");
-	//$('#jobwork_form').formValidation('removeField',"jobworkItemVos["+i+"].qty");
+	
 	console.log("hello");
 	var r = confirm("are u sure want to delete");
 	if(r==true){
-	$(this).closest("[data-item]").remove();
+		var id=$(this).closest("tr").attr("name");
+		$("#delete_product").val($("#delete_product").val()+id+",");
+	$(this).closest("tr").remove();
 	  grandTotal();
 	setProductSrNo();
 	//setTotalQty();
 	}
 	});
+	
+	///----------
 
 	    $("#save_purchase").click(function() 
 	    	{
+		    	var rowCount = $('#sales_Table >tbody >tr').length;
+		    	if(rowCount == 0) 
+		    	{
+		    	toastr.error("","add minimum one product");
+		    	return false;
+		    	}else
+		    	{
 
-	    	if($("#purchase_form").find("[data-item]").not(".m--hide").length == 0) 
-	    	{
-	    	toastr.error("","add minimum one product");
-	    	return false;
-	    	}else
-	    	{
-	    	$("#purchase_form").find("[data-item='template']").remove();
-	    	}
-
-	    	 //alert( $("#receivedBy").val());
-	    	//return false;	
+		    		return true;
+		    	}
 	    	});
 	    	
 
 	    
 
 });
-	function addProduct() {
+	/* function addProduct() {
 	
 
     	 $productItemTemplate=$("#purchase_form").find("[data-item='template']").clone();
@@ -628,6 +405,8 @@
 
     	setProductSrNo();
     	}
+	 */
+	
 	function setProductSrNo() 
 	{
 	var $productItem=$("#purchase_form").find("[data-item]").not(".m--hide");
@@ -640,94 +419,87 @@
 
 	
 
-	function calculation(j) {
-	console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>--------------------------");
-	    
-
-	    
-
-	  
-
-	    $("#rate_id"+j).val(0);
-	$("#total_id"+j).val(0);
 	
-
-	$("#quantity_id"+j).val(0);
-    	
-
-    	var id1 = $("#product_id"+j).val();
-    	console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-    	
-    	$.get("findByIdproduct/"+id1,  // url
-	      function (data, status) {  
-    	console.log(data);
-    	 $("#rate_id"+j).val(data.salesPrice);
-    	
-
-    });
-	   
-
-    	$("#quantity_id"+j).keyup(function(){ 
-	$("#total_id"+j).empty();
 	
-
-	  var q=$("#quantity_id"+j).val();
-	  var p=$("#rate_id"+j).val();
-	  $("#total_id"+j).val(q*p);
-	  
-
-	  grandTotal();
-	  
-
-	  });
-	    
-
-	    $("#rate_id"+j).keyup(function(){ 
-	$("#total_id"+j).empty();
-	
-
-	  var q=$("#quantity_id"+j).val();
-	  var p=$("#rate_id"+j).val();
-	  $("#total_id"+j).val(q*p);
-	  grandTotal();
-	});
-	     }
 	function grandTotal(){
-	console.log("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]]]");
-	var no5 = parseFloat($("#purchase_form").find("[data-item]").not(".m--hide").length);
-	console.log(no5);
-	var total = 0;
-	var arlene1 = new Array();
-	var x=0;
-	$("[data-item]").each(function(){
-	if(($(this).attr("data-item"))!="template"){
-	console.log("{{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}}");
-	   console.log($(this).attr("data-item"));
-	   arlene1[x]=$(this).attr("data-item");
-	   
-
-	   
-
-	   x++;
+				console.log("in grand total");
+				var rowCount = $('#sales_Table >tbody >tr').length;
+				
+				console.log("raw "+rowCount);
+				var Gtotal = 0;
+				var arlene1 = new Array();
+				var x=0;
+			
+				
+			 for(var k=0;k<rowCount;k++)
+				{
+					console.log($("#total_id"+k).val());
+					var total = $("#total_id"+k).val();
+					Gtotal = parseFloat(Gtotal) + parseFloat(total);
+				}
+				console.log(Gtotal);
+				 $("#grandtotal_id").val(Gtotal); 
 	}
-	});
 	
-
 	
-
-	for(var k=0;k<no5;k++)
+	
+	function setId(i)
 	{
-	
-
-	console.log($("#total_id"+arlene1[k]).val());
-	var no3 = $("#total_id"+arlene1[k]).val();
-	total = parseFloat(total) + parseFloat(no3);
+		srno=i;
 	}
-	console.log(total);
-	 $("#grandtotal_id").val(total);
+	function setSrNo()
+	{
+		
+		 $("td.sno").each(function(index,element){                 
+	            $(element).text(index + 1);
+	            
+	         });
 	}
 	
-
+	
+	function calculation(j) {
+		console.log(">>>>>- call calculation");
+		$("#total_id"+j).val(0);
+		$("#rate_id"+j).val(0);
+		$("#quantity_id"+j).val(0);
+			var id1 = $("#product_id"+j).val();
+		console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			
+		$.get("/sales/findByIdproduct/"+id1,function (data, status) {  
+			console.log(data);
+			 $("#rate_id"+j).val(data.salesPrice);
+			    });
+				   
+			
+    	$("#quantity_id"+j).keyup(function(){ 
+				$("#total_id"+j).empty();
+				  var q=$("#quantity_id"+j).val();
+				  var p=$("#rate_id"+j).val();
+				  $("#total_id"+j).val(q*p);
+				  grandTotal();
+		  });
+		    
+	
+	$("#rate_id"+j).keyup(function(){ 
+				$("#total_id"+j).empty();
+				  var q=$("#quantity_id"+j).val();
+				  var p=$("#rate_id"+j).val();
+				  $("#total_id"+j).val(q*p);
+				  grandTotal();
+		});
+	}
+	
+	
+	function getTotal(j){
+		$("#total_id"+j).empty();
+		$("#grandtotal_id").empty();
+		  var q=$("#quantity_id"+j).val();
+		  var p=$("#rate_id"+j).val();
+		  $("#total_id"+j).val(q*p);
+		  grandTotal();  
+		
+	}
+		
 	
 
     </script>

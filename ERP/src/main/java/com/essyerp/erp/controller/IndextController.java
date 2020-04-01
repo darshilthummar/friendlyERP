@@ -7,11 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.essyerp.erp.model.login.User;
+import com.essyerp.erp.repo.CustomerRepo;
+import com.essyerp.erp.repo.ProductRepo;
+import com.essyerp.erp.repo.PurchaseRepo;
+import com.essyerp.erp.repo.SalesRepo;
+import com.essyerp.erp.repo.StockRepo;
 import com.essyerp.erp.repo.logrepo.UserRepository;
 
 
@@ -23,6 +28,22 @@ public class IndextController
 	@Autowired
 	UserRepository userRepo;
 	
+	@Autowired
+	SalesRepo salesRepo;
+	
+	@Autowired
+	PurchaseRepo purchaseRepo; 
+	
+	@Autowired
+	CustomerRepo customerRepo; 
+	
+	@Autowired
+	ProductRepo productRepo;
+	
+	@Autowired
+	StockRepo stockRepo;
+
+	
 	@GetMapping("/login")
 	public String getLogin()
 	{
@@ -30,10 +51,18 @@ public class IndextController
 	}
 	
 	@RequestMapping(value={" ","/", "/index"})
-	public String getIndext()
+	public ModelAndView getIndext()
 	{
-		
-		return "index";
+		ModelAndView view =new ModelAndView("index");
+		view.addObject("totalPurchase", purchaseRepo.TotalPurchase());
+		view.addObject("totalSales" ,salesRepo.TotalSales());
+		view.addObject("totalCustomer", customerRepo.countContect("customer"));
+		view.addObject("totalSupplier", customerRepo.countContect("supplier"));
+		view.addObject("totalProduct", productRepo.countProduct());
+		view.addObject("totalStock", stockRepo.countStock());
+		view.addObject("CaseInHand", salesRepo.caseCount("Cash Payment"));
+		view.addObject("CaseInBank", salesRepo.caseCount("Bank Payment"));
+		return view;
 	}
 	
 	
