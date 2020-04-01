@@ -79,6 +79,15 @@
 							<div class="m-portlet__body">
 								<div class="m-form__section m-form__section--first">
 
+									<div class="form-group m-form__group row">
+									<label class="col-lg-2 col-form-label"> Invice No: </label>
+									<div class="col-lg-4">
+									<input type="hidden" value="${inviceNo}" name="invoiceno">
+									<input type="hidden" value="${prefix}" name="prefix"> 
+									<input type="hidden" value="1" name="new">
+									<input type="text" name="invoice_no" id="inviceNo" class="form-control m-input quantity_id" value="${prefix}-${inviceNo}" readonly="readonly">
+									</div>
+									</div>
 
 									<div class="form-group m-form__group row">
 										<input type="hidden" name="invoiceno" id="invoiceno_id">
@@ -365,7 +374,8 @@
 	<script src="/assets/vendors/formvalidation/js/FormValidation.min.js"></script>
 	<script src="/assets/app/js/select2.js"></script>
 	<script src="/assets/app/js/daterangepicker.js"></script>
-	<script src="/assets/vendors/formvalidation/js/framework/Bootstrap.min.js"></script>
+	<script
+		src="/assets/vendors/formvalidation/js/framework/Bootstrap.min.js"></script>
 	<!-- end::Body -->
 	<script type="text/javascript">
 	

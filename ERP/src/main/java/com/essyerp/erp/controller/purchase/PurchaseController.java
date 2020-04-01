@@ -1,8 +1,17 @@
 package com.essyerp.erp.controller.purchase;
 
+
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.TimeZone;
+import java.util.stream.Collectors;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -19,154 +28,279 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.essyerp.erp.model.customer.CustomerModel;
+import com.essyerp.erp.model.product.ProductModel;
 import com.essyerp.erp.model.purchase.PurchaseModel;
-import com.essyerp.erp.model.purchase.PurchaseitemModel;
+import com.essyerp.erp.model.stock.StockModel;
+import com.essyerp.erp.model.stock.StockTransaction;
+import com.essyerp.erp.repo.CityRepo;
+import com.essyerp.erp.repo.CountryRepo;
 import com.essyerp.erp.repo.CustomerRepo;
+import com.essyerp.erp.repo.ProductRepo;
 import com.essyerp.erp.repo.PurchaseRepo;
 import com.essyerp.erp.repo.PurchaseitemRepo;
+import com.essyerp.erp.repo.StateRepo;
+import com.essyerp.erp.repo.StockRepo;
+import com.essyerp.erp.repo.StockTransactionRepo;
+import com.essyerp.erp.service.purchase.PurchaseService;
+import com.essyerp.erp.service.stock.StockService;
 
 @Controller
-@RequestMapping(value= {"/",""})
-public class PurchaseController {
-	
-	@Autowired
-	PurchaseRepo purchaseRepo;
-
+@RequestMapping(value= {"/purchase"})
+public class PurchaseController 
+{
+ 
 	@Autowired
 	CustomerRepo customerRepo;
 	
-	@Autowired
-	PurchaseitemRepo purchaseitemRepo;
 	
-	@GetMapping("/addpurchase")
-	public String addPurchase()
+	@Autowired
+	CountryRepo countryRepo;
+	
+	@Autowired
+	StateRepo stateRepo;
+	
+	@Autowired
+	CityRepo cityRepo;
+	
+	@Autowired
+	ProductRepo ProductRepo;
+	
+	@Autowired
+	StockRepo stockRepo; 
+	
+  	@Autowired
+	PurchaseRepo purchaseRepo;
+	
+  	@Autowired
+  	PurchaseitemRepo purchaseitemRepo; 
+	
+  	@Autowired
+  	PurchaseService purchaseService; 
+  	
+  	@Autowired
+  	StockService stockService;
+  	
+  	@Autowired
+  	StockTransactionRepo stockTransactionRepo;
+	
+	@GetMapping("/addPurchase")
+	public ModelAndView addPurchase()
 	{
-		return "/purchase/addpurchase";
+		ModelAndView view =new ModelAndView("/purchase/addpurchase");
+		view.addObject("supplierList", customerRepo.findByCuser("supplier"));
+		view.addObject("productList", ProductRepo.findAll());
+		view.addObject("inviceNo", purchaseRepo.MaxInvoiceNo()+1);
+		view.addObject("prefix", "BILL");
+		return view;
 	}
 	
-	@GetMapping("/managepurchase")
+	
+	
+	@GetMapping("/findByIdproduct/{id}")
+	@ResponseBody
+	public Optional<ProductModel> getprice(@PathVariable long id, Model m)
+	{
+		
+	return ProductRepo.findById(id);
+	}
+	
+	
+	 
+	@GetMapping("/managePurchase")
 	public String managePurchase()
 	{
 		return "/purchase/managepurchase";
 	}
 	
-	@RequestMapping("/findAllpurchase")
-	@ResponseBody
-	public List<PurchaseModel> getAllpurchase()
-	{
-		return purchaseRepo.findAll();
-	}
+//
+//	@RequestMapping("/findAllpurchase")
+//	@ResponseBody
+//	public List<PurchaseModel> getAllpurchase()
+//	{
+//		return purchaseRepo.findAll();
+//	}
 	
-	@RequestMapping("/editpurchase/{id}")
-	public String editPurchase(@PathVariable long id ,Model m)
-	{
-		
-		m.addAttribute("purchase", purchaseitemRepo.findById(id).orElse(null));
-		return "/purchase/editpurchase";
-	}
+
+//	@RequestMapping("/editpurchase/{id}")
+//	public String editPurchase(@PathVariable long id ,Model m)
+//	{
+//		
+//
+//		m.addAttribute("purchase", purchaseitemRepo.findById(id).orElse(null));
+//		return "/purchase/editpurchase";
+//	}
 	
-	@RequestMapping("/addpurchase/save")
-	public String saveCustomer(@ModelAttribute PurchaseModel pm)
+
+	@RequestMapping("/addPurchase/save")
+	public String savePurchase(@ModelAttribute PurchaseModel pm ,@RequestParam Map<String,String> allRequestParams)
 	{
+		System.err.println("all "+ pm.getPrefix() +"///"+ pm.getPurchaseitemModel().size());
+		System.err.println("111 "+ pm.getPurchaseitemModel().get(0).getProduct().getId());
+			
 		
+		if(allRequestParams.get("delete_product") != null && !allRequestParams.get("delete_product").equals("")) {
+			String address=allRequestParams.get("delete_product").substring(0, allRequestParams.get("delete_product").length()-1);
+			List<Long> l= Arrays.asList(address.split(",")).stream().map(Long::parseLong).collect(Collectors.toList());
+			
+			purchaseService.deletePurchaseItem(l);
+			
+		}
 		
-		pm.getPurchaseitemModel().forEach((pi->
-		{
+		pm.getPurchaseitemModel().forEach((pi->{
 			pi.setPurchaseModel(pm);
+			
+			if(allRequestParams.get("new").equals("1"))
+			{	
+				//stock----------------
+				long productId=pi.getProduct().getId();
+				long qty=pi.getQuantity();
+				StockModel stockModel =new StockModel();
+				stockModel.setProduct(pi.getProduct());
+				stockModel.setQty(pi.getQuantity());
+				stockModel.setDescription("product add");
+			
+				int count = stockRepo.findProduct(productId);
+				
+				if(count==0) {
+					stockRepo.save(stockModel);
+				}else {
+					
+					stockService.updateAddStock(qty,productId);
+				}
+				
+				
+				//stock transaction-----
+				
+				StockTransaction StockTransaction=new StockTransaction();
+				StockTransaction.setProduct(pi.getProduct());
+				StockTransaction.setInqty(pi.getQuantity());
+				StockTransaction.setOutqty(0);
+				StockTransaction.setPrice(pi.getRate());
+				StockTransaction.setType("inProduct");
+				StockTransaction.setDescription("purchase product");
+				
+				Date todayDate=new Date();
+//				DateFormat dateFormat=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+//				dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+//				dateFormat.format(todayDate);
+				StockTransaction.setTransactionDate(todayDate);
+				
+				stockTransactionRepo.save(StockTransaction);
+				
+			}
 		}));
+			
+		
 		
 		
 		purchaseRepo.save(pm);
-		return "redirect:/managepurchase";
+		return "redirect:/purchase/managePurchase";
 	}
 	
-@RequestMapping("/purchase/data")
 	
+	
+
+	@RequestMapping("/purchase/data")
 	@ResponseBody
-    public DataTablesOutput<PurchaseitemModel> getUsers(@RequestBody DataTablesInput input,HttpServletRequest request) {
+    public DataTablesOutput<PurchaseModel> getPurchase(@RequestBody DataTablesInput input,HttpServletRequest request) {
 //		System.out.println(request.getParameter("from_date"));
 //		String fdate = request.getParameter("from_date");
 //		String tdate = request.getParameter("from_date");
 		//request.getParameter("from_date");
 		@SuppressWarnings("serial")
-		Specification<PurchaseitemModel> stu = new Specification<PurchaseitemModel>() {
+		Specification<PurchaseModel> stu = new Specification<PurchaseModel>() {
 			
+
 			@Override
-			public Predicate toPredicate(Root<PurchaseitemModel> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+			public Predicate toPredicate(Root<PurchaseModel> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 				List<Predicate> predicates = new ArrayList<>();
 				
-				predicates.add(criteriaBuilder.equal(root.get("flag"), false));
-				// TODO Auto-generated method stub
+
+				predicates.add(criteriaBuilder.equal(root.get("isdelete"), 0));
+				
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 			}
 
 			
+
 		};
 		
+
 		
+
 //		System.out.println(studentRepo.findAll(input));
-        return purchaseitemRepo.findAll(input,null,stu);
+        return purchaseRepo.findAll(input,null,stu);
 	}
 	
 
-			@RequestMapping("/purchase/delete/{id}")
+	
+	@RequestMapping("/editPurchase/{id}")
+	public String getDataById(@PathVariable long id, Model m)
+	{
+	System.out.println("==>"+id);
+	System.out.println("=c"+customerRepo.findAll());
+	System.out.println("=p-"+ProductRepo.findAll());
+	System.out.println("=-s-"+purchaseRepo.findById(id));
+	Optional<PurchaseModel> purchaseModel=purchaseRepo.findById(id); 
+	System.out.println("-=-ss"+purchaseModel.get().getPurchaseitemModel().get(0).getTotal());
+	m.addAttribute("supplierList", customerRepo.findByCuser("supplier"));
+	m.addAttribute("productList", ProductRepo.findAll());
+	m.addAttribute("purchase", purchaseModel.get());
+//	ModelAndView mv=new ModelAndView("sales/editSales");
+//	mv.addObject("customerList", customerRepo.findAll());
+//	mv.addObject("productList", ProductRepo.findAll());
+//	mv.addObject("sales", salesRepo.findById(id));
+//	System.out.println("=>"+mv);
+	return "purchase/editpurchase";
+
+	}
+
+
+			@RequestMapping("/delete/{id}")
 			@ResponseBody
-			public Optional<PurchaseitemModel> deleteproduct(@PathVariable Long id)
+			public Optional<PurchaseModel> deleteproduct(@PathVariable Long id)
 			{
 				
-			
+
+				Optional<PurchaseModel> purchase= purchaseRepo.findById(id);
+				PurchaseModel purchaseModel= purchase.get();
 				
-				Optional<PurchaseitemModel> cus = purchaseitemRepo.findById(id);
-				PurchaseitemModel customer = cus.get();
-				System.out.println("------------------------------------------------------------------------");
-				System.out.println("------------------------------------------------------------------------");
-				System.out.println(customer);
-				System.out.println("customer");
-				customer.setFlag(true);
-				System.out.println(customer);
-				System.out.println(customer.isFlag());
-			//	student.setIsDelete("true");
-				 purchaseitemRepo.save(customer);
-				
-				
-				return purchaseitemRepo.findById(id);
-				
-				
-				//customerrepo.deleteById(id);
-				//return "done";
+				purchaseModel.setIsdelete(1);				
+				 purchaseRepo.save(purchaseModel);
+
+				return purchaseRepo.findById(id);
 			}
 			
-			@RequestMapping("/purchase/undo/{id}")
+
+			@RequestMapping("/undo/{id}")
 			@ResponseBody
-			public Optional<PurchaseitemModel> undoData(@PathVariable long id)
+			public Optional<PurchaseModel> undoData(@PathVariable long id)
 			{
 				System.out.print("-------------------------------------------------");
 				System.out.print("-------------------------------------------------");
 				System.out.print(id);
 			
-				Optional<PurchaseitemModel> cus = purchaseitemRepo.findById(id);
+
+				Optional<PurchaseModel> purchase = purchaseRepo.findById(id);
 				
-				PurchaseitemModel customer = cus.get();
-				customer.setFlag(false);
-				System.out.print(customer);
-				System.out.print(customer.isFlag());
+
+				PurchaseModel purchaseModel= purchase.get();
+				purchaseModel.setIsdelete(0);
+//				System.out.print(customer);
+//				System.out.print(customer.isFlag());
 			//	student.setIsDelete("true");
-				purchaseitemRepo.save(customer);
-				System.out.print(purchaseitemRepo.findById(id));
-				return purchaseitemRepo.findById(id);
-			}
-			@GetMapping("/findAllSupplier")
-			@ResponseBody
-			public List<CustomerModel> supplierData()
-			{
-				
-				return customerRepo.findData("supplier");
+				purchaseRepo.save(purchaseModel);
+//				System.out.print(purchaseitemRepo.findById(id));
+				return purchaseRepo.findById(id);
 			}
 
+	
+	
+	
 }
