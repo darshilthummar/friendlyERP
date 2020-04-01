@@ -71,7 +71,7 @@ public class StockController
 	@Autowired
 	StockTransactionRepo stockTransactionRepo;
 	
-	@GetMapping("/")
+	@GetMapping("/stockMaster")
 	public String stockMaster()
 	{
 		return "/stock/stockMaster";

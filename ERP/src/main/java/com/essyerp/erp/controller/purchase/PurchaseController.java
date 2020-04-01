@@ -302,5 +302,11 @@ public class PurchaseController
 
 	
 	
-	
+			@RequestMapping("/graphdata/{year}")
+			@ResponseBody
+			public List<Map<String,String>> generateReport1(@PathVariable String year)
+			{
+				return purchaseRepo.getPurchaseAll(year);
+				
+			}
 }

@@ -21,7 +21,7 @@ public interface SalesRepo extends JpaRepository<SalesModel, Long>,DataTablesRep
 	public int TotalSales();
 	
 
-	@Query(value="select sum(grand_total) from sales_tbl where is_delete=0 and payment_type=?1 ",nativeQuery=true)
+	@Query(value="select sum(sale_grand_total) from sales_tbl where is_delete=0 and payment_type=?1 ",nativeQuery=true)
 	public Long caseCount(String type);
 	//SELECT SUM(column_name)	FROM table_name	WHERE condition;
 	
