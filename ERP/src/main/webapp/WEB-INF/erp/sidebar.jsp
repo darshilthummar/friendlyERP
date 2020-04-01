@@ -213,7 +213,7 @@
 											</span>
 										</li>
 										<li class="m-menu__item " aria-haspopup="true" >
-											<a  href="/addpurchase" class="m-menu__link ">
+											<a  href="/purchase/addPurchase" class="m-menu__link ">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
 												</i>
@@ -223,7 +223,7 @@
 											</a>
 										</li>
 										<li class="m-menu__item " aria-haspopup="true" >
-											<a  href="/managepurchase" class="m-menu__link ">
+											<a  href="/purchase/managePurchase" class="m-menu__link ">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
 												</i>
@@ -254,22 +254,22 @@
 											</span>
 										</li>
 										<li class="m-menu__item " aria-haspopup="true" >
-											<a  href="#" class="m-menu__link ">
-												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-													<span></span>
-												</i>
-												<span class="m-menu__link-text">
-													Stock Transaction
-												</span>
-											</a>
-										</li>
-										<li class="m-menu__item " aria-haspopup="true" >
-											<a  href="#" class="m-menu__link ">
+											<a  href="/stock/" class="m-menu__link ">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
 												</i>
 												<span class="m-menu__link-text">
 													Stock Master
+												</span>
+											</a>
+										</li>
+										<li class="m-menu__item " aria-haspopup="true" >
+											<a  href="/stock/stocktransaction" class="m-menu__link ">
+												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+													<span></span>
+												</i>
+												<span class="m-menu__link-text">
+													Stock Transaction
 												</span>
 											</a>
 										</li>

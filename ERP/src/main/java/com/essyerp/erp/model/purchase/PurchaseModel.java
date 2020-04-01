@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 //@JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name="purchase_tbl")
 public class PurchaseModel {
@@ -36,6 +36,9 @@ public class PurchaseModel {
 	
 	@Column(name="invoice_number",nullable = false)
 	private long invoiceno;
+	
+	@Column(name="prefix",nullable = false)
+	private String prefix;
 	
 	@Column(name="payment_type",nullable = false)
 	private String paymenttype;
@@ -50,7 +53,8 @@ public class PurchaseModel {
 	private double grandtotal;
 	
 	
-	
+	@Column(name="is_delete" , columnDefinition = "integer default 0")
+	private int isdelete;
 	
 
 	@ManyToOne()
@@ -59,8 +63,6 @@ public class PurchaseModel {
 
 	
     @OneToMany(mappedBy = "purchaseModel",cascade = CascadeType.ALL)
-    
-   // @JsonProperty(value = "id")
 	private List<PurchaseitemModel> purchaseitemModel;
 	
 	public long getId() {
@@ -133,5 +135,22 @@ public class PurchaseModel {
 		this.purchaseitemModel = purchaseitemModel;
 	}
 
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
+	public int getIsdelete() {
+		return isdelete;
+	}
+
+	public void setIsdelete(int isdelete) {
+		this.isdelete = isdelete;
+	}
+
+	
 	
 }
