@@ -57,7 +57,7 @@
 											</div>
 											<div class="m-card-profile__pic">
 												<div class="m-card-profile__pic-wrapper">
-													<img src="/assets/app/media/img/users/IMG_0013 2.JPG" alt=""/>
+													<img src="${user.postcode}" />
 												</div>
 											</div>
 											<div class="m-card-profile__details">
