@@ -57,7 +57,7 @@
 											</div>
 											<div class="m-card-profile__pic">
 												<div class="m-card-profile__pic-wrapper">
-													<img src="/assets/app/media/img/users/IMG_0013 2.JPG" alt=""/>
+													<img src="${user.postcode}" />
 												</div>
 											</div>
 											<div class="m-card-profile__details">
@@ -154,13 +154,13 @@
 															First Name
 														</label>
 														<div class="col-sm-3">
-															<input class="form-control m-input" type="text" name="fname">
+															<input class="form-control m-input" type="text" name="fname" value="${user.fname}">
 														</div>
 														<label for="example-text-input" class="col-2 col-form-label">
 															Last Name
 														</label>
 														<div class="col-sm-3">
-															<input class="form-control m-input" type="text" name="lname">
+															<input class="form-control m-input" type="text" name="lname" value="${user.lname}">
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
@@ -168,7 +168,7 @@
 															Position
 														</label>
 														<div class="col-8">
-															<input class="form-control m-input" type="text" name="position">
+															<input class="form-control m-input" type="text" name="position" value="${user.position}">
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
@@ -176,7 +176,7 @@
 															Company Name
 														</label>
 														<div class="col-8">
-															<input class="form-control m-input" type="text" name="company">
+															<input class="form-control m-input" type="text" name="company" value="${user.company}">
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
@@ -184,7 +184,7 @@
 															Phone No.
 														</label>
 														<div class="col-8">
-															<input class="form-control m-input" type="text" name="number">
+															<input class="form-control m-input" type="text" name="number" value="${user.number}">
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
@@ -192,7 +192,7 @@
 															GST.No
 														</label>
 														<div class="col-8">
-															<input class="form-control m-input" type="text" name="gst_no">
+															<input class="form-control m-input" type="text" name="gst_no" value="${user.gst_no}">
 														</div>
 													</div>
 													
@@ -209,7 +209,7 @@
 															Address
 														</label>
 														<div class="col-8">
-															<input class="form-control m-input" type="text" name="address">
+															<input class="form-control m-input" type="text" name="address" value="${user.address}">
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
@@ -217,7 +217,7 @@
 															State
 														</label>
 														<div class="col-8">
-															<input class="form-control m-input" type="text" name="state">
+															<input class="form-control m-input" type="text" name="state" value="${user.state}">
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
@@ -225,7 +225,7 @@
 															City
 														</label>
 														<div class="col-8">
-															<input class="form-control m-input" type="text" name="city">
+															<input class="form-control m-input" type="text" name="city" value="${user.city}">
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
@@ -233,30 +233,38 @@
 															Postcode
 														</label>
 														<div class="col-8">
-															<input class="form-control m-input" type="text" name="postcode">
+															<input class="form-control m-input" type="text" name="postcode" value="${user.postcode}">
 														</div>
 													</div>
 												</div>
+												<div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
+												<div class="form-group m-form__group row">
+														<label for="example-text-input" class="col-2 col-form-label">
+															Profile Upload
+														</label>
+														<div class="col-8">
+															<input class="form-control m-input" type="file" name="img" value="${user.img}" >
+														</div>
+													</div>
 												<div class="m-portlet__foot m-portlet__foot--fit">
 													<div class="m-form__actions">
 														<div class="row">
-															<div class="col-2"></div>
+															<div class="col-2">
+															</div>
 															<div class="col-7">
 																<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">
 																	Save Profile
 																</button>
 																&nbsp;&nbsp;
-																<!-- <button type="reset" class="btn btn-secondary m-btn m-btn--air m-btn--custom">
+																<!--  <button type="file" class="btn btn-secondary m-btn m-btn--air m-btn--custom">
 																	Reset
-																</button> -->
+																</button>  -->
 															</div>
 														</div>
 													</div>
 												</div>
 											</form>
 										</div>
-										<div class="tab-pane " id="m_user_profile_tab_2"></div>
-										<div class="tab-pane " id="m_user_profile_tab_3"></div>
 									</div>
 								</div>
 							</div>
