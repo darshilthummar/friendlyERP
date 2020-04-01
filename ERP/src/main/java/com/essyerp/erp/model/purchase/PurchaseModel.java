@@ -43,13 +43,13 @@ public class PurchaseModel {
 	@Column(name="payment_type",nullable = false)
 	private String paymenttype;
 	
-	@Column(name="purchase_date",nullable = false)
+	@Column(name="date",nullable = false)
 	private String date;
 	
 	@Column(name="details")
 	private String details;
 	
-	@Column(name="grand_total",nullable = false)
+	@Column(name="purchase_grand_total",nullable = false)
 	private double grandtotal;
 	
 	

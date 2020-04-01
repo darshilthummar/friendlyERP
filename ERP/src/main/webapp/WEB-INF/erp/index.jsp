@@ -118,11 +118,11 @@
 												
 												
 												<span style="padding-top: -10px;padding-left: 33%;"><img alt="" height="100px" width="100px" src="/assets/app/media/img/client-logos/productLogo.png" id="demo2">
-												<span class="m-widget24__stats" style="color: #e61717;">
+												<span class="m-widget24__stats" style="color: #ef5d5d;">
 													${totalProduct}
 												</span>
 												<div class="progress m-progress--sm" style="margin: 10px 0px 5px 0px;">
-													<div class="" role="progressbar" style="width: 100%;background-color:#e61717;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+													<div class="" role="progressbar" style="width: 100%;background-color:#ef5d5d;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 												</div>
 													<p style="text-align: center;">Total Product</p>
 												 
@@ -133,8 +133,11 @@
 										<!--end::New Users-->
 									</div>
 									
-									
 									</div>
+									</div>
+									</div>
+									<div class="m-portlet">
+							<div class="m-portlet__body  m-portlet__body--no-padding">
 									<div class="row m-row--no-padding m-row--col-separator-xl">
 									<div class="col-md-12 col-lg-6 col-xl-4">
 										<!--begin::New Users-->
@@ -144,11 +147,11 @@
 												
 												
 												<span style="padding-top: -10px;padding-left: 33%;"><img alt="" height="100px" width="100px" src="/assets/app/media/img/client-logos/StockLogo.png" id="demo2">
-												<span class="m-widget24__stats" style="color: #0e29b0">
+												<span class="m-widget24__stats" style="color: #5a73f2">
 													${totalStock}
 												</span>
 												<div class="progress m-progress--sm" style="margin: 10px 0px 5px 0px;">
-													<div class="progress-bar" role="progressbar" style="width: 100%; background-color: #0e29b0;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+													<div class="progress-bar" role="progressbar" style="width: 100%; background-color: #5a73f2;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 												</div>
 													<p style="text-align: center;">Total Stock</p>
 												 
@@ -166,12 +169,12 @@
 												
 												
 												<span style="padding-top: -10px;padding-left: 33%;"><img alt="" height="100px" width="100px" src="/assets/app/media/img/client-logos/purchaseLogo.png" id="demo2">
-												<span class="m-widget24__stats" style="color: #91411f;">
+												<span class="m-widget24__stats" style="color: #d76e42;">
 													${totalPurchase}
 												</span>
 												
 												<div class="progress m-progress--sm" style="margin: 10px 0px 5px 0px;">
-													<div class="progress-bar " role="progressbar" style="width: 100%;background-color: #91411f" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+													<div class="progress-bar " role="progressbar" style="width: 100%;background-color: #d76e42" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 												</div>
 													<p style="text-align: center;">Total Purchase</p>
 												 
@@ -206,6 +209,10 @@
 									</div>
 									
 								</div>
+								</div>
+								</div>
+								<div class="m-portlet">
+							<div class="m-portlet__body  m-portlet__body--no-padding">
 								<div class="row m-row--no-padding m-row--col-separator-xl">
 								<div class="col-md-12 col-lg-6 col-xl-4">
 										<!--begin::New Users-->
@@ -215,11 +222,11 @@
 												
 												
 												<span style="padding-top: -10px;padding-left: 33%;"><img alt="" height="100px" width="100px" src="/assets/app/media/img/client-logos/CaseInHandLogo.png" id="demo2">
-												<span class="m-widget24__stats " style="color: #51a629">
+												<span class="m-widget24__stats " style="color: #73d147">
 													${CaseInHand}
 												</span>
 												<div class="progress m-progress--sm" style="margin: 10px 0px 5px 0px;">
-													<div class="progress-bar " role="progressbar" style="width: 100%;background-color: #51a629;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+													<div class="progress-bar " role="progressbar" style="width: 100%;background-color: #73d147;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 												</div>
 													<p style="text-align: center;">Case In Hand </p>
 												 
@@ -237,11 +244,11 @@
 												
 												
 												<span style="padding-top: -10px;padding-left: 33%;"><img alt="" height="100px" width="100px" src="/assets/app/media/img/client-logos/BankLogo.png" id="demo2">
-												<span class="m-widget24__stats " style="color: #044275;">
+												<span class="m-widget24__stats " style="color: #0662ac;">
 													${CaseInBank}
 												</span>
 												<div class="progress m-progress--sm" style="margin: 10px 0px 5px 0px;">
-													<div class="progress-bar " role="progressbar" style="width: 100%; background-color: #044275;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+													<div class="progress-bar " role="progressbar" style="width: 100%; background-color: #0662ac;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 												</div>
 													<p style="text-align: center;">Case In Bank </p>
 												 
@@ -276,7 +283,38 @@
 								</div>
 							</div>
 						</div>
+						
+						<div class="m-portlet m-portlet--tab">
+									<div class="m-portlet__head">
+										<div class="m-portlet__head-caption">
+											<div class="m-portlet__head-title">
+												<span class="m-portlet__head-icon m--hide">
+													<i class="la la-gear"></i>
+												</span>
+												<h3 class="m-portlet__head-text">
+													Purchase-Sales Graph
+													 <span style="color: #5a73f2;margin-left:200px;font-size:30px" id="year1"></span>
+												</h3>
+												
+												
+												 <div class="input-group" style="padding-left: 350px;padding-top: 15px">
+															
+													<input type="text" class="form-control" id="year" placeholder="Enter the year">
+													<div class="input-group-append">
+														<button class="btn btn-primary" type="button" id="graph_button">
+															Go!
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="m-portlet__body" >
+										<div id="m_morris_3" style="height:500px" class="area-chart2"></div>
+									</div>
+								</div>
 					</div>
+					
 				</div>
 			</div>
 			<!-- end:: Body -->
@@ -351,9 +389,133 @@
 	<script>
 	$("#dashboard").addClass("m-menu__item--active");
 	
+	var MorrisChartsDemo = function() {
+		//== Private functions
+		var demo3 = function() {
+		// BAR CHART
+		new Morris.Bar({
+		element : 'm_morris_3',
+		data : monthlySalesPurchaseChartData,
+		xkey : 'Month',
+		ykeys : [ 'purchase','sale'],
+		labels : [ "Purchase","sale"],
+		hideHover : 'auto',
+		xLabelAngle : 45,
+		gridTextWeight: 'bold',
+		resize: true
+		});
+		}
+		/* var demo1 = function() {
+		        // BAR CHART
+		new Morris.Line({
+		            element: 'm_morris_1',
+		            data: monthlySalesPurchaseChartData,
+		            xkey: 'y',
+		            
+		            ykeys: ['a','b'],
+		            labels: ['Sales','Purchase'],
+		            hideHover : 'auto',
+		          xLabelAngle : 45,
+		padding: 15,
+		axes:'y',
+		resize: true,
+		gridTextWeight: 'bold'
+
+		        });
+		    } */
+		    var demo2 = function() {
+		        // AREA CHART
+		        new Morris.Area({
+		            element: 'm_morris_2',
+		            data: [{
+		                    y: '2006',
+		                    a: 100,
+		                    b: 90
+		                },
+		                {
+		                    y: '2007',
+		                    a: 75,
+		                    b: 65
+		                },
+		                {
+		                    y: '2008',
+		                    a: 50,
+		                    b: 40
+		                },
+		                {
+		                    y: '2009',
+		                    a: 75,
+		                    b: 65
+		                },
+		                {
+		                    y: '2010',
+		                    a: 50,
+		                    b: 40
+		                },
+		                {
+		                    y: '2011',
+		                    a: 75,
+		                    b: 65
+		                },
+		                {
+		                    y: '2012',
+		                    a: 100,
+		                    b: 90
+		                }
+		            ],
+		            xkey: 'y',
+		            ykeys: ['a', 'b'],
+		            labels: ['Series A', 'Series B']
+		        });
+		    }
+		return {
+		// public functions
+		init : function() {
+		demo3();
+		
+		}
+		};
+		}();
+	
+		var d = new Date();
+		var n = d.getFullYear();
+        console.log(n);
+	
 	$( document ).ready(function() {
 	    console.log( "ready!" );
-	    
+	    $("#year1").html(n);
+	     $.ajax({
+	    	url:'/purchase/graphdata/'+n,   	
+	    	type: 'GET',
+	    	success: function(result) {
+	    	   	
+	    	monthlySalesPurchaseChartData= result;
+
+	    	   	
+	    	MorrisChartsDemo.init();
+
+	    	},
+	    	});
+	 
+	    $("#graph_button").on('click',function(){
+	    	$("#year1").empty();
+	    $(".area-chart2").empty();
+	    	var a = $("#year").val();
+	    	$("#year1").html(a);
+	    	 $.ajax({
+	 	    	url:'/purchase/graphdata/'+a,   	
+	 	    	type: 'GET',
+	 	    	success: function(result) {
+	 	    	   	
+	 	    	monthlySalesPurchaseChartData= result;
+
+	 	    	   	
+	 	    	MorrisChartsDemo.init();
+
+	 	    	},
+	 	    	});
+	    	
+	    });
 	    $.ajax(
 				   {
 					type:"GET",

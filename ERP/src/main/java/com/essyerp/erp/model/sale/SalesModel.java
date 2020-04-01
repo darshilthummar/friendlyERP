@@ -49,7 +49,7 @@ private String prefix;
 private String paymenttype;
 
 
-@Column(name="sales_date",nullable = false)
+@Column(name="date",nullable = false)
 private String date;
 
 
@@ -57,7 +57,7 @@ private String date;
 private String details;
 
 
-@Column(name="grand_total",nullable = false)
+@Column(name="sale_grand_total",nullable = false)
 private double grandtotal;
 
 

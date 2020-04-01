@@ -254,7 +254,7 @@
 											</span>
 										</li>
 										<li class="m-menu__item " aria-haspopup="true" >
-											<a  href="/stock/" class="m-menu__link ">
+											<a  href="/stock/stockMaster" class="m-menu__link ">
 												<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 													<span></span>
 												</i>
