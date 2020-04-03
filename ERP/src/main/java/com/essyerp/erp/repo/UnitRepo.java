@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+
 import com.essyerp.erp.model.Unit.UnitModel;
 
 
@@ -15,5 +16,8 @@ public interface UnitRepo extends JpaRepository<UnitModel, Long>,DataTablesRepos
 
 	@Query(value="SELECT unit_name FROM unit_tbl",nativeQuery=true)
 	List<String> findData();
+	
+	@Query(value="SELECT * FROM unit_tbl WHERE user_id=?1 and isdeleted=0",nativeQuery=true)
+	List<UnitModel> findUnitData(Long UserID);
 	
 }

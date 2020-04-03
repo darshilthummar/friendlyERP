@@ -90,12 +90,20 @@ public class PurchaseController
   	StockTransactionRepo stockTransactionRepo;
 	
 	@GetMapping("/addPurchase")
-	public ModelAndView addPurchase()
+	public ModelAndView addPurchase(HttpServletRequest request)
 	{
+		Long userId = (Long) request.getSession().getAttribute("UserId");
+
 		ModelAndView view =new ModelAndView("/purchase/addpurchase");
-		view.addObject("supplierList", customerRepo.findByCuser("supplier"));
-		view.addObject("productList", ProductRepo.findAll());
-		view.addObject("inviceNo", purchaseRepo.MaxInvoiceNo()+1);
+		view.addObject("supplierList", customerRepo.findByCuser("supplier",userId));
+		view.addObject("productList", ProductRepo.findProductData(userId));
+		if((purchaseRepo.MaxInvoiceNo(userId))==0)
+		{
+		view.addObject("inviceNo", 1);
+		}
+		else {
+		view.addObject("inviceNo", purchaseRepo.MaxInvoiceNo(userId)+1);
+		}
 		view.addObject("prefix", "BILL");
 		return view;
 	}
@@ -138,11 +146,11 @@ public class PurchaseController
 	
 
 	@RequestMapping("/addPurchase/save")
-	public String savePurchase(@ModelAttribute PurchaseModel pm ,@RequestParam Map<String,String> allRequestParams)
+	public String savePurchase(@ModelAttribute PurchaseModel pm ,@RequestParam Map<String,String> allRequestParams,HttpServletRequest request)
 	{
 		System.err.println("all "+ pm.getPrefix() +"///"+ pm.getPurchaseitemModel().size());
 		System.err.println("111 "+ pm.getPurchaseitemModel().get(0).getProduct().getId());
-			
+		Long userId = (Long) request.getSession().getAttribute("UserId");
 		
 		if(allRequestParams.get("delete_product") != null && !allRequestParams.get("delete_product").equals("")) {
 			String address=allRequestParams.get("delete_product").substring(0, allRequestParams.get("delete_product").length()-1);
@@ -164,8 +172,8 @@ public class PurchaseController
 				stockModel.setProduct(pi.getProduct());
 				stockModel.setQty(pi.getQuantity());
 				stockModel.setDescription("product add");
-			
-				int count = stockRepo.findProduct(productId);
+				stockModel.setUserid(userId);
+				int count = stockRepo.findProduct(productId,userId);
 				
 				if(count==0) {
 					stockRepo.save(stockModel);
@@ -184,7 +192,7 @@ public class PurchaseController
 				StockTransaction.setPrice(pi.getRate());
 				StockTransaction.setType("inProduct");
 				StockTransaction.setDescription("purchase product");
-				
+				StockTransaction.setUserid(userId);
 				Date todayDate=new Date();
 //				DateFormat dateFormat=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 //				dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
@@ -197,9 +205,12 @@ public class PurchaseController
 		}));
 			
 		
+       
 		
+		pm.setUserid(userId);
 		
 		purchaseRepo.save(pm);
+		
 		return "redirect:/purchase/managePurchase";
 	}
 	
@@ -213,6 +224,7 @@ public class PurchaseController
 //		String fdate = request.getParameter("from_date");
 //		String tdate = request.getParameter("from_date");
 		//request.getParameter("from_date");
+		Long userId = (Long) request.getSession().getAttribute("UserId");
 		@SuppressWarnings("serial")
 		Specification<PurchaseModel> stu = new Specification<PurchaseModel>() {
 			
@@ -223,7 +235,7 @@ public class PurchaseController
 				
 
 				predicates.add(criteriaBuilder.equal(root.get("isdelete"), 0));
-				
+				predicates.add(criteriaBuilder.equal(root.get("userid"), userId));
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 			}
 
@@ -241,16 +253,17 @@ public class PurchaseController
 
 	
 	@RequestMapping("/editPurchase/{id}")
-	public String getDataById(@PathVariable long id, Model m)
+	public String getDataById(@PathVariable long id, Model m,HttpServletRequest request)
 	{
-	System.out.println("==>"+id);
-	System.out.println("=c"+customerRepo.findAll());
-	System.out.println("=p-"+ProductRepo.findAll());
-	System.out.println("=-s-"+purchaseRepo.findById(id));
+		Long userId = (Long) request.getSession().getAttribute("UserId");
+//	System.out.println("==>"+id);
+//	System.out.println("=c"+customerRepo.findCustomerData(userId));
+//	System.out.println("=p-"+ProductRepo.findAll());
+//	System.out.println("=-s-"+purchaseRepo.findById(id));
 	Optional<PurchaseModel> purchaseModel=purchaseRepo.findById(id); 
-	System.out.println("-=-ss"+purchaseModel.get().getPurchaseitemModel().get(0).getTotal());
-	m.addAttribute("supplierList", customerRepo.findByCuser("supplier"));
-	m.addAttribute("productList", ProductRepo.findAll());
+//	System.out.println("-=-ss"+purchaseModel.get().getPurchaseitemModel().get(0).getTotal());
+	m.addAttribute("supplierList", customerRepo.findByCuser("supplier",userId));
+	m.addAttribute("productList", ProductRepo.findProductData(userId));
 	m.addAttribute("purchase", purchaseModel.get());
 //	ModelAndView mv=new ModelAndView("sales/editSales");
 //	mv.addObject("customerList", customerRepo.findAll());
@@ -302,5 +315,12 @@ public class PurchaseController
 
 	
 	
-	
+			@RequestMapping("/graphdata/{year}")
+			@ResponseBody
+			public List<Map<String,String>> generateReport1(@PathVariable String year,HttpServletRequest request)
+			{
+				Long userId = (Long) request.getSession().getAttribute("UserId");
+				return purchaseRepo.getPurchaseAll(userId, year);
+				
+			}
 }

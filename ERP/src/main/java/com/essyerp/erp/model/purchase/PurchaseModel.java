@@ -43,19 +43,29 @@ public class PurchaseModel {
 	@Column(name="payment_type",nullable = false)
 	private String paymenttype;
 	
-	@Column(name="purchase_date",nullable = false)
+	@Column(name="date",nullable = false)
 	private String date;
 	
 	@Column(name="details")
 	private String details;
 	
-	@Column(name="grand_total",nullable = false)
+	@Column(name="purchase_grand_total",nullable = false)
 	private double grandtotal;
 	
 	
 	@Column(name="is_delete" , columnDefinition = "integer default 0")
 	private int isdelete;
 	
+	@Column(name="user_id",nullable = false)
+	private Long userid;
+
+	public Long getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Long userid) {
+		this.userid = userid;
+	}
 
 	@ManyToOne()
 	@JoinColumn(name = "Supplier_ID",referencedColumnName = "cid",nullable = false)

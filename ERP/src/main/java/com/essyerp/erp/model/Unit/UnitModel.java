@@ -32,8 +32,15 @@ public class UnitModel {
 	@Column(name="isdeleted",nullable = false)
 	private boolean flag;
 	
+	@Column(name="user_id",nullable = false)
+	private Long userid;
 	
-	
+	public Long getUserid() {
+		return userid;
+	}
+	public void setUserid(Long userid) {
+		this.userid = userid;
+	}
 	public String getUnitname() {
 		return unitname;
 	}

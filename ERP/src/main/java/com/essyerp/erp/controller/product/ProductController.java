@@ -51,18 +51,24 @@ return "/product/manageproduct";
 
 
 @PostMapping("/addproduct/save")
-public String saveProduct(@ModelAttribute ProductModel p)
+public String saveProduct(@ModelAttribute ProductModel p,HttpServletRequest request)
 {
-productRepo.save(p);
-return "redirect:/manageproduct";
+	
+	Long userId = (Long) request.getSession().getAttribute("UserId");
+	
+	p.setUserid(userId);
+	
+		productRepo.save(p);
+		return "redirect:/manageproduct";
 }
 
 
 @RequestMapping("/products")
 @ResponseBody
-public  List<ProductModel> getAllproducts()
+public  List<ProductModel> getAllproducts(HttpServletRequest request)
 {
-      return productRepo.findAll();
+	Long userId = (Long) request.getSession().getAttribute("UserId");
+      return productRepo.findProductData(userId);
 }
 
 @RequestMapping("/findByIdproduct/{id}")
@@ -110,6 +116,7 @@ public DataTablesOutput<ProductModel> getProduct(@RequestBody DataTablesInput in
 //           String fdate = request.getParameter("from_date");
 //           String tdate = request.getParameter("from_date");
             //request.getParameter("from_date");
+	Long userId = (Long) request.getSession().getAttribute("UserId");
             @SuppressWarnings("serial")
             Specification<ProductModel> stu = new Specification<ProductModel>() {
 
@@ -118,6 +125,7 @@ public Predicate toPredicate(Root<ProductModel> root, CriteriaQuery<?> query, Cr
 List<Predicate> predicates = new ArrayList<>();
 
                             predicates.add(criteriaBuilder.equal(root.get("isdelete"), 0));
+                            predicates.add(criteriaBuilder.equal(root.get("userid"), userId));
                             // TODO Auto-generated method stub
                             return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
                     }
@@ -162,16 +170,19 @@ return mv;
 
 @GetMapping("/findBySupplierIdProduct/{id}")
 @ResponseBody
-public List<ProductModel> getAllState(@PathVariable Long id) 
+public List<ProductModel> getAllState(@PathVariable Long id,HttpServletRequest request) 
 {		
-	return productRepo.findData(id);
+	Long userId = (Long) request.getSession().getAttribute("UserId");
+
+	return productRepo.findData(id,userId);
 }
 
 
 @RequestMapping("/productName")
 @ResponseBody
-public  List<String> getAllproductsName()
+public  List<String> getAllproductsName(HttpServletRequest request)
 {
-      return productRepo.findProductname();
+	Long userId = (Long) request.getSession().getAttribute("UserId");
+      return productRepo.findProductname(userId);
 }
 }

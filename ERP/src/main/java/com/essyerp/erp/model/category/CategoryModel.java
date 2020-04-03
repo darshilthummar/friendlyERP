@@ -31,6 +31,15 @@ public class CategoryModel {
 	
 	private boolean flag;
 	
+	@Column(name="user_id",nullable = false)
+	private Long userid;
+	
+	public Long getUserid() {
+		return userid;
+	}
+	public void setUserid(Long userid) {
+		this.userid = userid;
+	}
 	@OneToMany(mappedBy = "categorymodel",cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@JsonIgnore
     private List<SubcategoryModel> subcategorymodel;

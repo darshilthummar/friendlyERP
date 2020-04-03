@@ -215,7 +215,7 @@
 										<div data-item="template" class="m--hide">
 
 
-											<div class="" data-index="">{index}</div>
+											<div class="" data-index=""></div>
 											<div class="form-group m-form__group row">
 												<div class="col-lg-2">
 
@@ -382,7 +382,7 @@
 	$('.daterange-single').daterangepicker({
 		singleDatePicker : true,
 		locale:{
-		format: 'DD/MM/YYYY' 
+		format: 'YYYY-MM-DD' 
 		}
    
 	});

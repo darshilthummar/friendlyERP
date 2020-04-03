@@ -43,8 +43,13 @@ public class SubcategoryController {
 	
 	@RequestMapping("/addSubcategory/save")
 	@ResponseBody
-	public SubcategoryModel saveSubCategory(@ModelAttribute SubcategoryModel c)
+	public SubcategoryModel saveSubCategory(@ModelAttribute SubcategoryModel c,HttpServletRequest request)
 	{
+		System.out.println(c);
+		Long userId = (Long) request.getSession().getAttribute("UserId");
+		
+		c.setUserid(userId);
+		
 		return subcategoryRepo.save(c);
 	}
 
@@ -55,6 +60,7 @@ public class SubcategoryController {
 //		String fdate = request.getParameter("from_date");
 //		String tdate = request.getParameter("from_date");
 		//request.getParameter("from_date");
+		Long userId = (Long) request.getSession().getAttribute("UserId");
 		@SuppressWarnings("serial")
 		Specification<SubcategoryModel> stu = new Specification<SubcategoryModel>() {
 			
@@ -63,6 +69,7 @@ public class SubcategoryController {
 				List<Predicate> predicates = new ArrayList<>();
 				
 				predicates.add(criteriaBuilder.equal(root.get("flag"), false));
+				predicates.add(criteriaBuilder.equal(root.get("userid"), userId));
 				// TODO Auto-generated method stub
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 			}
@@ -85,9 +92,11 @@ public class SubcategoryController {
 	
 	@RequestMapping("/findbySubcategory1/{id}")
 	@ResponseBody
-	public List<SubcategoryModel> findSubcategory(@PathVariable long id)
+	public List<SubcategoryModel> findSubcategory(@PathVariable long id,HttpServletRequest request)
 	{
-		return subcategoryRepo.findData(id);
+		Long userId = (Long) request.getSession().getAttribute("UserId");
+		
+		return subcategoryRepo.findData(id,userId);
 	}
 	
 	@RequestMapping("/Subcategory/delete/{id}")
@@ -138,8 +147,9 @@ public class SubcategoryController {
 	}
 	@RequestMapping("/allsubcategory")
 	@ResponseBody
-	public List<SubcategoryModel> getAllsubcategory()
+	public List<SubcategoryModel> getAllsubcategory(HttpServletRequest request)
 	{
-		return subcategoryRepo.findAll();
+		Long userId = (Long) request.getSession().getAttribute("UserId");
+		return subcategoryRepo.findSubcategoryData(userId);
 	}
 }

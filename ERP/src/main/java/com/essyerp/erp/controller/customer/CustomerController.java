@@ -93,9 +93,11 @@ public class CustomerController
 	 
 	
 	@PostMapping("/addcustomer/save")
-	public String saveCustomer(@ModelAttribute CustomerModel cm)
+	public String saveCustomer(@ModelAttribute CustomerModel cm,HttpServletRequest request)
 	{
+       Long userId = (Long) request.getSession().getAttribute("UserId");
 		
+		cm.setUserid(userId);
 		
 		customerRepo.save(cm);
 		return "redirect:/managecustomer";
@@ -103,9 +105,10 @@ public class CustomerController
 	
 	@GetMapping("/customers")
 	@ResponseBody
-	public List<CustomerModel> getAllcustomer()
+	public List<CustomerModel> getAllcustomer(HttpServletRequest request)
 	{
-		return customerRepo.findAll();
+		Long userId = (Long) request.getSession().getAttribute("UserId");
+		return customerRepo.findCustomerData(userId);
 	}
 	
 	@RequestMapping("/customer/delete/{id}")
@@ -188,6 +191,8 @@ public class CustomerController
 //		String fdate = request.getParameter("from_date");
 //		String tdate = request.getParameter("from_date");
 		//request.getParameter("from_date");
+		Long userId = (Long) request.getSession().getAttribute("UserId");
+
 		@SuppressWarnings("serial")
 		Specification<CustomerModel> stu = new Specification<CustomerModel>() {
 			
@@ -196,6 +201,8 @@ public class CustomerController
 				List<Predicate> predicates = new ArrayList<>();
 				
 				predicates.add(criteriaBuilder.equal(root.get("flag"), false));
+				predicates.add(criteriaBuilder.equal(root.get("userid"), userId));
+
 				// TODO Auto-generated method stub
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 			}
@@ -210,24 +217,26 @@ public class CustomerController
 	
 	@RequestMapping("/count/customer")
 	@ResponseBody
-	public Long countCustomer()
+	public Long countCustomer(HttpServletRequest request)
 	{
-		return customerRepo.countContect("customer");
+		Long userId = (Long) request.getSession().getAttribute("UserId");
+		return customerRepo.countContect("customer",userId);
 		
 	}
 	@RequestMapping("/count/supplier")
 	@ResponseBody
-	public Long countSupplier()
+	public Long countSupplier(HttpServletRequest request)
 	{
-		return customerRepo.countContect("supplier");
+		Long userId = (Long) request.getSession().getAttribute("UserId");
+		return customerRepo.countContect("supplier",userId);
 		
 	}
 	
 	@GetMapping("/report/{formate}")
 	@ResponseBody
-	public String generateReport(@PathVariable String formate , HttpServletResponse response) throws JRException, IOException
+	public String generateReport(@PathVariable String formate , HttpServletResponse response,HttpServletRequest request) throws JRException, IOException
 	{
-		return userServiceReport.exportReport(formate,response);
+		return userServiceReport.exportReport(formate,response,request);
 		
 	}
 }

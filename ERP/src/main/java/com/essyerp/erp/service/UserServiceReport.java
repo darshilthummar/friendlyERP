@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +35,10 @@ public class UserServiceReport {
 	private CustomerRepo customerRepo;
 	
 	
-	public String exportReport(String reportFormat,HttpServletResponse response) throws JRException, IOException
+	public String exportReport(String reportFormat,HttpServletResponse response,HttpServletRequest request) throws JRException, IOException
 	{
-		List<CustomerModel> customerModel =   customerRepo.findAll();
+		Long userId = (Long) request.getSession().getAttribute("UserId");
+		List<CustomerModel> customerModel =   customerRepo.findCustomerData(userId);
 		
 		
 		File file = ResourceUtils.getFile( "classpath:static/assets/student.jrxml");
