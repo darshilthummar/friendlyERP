@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.essyerp.erp.model.Tax.TaxModel;
 import com.essyerp.erp.model.Unit.UnitModel;
 
 
@@ -44,9 +45,11 @@ public class UnitController {
 	
 	@RequestMapping("/addunit/save")
 	@ResponseBody
-	public UnitModel saveUnit(@ModelAttribute UnitModel c)
+	public UnitModel saveUnit(@ModelAttribute UnitModel c,HttpServletRequest request)
 	{
+		Long userId = (Long) request.getSession().getAttribute("UserId");
 		
+		c.setUserid(userId);
 		
 		
 		return unitRepo.save(c);
@@ -59,6 +62,7 @@ public class UnitController {
 //		String fdate = request.getParameter("from_date");
 //		String tdate = request.getParameter("from_date");
 		//request.getParameter("from_date");
+		Long userId = (Long) request.getSession().getAttribute("UserId");
 		@SuppressWarnings("serial")
 		Specification<UnitModel> stu = new Specification<UnitModel>() {
 			
@@ -67,6 +71,7 @@ public class UnitController {
 				List<Predicate> predicates = new ArrayList<>();
 				
 				predicates.add(criteriaBuilder.equal(root.get("flag"), false));
+				predicates.add(criteriaBuilder.equal(root.get("userid"), userId));
 				// TODO Auto-generated method stub
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 			}
@@ -136,8 +141,9 @@ public class UnitController {
 	
 	@GetMapping("/allunit")
 	@ResponseBody
-	public List<UnitModel> getAllunit()
+	public List<UnitModel> getAllunit(HttpServletRequest request)
 	{
-		return unitRepo.findAll();
+		Long userId = (Long) request.getSession().getAttribute("UserId");
+		return unitRepo.findUnitData(userId);
 	}
 }

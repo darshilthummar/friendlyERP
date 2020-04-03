@@ -329,7 +329,7 @@ $(document).ready(function()
 		    	/* $("#state_id").empty();
 		    	$("#city_id").empty(); */
 		    	
-		        $.get("/findbySubcategory1/"+"${product.subcategorymodel.id}",  // url
+		        $.get("/findbySubcategory1/"+"${product.categorymodel.id}",  // url
 		    		      function (data, status) {  
 		        	
 		        

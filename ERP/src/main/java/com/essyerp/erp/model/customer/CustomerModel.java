@@ -56,6 +56,17 @@ public class CustomerModel
 	
 	private boolean flag;
 	
+	@Column(name="user_id",nullable = false)
+	private Long userid;
+	
+	public Long getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Long userid) {
+		this.userid = userid;
+	}
+
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "country_id", nullable = false,referencedColumnName = "id")
 	

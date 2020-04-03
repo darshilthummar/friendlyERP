@@ -92,6 +92,8 @@ public class StockController
 //		String fdate = request.getParameter("from_date");
 //		String tdate = request.getParameter("from_date");
 		//request.getParameter("from_date");
+		Long userId = (Long) request.getSession().getAttribute("UserId");
+
 		@SuppressWarnings("serial")
 		Specification<StockModel> stock = new Specification<StockModel>() {
 			
@@ -102,6 +104,8 @@ public class StockController
 				
 
 				predicates.add(criteriaBuilder.equal(root.get("isdelete"), 0));
+				predicates.add(criteriaBuilder.equal(root.get("userid"), userId));
+
 				// TODO Auto-generated method stub
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 			}
@@ -120,6 +124,7 @@ public class StockController
 //		String fdate = request.getParameter("from_date");
 //		String tdate = request.getParameter("from_date");
 		//request.getParameter("from_date");
+		Long userId = (Long) request.getSession().getAttribute("UserId");
 		@SuppressWarnings("serial")
 		Specification<StockTransaction> stock = new Specification<StockTransaction>() {
 			
@@ -130,6 +135,8 @@ public class StockController
 				
 
 				predicates.add(criteriaBuilder.equal(root.get("isdelete"), 0));
+				predicates.add(criteriaBuilder.equal(root.get("userid"), userId));
+
 				// TODO Auto-generated method stub
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 			}
