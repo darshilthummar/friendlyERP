@@ -32,12 +32,23 @@ public class SubcategoryModel {
 	@Column(name="Subcategory_name",nullable = false)
 	private String subcategoryname;
 	
+	
+
 	private boolean flag;
 
+	@Column(name="user_id",nullable = false)
+	private Long userid;
+	
 	@ManyToOne()
     @JoinColumn(name = "category_id", nullable = false,referencedColumnName = "id")
     private CategoryModel categorymodel;
 	
+	public Long getUserid() {
+		return userid;
+	}
+	public void setUserid(Long userid) {
+		this.userid = userid;
+	}
 	
 	public long getId() {
 		return id;

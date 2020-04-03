@@ -29,18 +29,17 @@ public class TaxModel {
 	@Column(name="isdeleted",nullable = false)
 	private boolean flag;
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@Column(name="user_id",nullable = false)
+	private Long userid;
 	
 	public String getTax() {
 		return tax;
+	}
+	public Long getUserid() {
+		return userid;
+	}
+	public void setUserid(Long userid) {
+		this.userid = userid;
 	}
 	public void setTax(String tax) {
 		this.tax = tax;

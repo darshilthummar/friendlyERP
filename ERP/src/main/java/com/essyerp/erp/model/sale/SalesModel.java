@@ -69,6 +69,9 @@ private List<SalesItemModel> salesItemModel;
 @Column(name="is_delete" , columnDefinition = "integer default 0")
 private int isdelete;
 
+@Column(name="user_id",nullable = false)
+private Long userid;
+
 public long getId() {
 	return id;
 }

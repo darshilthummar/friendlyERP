@@ -56,6 +56,16 @@ public class PurchaseModel {
 	@Column(name="is_delete" , columnDefinition = "integer default 0")
 	private int isdelete;
 	
+	@Column(name="user_id",nullable = false)
+	private Long userid;
+
+	public Long getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Long userid) {
+		this.userid = userid;
+	}
 
 	@ManyToOne()
 	@JoinColumn(name = "Supplier_ID",referencedColumnName = "cid",nullable = false)

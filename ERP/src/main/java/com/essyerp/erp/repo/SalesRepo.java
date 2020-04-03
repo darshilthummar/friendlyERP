@@ -13,16 +13,16 @@ public interface SalesRepo extends JpaRepository<SalesModel, Long>,DataTablesRep
 
 	
 	
-	@Query(value = "SELECT max(invoiceno) FROM SalesModel")
-	public int MaxInvoiceNo();
+	@Query(value = "SELECT COALESCE(MAX(invoice_number),0) AS Max FROM sales_tbl where user_id=?1",nativeQuery=true)
+	public int MaxInvoiceNo(Long UserID);
 
 
-	@Query(value = "SELECT count(id) FROM SalesModel where isdelete=0 ")
-	public int TotalSales();
+	@Query(value = "SELECT count(id) FROM SalesModel where isdelete=0 and userid=?1")
+	public int TotalSales(Long UserID);
 	
 
-	@Query(value="select sum(sale_grand_total) from sales_tbl where is_delete=0 and payment_type=?1 ",nativeQuery=true)
-	public Long caseCount(String type);
+	@Query(value="select sum(sale_grand_total) from sales_tbl where is_delete=0 and payment_type=?1 and user_id=?2",nativeQuery=true)
+	public Long caseCount(String type,Long UserID);
 	//SELECT SUM(column_name)	FROM table_name	WHERE condition;
 	
 }

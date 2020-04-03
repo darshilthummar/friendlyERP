@@ -51,17 +51,19 @@ public class IndextController
 	}
 	
 	@RequestMapping(value={" ","/", "/index"})
-	public ModelAndView getIndext()
+	public ModelAndView getIndext(HttpServletRequest request)
 	{
+		
+		Long userId = (Long) request.getSession().getAttribute("UserId");
 		ModelAndView view =new ModelAndView("index");
-		view.addObject("totalPurchase", purchaseRepo.TotalPurchase());
-		view.addObject("totalSales" ,salesRepo.TotalSales());
-		view.addObject("totalCustomer", customerRepo.countContect("customer"));
-		view.addObject("totalSupplier", customerRepo.countContect("supplier"));
-		view.addObject("totalProduct", productRepo.countProduct());
-		view.addObject("totalStock", stockRepo.countStock());
-		view.addObject("CaseInHand", salesRepo.caseCount("Cash Payment"));
-		view.addObject("CaseInBank", salesRepo.caseCount("Bank Payment"));
+		view.addObject("totalPurchase", purchaseRepo.TotalPurchase(userId));
+		view.addObject("totalSales" ,salesRepo.TotalSales(userId));
+		view.addObject("totalCustomer", customerRepo.countContect("customer",userId));
+		view.addObject("totalSupplier", customerRepo.countContect("supplier",userId));
+		view.addObject("totalProduct", productRepo.countProduct(userId));
+		view.addObject("totalStock", stockRepo.countStock(userId));
+		view.addObject("CaseInHand", salesRepo.caseCount("Cash Payment",userId));
+		view.addObject("CaseInBank", salesRepo.caseCount("Bank Payment",userId));
 		return view;
 	}
 	
