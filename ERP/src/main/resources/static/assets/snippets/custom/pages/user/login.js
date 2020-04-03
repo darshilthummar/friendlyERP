@@ -23,6 +23,7 @@ var SnippetLogin = function() {
 				l(),
 //					$("#m_login_signin_submit").click(function(e) {
 //							e.preventDefault();
+//							var values = $("#signin").serialize();
 //							var a = $(this),
 //								l = $(this).closest("form");
 //							l.validate({
@@ -35,26 +36,25 @@ var SnippetLogin = function() {
 //
 //											}
 //										}
-//							})
-////									l.valid() && (a.addClass("m-loader m-loader--rightm-loader--light").attr("disabled", !0),
-////										l.ajaxSubmit({
-////											url: "/index/" + email,
-////											type: "post",
-////											success: function(e, t, r, s) {
-////												setTimeout
-////													(
-////														function() {
-////															a.removeClass("m-loader m-loader--right
-////																	m - loader--light ").attr("
-////																	disabled ",!1),
-////																	i(l, "danger", "Incorrect username or password. Please try again.")
-////																},
-////																2e3)
-////													}
-////											}
-////										)))
+//							}),
+//									l.valid() && (a.addClass("m-loader m-loader--rightm-loader--light").attr("disabled", !0),
+//										l.ajaxSubmit({
+//											url: "/login",
+//											type: "post",
+//											data: values,
+//											success: function(e, t, r, s) {
+//												setTimeout
+//													(
+//														function() {
+//															a.removeClass("m-loader m-loader--rightm - loader--light ").attr("disabled ",!1),
+//																	i(l, "danger", "Incorrect username or password. Please try again.")
+//																},
+//																2e3)
+//													}
+//											}
+//										))
 //									}
-//								
+//								)
 //								),
 
 
@@ -67,11 +67,11 @@ var SnippetLogin = function() {
 										r = $(this).closest("form");
 									r.validate({
 											rules: {
-												fullname: {
+												username: {
 													required: !0
 												},
 												email: {
-													required: !0,
+												required: !0,
 													email: !0
 												},
 												password: {

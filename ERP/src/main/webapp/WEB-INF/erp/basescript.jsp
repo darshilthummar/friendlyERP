@@ -46,10 +46,11 @@ $( document ).ready(function() {
  
 $.get("/userdata",  // url
 	      function (data, status) {  
-console.log(data);
+
  $("#user").html(data.username);
  $("#user_email").html(data.email);
-});
+  $("#user_img").attr('src',"/assets/app/media/img/users/"+data.img)
+ });
 
 });
 </script>

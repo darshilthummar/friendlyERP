@@ -25,6 +25,8 @@ public class SendingMailService {
     private final MailProperties mailProperties;
     private final Configuration templates;
 
+  
+    
     @Autowired
     SendingMailService(MailProperties mailProperties, Configuration templates){
         this.mailProperties = mailProperties;

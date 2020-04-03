@@ -3,12 +3,15 @@ package com.essyerp.erp.controller.profile;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.essyerp.erp.model.login.User;
 import com.essyerp.erp.repo.logrepo.UserRepository;
@@ -54,5 +57,21 @@ public class ProfileController
 		user.setIsActive(active);
 		userRepo.save(user);
 		return "redirect:/profile";
+	}
+	
+	@PostMapping("/save")
+	@ResponseBody
+	public String getPass(@ModelAttribute User u)
+	{
+		String pss=u.getPassword();
+		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
+		String password = pe.encode(pss);
+		System.out.println(u.getId());
+		long id1 = u.getId();
+		userRepo.changePass(password, id1);
+		return "done";
+
+		
+		
 	}
 }

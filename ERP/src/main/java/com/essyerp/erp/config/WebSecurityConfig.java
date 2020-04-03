@@ -21,6 +21,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 	@Autowired
 	CustomizeAuthenticationSuccessHandler customizeAuthenticationSuccessHandler; 
 	
+	@Autowired
+	CustomLoginFailureHandler customLoginFailureHandler;
+	
 	@Bean(name = "passwordEncoder")
 	public PasswordEncoder passwordencoder()
 	{
@@ -33,16 +36,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 
 	}
 	
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				.antMatchers("/location/**", "/assets/**", "/image/**", "/img/**","/css/**","/images/**","/fonts/**", "/public/**",
-				"/resources/public/**", "/resources/**", "/swagger-resources/**", "/registration/**","/friendlyERP/**")
+				"/resources/public/**", "/resources/**", "/swagger-resources/**", "/registration/**","/friendlyERP/**","/email")
 				.permitAll()
 				.antMatchers("/login").permitAll()
 //				.antMatchers("/index").access("hasRole('ROLE_ADMIN')")
 				.anyRequest().authenticated().and().formLogin().loginPage("/login")
 				.successHandler(customizeAuthenticationSuccessHandler).usernameParameter("username")
+				.failureHandler(customLoginFailureHandler)
 				.passwordParameter("password")
 				.and().logout()
 				.logoutSuccessUrl("/login?logout").deleteCookies("auth_code", "JSESSIONID").invalidateHttpSession(true).and().exceptionHandling()
