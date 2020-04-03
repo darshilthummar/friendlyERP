@@ -1,5 +1,6 @@
 package com.essyerp.erp.service;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,10 +30,15 @@ public class UserDetailsServiceImpl implements UserDetailsService
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException 
 	{
+		
 		User user=userRepository.findUser(username);
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 	       
-		System.out.println(user.getRoles().toString());
+	        if (user.getVerificationToken().getExpiredDateTime().isBefore(LocalDateTime.now())) {
+	        	user.setIsActive(null);
+	        	return null;
+	        }
+		
 		for (Role role : user.getRoles())
 		{
 	            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
