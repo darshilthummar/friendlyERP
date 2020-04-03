@@ -57,7 +57,7 @@
 											</div>
 											<div class="m-card-profile__pic">
 												<div class="m-card-profile__pic-wrapper">
-													<img src="${user.postcode}" />
+													<img src="/assets/app/media/img/users/${user.img}" />
 												</div>
 											</div>
 											<div class="m-card-profile__details">
@@ -98,7 +98,7 @@
 												</a>
 											</li>
 											<li class="m-nav__item">
-												<a href="../header/profile&amp;demo=default.html" class="m-nav__link">
+												<a  class="m-nav__link edit" data-toggle="modal" data-target="#m_modal_5">
 													<i class="m-nav__link-icon flaticon-lock-1"></i>
 													<span class="m-nav__link-text">
 														Change Password
@@ -263,6 +263,56 @@
 					</div>
 				</div>
 			<!-- end:: Body -->
+			
+			
+			
+		
+			<!-- Edit model -->
+					<div class="modal fade" id="m_modal_5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
+							<div class="modal-dialog modal-sm" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">
+											Change Password
+										</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">
+												×
+											</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form id="change_pass">
+										<input type="hidden" class="form-control" id="id" name="id" value="${user.id}">
+											<div class="form-group">
+												<label for="recipient-name" class="form-control-label">
+													Password:
+												</label>
+												<div class="input-group">
+												<input type="password" class="form-control"  name="password">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="recipient-name" class="form-control-label">
+													Confirm Password:
+												</label>
+												<div class="input-group">
+												<input type="password" class="form-control" name="rpassword">
+												</div>
+											</div>
+										</form>
+										
+									</div>
+									<div class="modal-footer">
+								    	<button type="button" class="btn btn-primary submit_button" id="submit_button" data-dismiss="modal">Submit</button>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						
+	
+			
 <!-- begin::Footer -->
 				<jsp:include page="footer.jsp"></jsp:include>
 <!-- end::Footer -->
@@ -272,13 +322,32 @@
 		<jsp:include page="basescript.jsp" />
 		
 	
-	<script>
-	$( document ).ready(function() {
-	    console.log("REDY" );
-	});
-	</script>
+		
 	
 	</body>
 	<!-- end::Body -->
-	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			console.log("READY");
+			
+			$('#submit_button').on('click',function()
+					{
+						var value = $("#change_pass").serialize();
+						
+						$.ajax(
+						{
+							type:"POST",
+							url:"/save",
+							data:value,
+							success: function(data1)
+							{
+								console.log(data1);
+							
+							}
+						});
+						
+					});	
+			});
+		
+		</script>
 </html>
