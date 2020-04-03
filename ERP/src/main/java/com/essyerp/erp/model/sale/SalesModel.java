@@ -49,7 +49,7 @@ private String prefix;
 private String paymenttype;
 
 
-@Column(name="sales_date",nullable = false)
+@Column(name="date",nullable = false)
 private String date;
 
 
@@ -57,7 +57,7 @@ private String date;
 private String details;
 
 
-@Column(name="grand_total",nullable = false)
+@Column(name="sale_grand_total",nullable = false)
 private double grandtotal;
 
 
@@ -68,6 +68,9 @@ private List<SalesItemModel> salesItemModel;
 
 @Column(name="is_delete" , columnDefinition = "integer default 0")
 private int isdelete;
+
+@Column(name="user_id",nullable = false)
+private Long userid;
 
 public long getId() {
 	return id;

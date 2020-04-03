@@ -86,12 +86,22 @@ public class SalesController
 	StockTransactionRepo stockTransactionRepo;
 	
 	@GetMapping("/addSales")
-	public ModelAndView addCustomer()
+	public ModelAndView addCustomer(HttpServletRequest request)
 	{
+		Long userId = (Long) request.getSession().getAttribute("UserId");
+		
+		
 		ModelAndView view =new ModelAndView("/sales/addSales");
-		view.addObject("customerList", customerRepo.findByCuser("customer"));
-		view.addObject("productList", ProductRepo.findAll());
-		view.addObject("inviceNo", salesRepo.MaxInvoiceNo()+1);
+		view.addObject("customerList", customerRepo.findByCuser("customer",userId));
+		view.addObject("productList", ProductRepo.findProductData(userId));
+		if((salesRepo.MaxInvoiceNo(userId))==0)
+		{
+			view.addObject("inviceNo", 1);
+		}
+		else
+		{
+		view.addObject("inviceNo", salesRepo.MaxInvoiceNo(userId)+1);
+		}
 		view.addObject("prefix", "IN");
 		return view;
 	}
@@ -134,11 +144,13 @@ public class SalesController
 	
 
 	@RequestMapping("/addSales/save")
-	public String saveSales(@ModelAttribute SalesModel sm, @RequestParam Map<String,String> allRequestParams)
+	public String saveSales(@ModelAttribute SalesModel sm, @RequestParam Map<String,String> allRequestParams,HttpServletRequest request)
 	{
 		System.err.println("all "+ sm.getPrefix() +"///"+ sm.getSalesItemModel().size());
 		System.err.println("111 "+ sm.getSalesItemModel().get(0).getProduct().getId());
-			
+		
+		Long userId = (Long) request.getSession().getAttribute("UserId");
+		
 		if(allRequestParams.get("delete_product") != null && !allRequestParams.get("delete_product").equals("")) {
 			String address=allRequestParams.get("delete_product").substring(0, allRequestParams.get("delete_product").length()-1);
 			List<Long> l= Arrays.asList(address.split(",")).stream().map(Long::parseLong).collect(Collectors.toList());
@@ -158,7 +170,7 @@ public class SalesController
 				stockModel.setProduct(si.getProduct());
 				stockModel.setQty(si.getQuantity());
 				stockModel.setDescription("product sale");
-			
+				stockModel.setUserid(userId);
 			
 //				int count = stockRepo.findProduct(productId);
 							
@@ -174,6 +186,7 @@ public class SalesController
 				StockTransaction.setPrice(si.getRate());
 				StockTransaction.setType("OutProduct");
 				StockTransaction.setDescription("Sales product");
+				StockTransaction.setUserid(userId);
 				
 				Date todayDate=new Date();
 				StockTransaction.setTransactionDate(todayDate);
@@ -187,7 +200,7 @@ public class SalesController
 			
 		
 		
-		
+			sm.setUserid(userId);
 		salesRepo.save(sm);
 		return "redirect:/sales/manageSales";
 	}
@@ -202,6 +215,7 @@ public class SalesController
 //		String fdate = request.getParameter("from_date");
 //		String tdate = request.getParameter("from_date");
 		//request.getParameter("from_date");
+		Long userId = (Long) request.getSession().getAttribute("UserId");
 		@SuppressWarnings("serial")
 		Specification<SalesModel> stu = new Specification<SalesModel>() {
 			
@@ -212,6 +226,7 @@ public class SalesController
 				
 
 				predicates.add(criteriaBuilder.equal(root.get("isdelete"), 0));
+				predicates.add(criteriaBuilder.equal(root.get("userid"), userId));
 				// TODO Auto-generated method stub
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 			}
@@ -230,16 +245,18 @@ public class SalesController
 
 	
 	@RequestMapping("/editSales/{id}")
-	public String getDataById(@PathVariable long id, Model m)
+	public String getDataById(@PathVariable long id, Model m,HttpServletRequest request)
 	{
-	System.out.println("==>"+id);
-	System.out.println("=c"+customerRepo.findAll());
-	System.out.println("=p-"+ProductRepo.findAll());
-	System.out.println("=-s-"+salesRepo.findById(id));
+		Long userId = (Long) request.getSession().getAttribute("UserId");
+
+//	System.out.println("==>"+id);
+//	System.out.println("=c"+customerRepo.findAll());
+//	System.out.println("=p-"+ProductRepo.findAll());
+//	System.out.println("=-s-"+salesRepo.findById(id));
 	Optional<SalesModel> SalesModel=salesRepo.findById(id); 
 	System.out.println("-=-ss"+SalesModel.get().getSalesItemModel().get(0).getTotal());
-	m.addAttribute("customerList", customerRepo.findByCuser("customer"));
-	m.addAttribute("productList", ProductRepo.findAll());
+	m.addAttribute("customerList", customerRepo.findByCuser("customer",userId));
+	m.addAttribute("productList", ProductRepo.findProductData(userId));
 	m.addAttribute("sales", SalesModel.get());
 //	ModelAndView mv=new ModelAndView("sales/editSales");
 //	mv.addObject("customerList", customerRepo.findAll());

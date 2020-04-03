@@ -25,8 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.essyerp.erp.model.Tax.TaxModel;
 
-
-
 import com.essyerp.erp.repo.TaxRepo;
 
 
@@ -45,12 +43,16 @@ public class TaxController {
 	
 	@RequestMapping("/addtax/save")
 	@ResponseBody
-	public TaxModel saveTax(@ModelAttribute TaxModel c)
+	public TaxModel saveTax(@ModelAttribute TaxModel c,HttpServletRequest request)
 	{
+		System.out.println(c.getTax());
+		Long userId = (Long) request.getSession().getAttribute("UserId");
 		
+		c.setUserid(userId);
 		
 		
 		return taxRepo.save(c);
+	//	return taxRepo.save(c);
 	}
 
 	@RequestMapping("/tax/data")
@@ -60,6 +62,7 @@ public class TaxController {
 //		String fdate = request.getParameter("from_date");
 //		String tdate = request.getParameter("from_date");
 		//request.getParameter("from_date");
+		Long userId = (Long) request.getSession().getAttribute("UserId");
 		@SuppressWarnings("serial")
 		Specification<TaxModel> stu = new Specification<TaxModel>() {
 			
@@ -68,6 +71,7 @@ public class TaxController {
 				List<Predicate> predicates = new ArrayList<>();
 				
 				predicates.add(criteriaBuilder.equal(root.get("flag"), false));
+				predicates.add(criteriaBuilder.equal(root.get("userid"), userId));
 				// TODO Auto-generated method stub
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 			}
@@ -137,8 +141,10 @@ public class TaxController {
 	
 	@GetMapping("/alltax")
 	@ResponseBody
-	public List<TaxModel> getAlltax()
+	public List<TaxModel> getAlltax(HttpServletRequest request)
 	{
-		return taxRepo.findAll();
+		Long userId = (Long) request.getSession().getAttribute("UserId");
+
+		return taxRepo.findTaxData(userId);
 	}
 }

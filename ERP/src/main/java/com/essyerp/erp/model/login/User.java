@@ -36,6 +36,8 @@ public class User {
     private String state;
     
     private String postcode;
+    
+    private String img;
    
 	private String email;
 	@Column(columnDefinition = "integer default 0")
@@ -190,6 +192,14 @@ public class User {
 
 		public void setGst_no(String gst_no) {
 			this.gst_no = gst_no;
+		}
+
+		public String getImg() {
+			return img;
+		}
+
+		public void setImg(String img) {
+			this.img = img;
 		}
 
 	

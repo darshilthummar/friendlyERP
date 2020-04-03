@@ -81,4 +81,9 @@ public class MailProperties {
     public void setVerificationapi(String verificationapi) {
         this.verificationapi = verificationapi;
     }
+
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

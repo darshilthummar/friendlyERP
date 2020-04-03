@@ -43,64 +43,6 @@
 									My Profile
 								</h3>
 							</div>
-							<div>
-								<div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
-									<div class="m-dropdown__wrapper">
-										<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
-										<div class="m-dropdown__inner">
-											<div class="m-dropdown__body">
-												<div class="m-dropdown__content">
-													<ul class="m-nav">
-														<li class="m-nav__section m-nav__section--first m--hide">
-															<span class="m-nav__section-text">
-																Quick Actions
-															</span>
-														</li>
-														<li class="m-nav__item">
-															<a href="" class="m-nav__link">
-																<i class="m-nav__link-icon flaticon-share"></i>
-																<span class="m-nav__link-text">
-																	Activity
-																</span>
-															</a>
-														</li>
-														<li class="m-nav__item">
-															<a href="" class="m-nav__link">
-																<i class="m-nav__link-icon flaticon-chat-1"></i>
-																<span class="m-nav__link-text">
-																	Messages
-																</span>
-															</a>
-														</li>
-														<li class="m-nav__item">
-															<a href="" class="m-nav__link">
-																<i class="m-nav__link-icon flaticon-info"></i>
-																<span class="m-nav__link-text">
-																	FAQ
-																</span>
-															</a>
-														</li>
-														<li class="m-nav__item">
-															<a href="" class="m-nav__link">
-																<i class="m-nav__link-icon flaticon-lifebuoy"></i>
-																<span class="m-nav__link-text">
-																	Support
-																</span>
-															</a>
-														</li>
-														<li class="m-nav__separator m-nav__separator--fit"></li>
-														<li class="m-nav__item">
-															<a href="#" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm">
-																Submit
-															</a>
-														</li>
-													</ul>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
 						</div>
 					</div>
 					<!-- END: Subheader -->
@@ -115,7 +57,7 @@
 											</div>
 											<div class="m-card-profile__pic">
 												<div class="m-card-profile__pic-wrapper">
-													<img src="/assets/app/media/img/users/IMG_0013 2.JPG" alt=""/>
+													<img src="/assets/app/media/img/users/${user.img}" />
 												</div>
 											</div>
 											<div class="m-card-profile__details">
@@ -156,7 +98,7 @@
 												</a>
 											</li>
 											<li class="m-nav__item">
-												<a href="../header/profile&amp;demo=default.html" class="m-nav__link">
+												<a  class="m-nav__link edit" data-toggle="modal" data-target="#m_modal_5">
 													<i class="m-nav__link-icon flaticon-lock-1"></i>
 													<span class="m-nav__link-text">
 														Change Password
@@ -211,13 +153,13 @@
 															First Name
 														</label>
 														<div class="col-lg-2">
-															<h5 style="padding-top: 5px;"> Yash</h5>
+															<h5 style="padding-top: 5px;"> ${user.fname}</h5>
 														</div>
 														<label for="example-text-input" class="col-2 col-form-label">
 															Last Name
 														</label>
 														<div class="col-lg-2">
-															<h5 style="padding-top: 5px;"> patel</h5>
+															<h5 style="padding-top: 5px;"> ${user.lname}</h5>
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
@@ -225,7 +167,7 @@
 															Position
 														</label>
 														<div class="col-7">
-															<h5 style="padding-top: 5px;"> CEO</h5>
+															<h5 style="padding-top: 5px;"> ${user.position}</h5>
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
@@ -233,7 +175,7 @@
 															Company Name
 														</label>
 														<div class="col-7">
-														<h5 style="padding-top: 5px;"> Greencrop</h5>
+														<h5 style="padding-top: 5px;"> ${user.company}</h5>
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
@@ -241,7 +183,7 @@
 															Phone No.
 														</label>
 														<div class="col-7">
-														<h5 style="padding-top: 5px;">99784 45563‬</h5>
+														<h5 style="padding-top: 5px;">${user.number}‬</h5>
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
@@ -249,7 +191,7 @@
 															GST.No
 														</label>
 														<div class="col-7">
-														<h5 style="padding-top: 5px;">‬</h5>
+														<h5 style="padding-top: 5px;"> ${user.gst_no}‬</h5>
 														</div>
 													</div>
 													
@@ -266,7 +208,7 @@
 															Address
 														</label>
 														<div class="col-7">
-														<h5 style="padding-top: 5px;"> </h5>
+														<h5 style="padding-top: 5px;"> ${user.address}</h5>
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
@@ -274,7 +216,7 @@
 															State
 														</label>
 														<div class="col-7">
-														<h5 style="padding-top: 5px;"> </h5>
+														<h5 style="padding-top: 5px;">${user.state} </h5>
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
@@ -282,7 +224,7 @@
 															City
 														</label>
 														<div class="col-7">
-														<h5 style="padding-top: 5px;"> </h5>
+														<h5 style="padding-top: 5px;"> ${user.city}</h5>
 														</div>
 													</div>
 													<div class="form-group m-form__group row">
@@ -290,7 +232,7 @@
 															Postcode
 														</label>
 														<div class="col-7">
-														<h5 style="padding-top: 5px;"> </h5>
+														<h5 style="padding-top: 5px;"> ${user.postcode}</h5>
 														</div>
 													</div>
 												</div>
@@ -321,6 +263,56 @@
 					</div>
 				</div>
 			<!-- end:: Body -->
+			
+			
+			
+		
+			<!-- Edit model -->
+					<div class="modal fade" id="m_modal_5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
+							<div class="modal-dialog modal-sm" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">
+											Change Password
+										</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">
+												×
+											</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form id="change_pass">
+										<input type="hidden" class="form-control" id="id" name="id" value="${user.id}">
+											<div class="form-group">
+												<label for="recipient-name" class="form-control-label">
+													Password:
+												</label>
+												<div class="input-group">
+												<input type="password" class="form-control"  name="password">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="recipient-name" class="form-control-label">
+													Confirm Password:
+												</label>
+												<div class="input-group">
+												<input type="password" class="form-control" name="rpassword">
+												</div>
+											</div>
+										</form>
+										
+									</div>
+									<div class="modal-footer">
+								    	<button type="button" class="btn btn-primary submit_button" id="submit_button" data-dismiss="modal">Submit</button>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						
+	
+			
 <!-- begin::Footer -->
 				<jsp:include page="footer.jsp"></jsp:include>
 <!-- end::Footer -->
@@ -330,13 +322,32 @@
 		<jsp:include page="basescript.jsp" />
 		
 	
-	<script>
-	$( document ).ready(function() {
-	    console.log("REDY" );
-	});
-	</script>
+		
 	
 	</body>
 	<!-- end::Body -->
-	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			console.log("READY");
+			
+			$('#submit_button').on('click',function()
+					{
+						var value = $("#change_pass").serialize();
+						
+						$.ajax(
+						{
+							type:"POST",
+							url:"/save",
+							data:value,
+							success: function(data1)
+							{
+								console.log(data1);
+							
+							}
+						});
+						
+					});	
+			});
+		
+		</script>
 </html>

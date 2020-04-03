@@ -15,17 +15,17 @@ public interface StockTransactionRepo extends JpaRepository<StockTransaction, Lo
 
 	
 	
-	@Query(value="select count(id) from stock_tbl where is_delete=0 and Product_ID=?1 ",nativeQuery=true)
-	public int findProduct(long pId);
+	@Query(value="select count(id) from stock_tbl where is_delete=0 and Product_ID=?1 and user_id=?2",nativeQuery=true)
+	public int findProduct(long pId,Long UserID);
 //
 //
 //	@Query(value = "SELECT count(id) FROM SalesModel where isdelete=0 ")
 //	public int TotalSales();
 
-	@Query(value="update stock_tbl set qty=qty+?1  where is_delete=0 and Product_ID=?2 ",nativeQuery=true)
+	@Query(value="update stock_tbl set qty=qty+?1  where is_delete=0 and Product_ID=?2",nativeQuery=true)
 	public void updateAddStock(long qty,long id);
 	
-	@Query(value="update stock_tbl set qty=qty-?1  where is_delete=0 and Product_ID=?2 ",nativeQuery=true)
+	@Query(value="update stock_tbl set qty=qty-?1  where is_delete=0 and Product_ID=?2",nativeQuery=true)
 	public void updateSubStock(long qty,long id);
 	
 	

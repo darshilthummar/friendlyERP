@@ -68,6 +68,17 @@ private String description;
 @Column(name="is_delete" , columnDefinition = "integer default 0")
 private int isdelete;
 
+@Column(name="user_id",nullable = false)
+private Long userid;
+
+public Long getUserid() {
+	return userid;
+}
+
+public void setUserid(Long userid) {
+	this.userid = userid;
+}
+
 @ManyToOne(fetch = FetchType.LAZY, optional = false)
 @JoinColumn(name = "category_id", nullable = false,referencedColumnName = "id")
 
