@@ -521,7 +521,7 @@
 					type:"GET",
 					url:"/count/customer",
 					success: function(data){
-						console.log(data);
+				//		console.log(data);
 						$("#countCustomer").html(data);
 					}
 						   
@@ -531,7 +531,7 @@
 					type:"GET",
 					url:"/count/supplier",
 					success: function(data){
-						console.log(data);
+				//		console.log(data);
 						$("#countSupplier").html(data);
 					}
 						   
@@ -540,12 +540,22 @@
 	      
 		    $.get("/userdata",  // url
 				      function (data, status) {  
-		  	console.log(data);
+		  //	console.log(data);
 		  	 $("#user").html(data.username);
 		  	 $("#user_email").html(data.email);
 			});
 		
-	
+		   
+		     
+		    $.get("/userdata",  // url
+		    	      function (data, status) {  
+
+		     $("#user").html(data.username);
+		     $("#user_email").html(data.email);
+		      $("#user_img").attr('src',"/assets/app/media/img/users/"+data.img)
+		     });
+
+		   
 	    
 	});
 	</script>

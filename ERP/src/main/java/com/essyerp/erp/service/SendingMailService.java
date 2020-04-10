@@ -8,6 +8,8 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 
 import com.essyerp.erp.model.login.MailProperties;
+import com.essyerp.erp.model.login.User;
+import com.essyerp.erp.repo.logrepo.UserRepository;
 
 import javax.mail.Message;
 import javax.mail.Session;
@@ -25,7 +27,8 @@ public class SendingMailService {
     private final MailProperties mailProperties;
     private final Configuration templates;
 
-  
+  @Autowired
+  UserRepository userrepo;
     
     @Autowired
     SendingMailService(MailProperties mailProperties, Configuration templates){
@@ -34,12 +37,33 @@ public class SendingMailService {
     }
 
     public boolean sendVerificationMail(String toEmail, String verificationCode) {
-        String subject = "Please verify your email";
+    	User user= userrepo.findEmail(toEmail);
+    	String username=user.getUsername();
+    	String subject = "Please verify your email";
         String body = "";
         try {
             Template t = templates.getTemplate("email-verification.ftl");
             Map<String, String> map = new HashMap<>();
+            map.put("user",username);
             map.put("VERIFICATION_URL", mailProperties.getVerificationapi() + verificationCode);
+            body = FreeMarkerTemplateUtils.processTemplateIntoString(t, map);
+        } catch (Exception ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+        }
+        return sendMail(toEmail, subject, body);
+    }
+    
+    public boolean sendForgetMail(String toEmail, String verificationCode) {
+       
+    	User user= userrepo.findEmail(toEmail);
+    	String username=user.getUsername();
+    	String subject = "Reset your password";
+        String body = "";
+        try {
+            Template t = templates.getTemplate("email-forgetpassword.ftl");
+            Map<String, String> map = new HashMap<>();
+            map.put("user",username);
+            map.put("VERIFICATION_URL",mailProperties.getForgetapi() + verificationCode);
             body = FreeMarkerTemplateUtils.processTemplateIntoString(t, map);
         } catch (Exception ex) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);

@@ -1,4 +1,4 @@
-Hi User,<br/>
+Hi, ${user}<br/>
 
 Thanks for using FriendlyERP! Please confirm your email address by clicking on the link below.<br/>
 
