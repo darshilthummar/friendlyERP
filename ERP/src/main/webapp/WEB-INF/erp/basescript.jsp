@@ -21,11 +21,14 @@
 			<script src="/assets/vendors/custom/datatables/datatables.bundle.js" type="text/javascript"></script>
 	
 
-	<script src="/assets/demo/default/custom/crud/forms/validation/form-widgets.js" type="text/javascript"></script>
-		<script src="/assets/demo/default/custom/crud/forms/validation/form-controls.js" type="text/javascript"></script>
+	<!-- <script src="/assets/demo/default/custom/crud/forms/validation/form-widgets.js" type="text/javascript"></script>
+		<script src="/assets/demo/default/custom/crud/forms/validation/form-controls.js" type="text/javascript"></script> -->
 			<script src="/assets/demo/demo12/custom/crud/forms/widgets/select2.js" type="text/javascript"></script>
 
 <script src="/assets/app/js/dashboard.js" type="text/javascript"></script>
+		<!-- FORMVALIDATION.IO -->
+		<script src="/assets/vendors/formvalidation/js/FormValidation.min.js"></script>
+		<script src="/assets/vendors/formvalidation/js/framework/Bootstrap.min.js"></script>
 
 <script type="text/javascript">
 

@@ -9,6 +9,7 @@
 			Friendly ERP
 		</title>
 		<jsp:include page="topscript.jsp"></jsp:include>
+		
 		<style type="text/css">
 		
 		
@@ -98,7 +99,7 @@
 												</a>
 											</li>
 											<li class="m-nav__item">
-												<a  class="m-nav__link edit" data-toggle="modal" data-target="#m_modal_5">
+												<a href=""  class="m-nav__link edit" data-toggle="modal" data-target="#m_modal_5">
 													<i class="m-nav__link-icon flaticon-lock-1"></i>
 													<span class="m-nav__link-text">
 														Change Password
@@ -282,14 +283,17 @@
 										</button>
 									</div>
 									<div class="modal-body">
-										<form id="change_pass">
+										<form id="change_pass" class="chnage">
 										<input type="hidden" class="form-control" id="id" name="id" value="${user.id}">
+											<div class="form-gorup">
+											<span id='message'></span>
+											</div>
 											<div class="form-group">
 												<label for="recipient-name" class="form-control-label">
 													Password:
 												</label>
 												<div class="input-group">
-												<input type="password" class="form-control"  name="password">
+												<input type="password" class="form-control"  name="password" id="password">
 												</div>
 											</div>
 											<div class="form-group">
@@ -297,14 +301,14 @@
 													Confirm Password:
 												</label>
 												<div class="input-group">
-												<input type="password" class="form-control" name="rpassword">
+												<input type="password" class="form-control" name="rpassword" id="rpassword">
 												</div>
 											</div>
 										</form>
 										
 									</div>
 									<div class="modal-footer">
-								    	<button type="button" class="btn btn-primary submit_button" id="submit_button" data-dismiss="modal">Submit</button>
+								    	<button type="button" class="btn btn-primary submit_button" id="changepass" >Submit</button>
 
 									</div>
 								</div>
@@ -315,6 +319,8 @@
 			
 <!-- begin::Footer -->
 				<jsp:include page="footer.jsp"></jsp:include>
+				
+				
 <!-- end::Footer -->
 		
 		<!-- end:: Page -->
@@ -330,10 +336,55 @@
 		$(document).ready(function(){
 			console.log("READY");
 			
-			$('#submit_button').on('click',function()
+				
+				
+				 $('#change_pass').formValidation({
+
+					 framework : 'bootstrap',
+						live:'disabled',
+						excluded : ":disabled",
+						button:{
+
+							selector : "#changepass",
+							disabled : "disabled",
+						},
+							icon : null,
+							fields: {
+								password: {
+					                validators: {
+					                    notEmpty: {
+					                        message: 'The password is required'
+					                    },
+					                    stringLength: {
+					                        min: 8,
+					                        message: 'The password must have at least 8 characters'
+					                    }
+					                }
+					            },
+			                      rpassword:{
+						                validators: {
+						                    notEmpty: {
+						                        message: 'The password is required'
+						                    },
+						                    stringLength: {
+						                        min: 8,
+						                        message: 'The password must have at least 8 characters'
+						                    }
+						                }
+						            },
+			                      },
+				 });
+				
+				
+			$('#changepass').on('click',function()
 					{
-						var value = $("#change_pass").serialize();
 						
+						if ($('#change_pass').data('formValidation').isValid() == null) {
+							$('#change_pass').data('formValidation').validate();
+						}
+						
+						if($('#change_pass').data('formValidation').isValid() == true) {
+							 var value = $("#change_pass").serialize();
 						$.ajax(
 						{
 							type:"POST",
@@ -341,12 +392,13 @@
 							data:value,
 							success: function(data1)
 							{
-								console.log(data1);
-							
+								console.log("password has been changed");
+								document.getElementById("change_pass").reset();
+								 $('#m_modal_5').modal('toggle');
 							}
 						});
-						
-					});	
+					}
+					});	 
 			});
 		
 		</script>
