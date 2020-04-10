@@ -45,6 +45,9 @@ public class User {
 	
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private VerificationToken verificationToken;
+    
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private ForgetToken forgetToken;
 
     @ManyToMany
     private Set<Role> roles;
