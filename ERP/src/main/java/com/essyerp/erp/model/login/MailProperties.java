@@ -49,7 +49,7 @@ public class MailProperties {
     private String from;
     private String fromName;
     private String verificationapi;
-
+    private String forgetapi;
     public SMTP getSmtp() {
         return smtp;
     }
@@ -85,5 +85,13 @@ public class MailProperties {
 	public String getUsername() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public String getForgetapi() {
+		return forgetapi;
+	}
+
+	public void setForgetapi(String forgetapi) {
+		this.forgetapi = forgetapi;
 	}
 }
