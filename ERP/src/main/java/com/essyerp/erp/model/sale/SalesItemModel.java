@@ -30,6 +30,11 @@ public class SalesItemModel {
 	@Column(name="rate",nullable = false)
 	private double rate;
 	
+	@Column(name="purchase_rate",nullable = false)
+	private double purchaseRate;
+	
+	@Column(name="created_on",length=50)
+	private String createdOn;
 
 	@Column(name="total",nullable = false)
 	private double total;
@@ -47,7 +52,9 @@ public class SalesItemModel {
 	@JoinColumn(name = "sales_id",referencedColumnName = "id",nullable = false)
 	private SalesModel salesModel;
 
-
+	@Column(name="user_id",nullable = false)
+	private Long userid;
+	
 	public long getId() {
 		return id;
 	}
@@ -115,6 +122,36 @@ public class SalesItemModel {
 
 	public void setSalesModel(SalesModel salesModel) {
 		this.salesModel = salesModel;
+	}
+
+
+	public double getPurchaseRate() {
+		return purchaseRate;
+	}
+
+
+	public void setPurchaseRate(double purchaseRate) {
+		this.purchaseRate = purchaseRate;
+	}
+
+
+	public String getCreatedOn() {
+		return createdOn;
+	}
+
+
+	public void setCreatedOn(String createdOn) {
+		this.createdOn = createdOn;
+	}
+
+
+	public Long getUserid() {
+		return userid;
+	}
+
+
+	public void setUserid(Long userid) {
+		this.userid = userid;
 	}
 	
 	
