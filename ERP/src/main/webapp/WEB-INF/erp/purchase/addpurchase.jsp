@@ -144,74 +144,78 @@
 
 									<!-- main -->
 									<div>
-										<div data-item="0">
-
-
-											<div class="" data-index=""></div>
-											<div class="form-group m-form__group row">
-												<div class="col-lg-2">
-													<label> Product: </label>
+										<div class="table-responsive">
+							<p id="errormessageadditem" style="color:red;"></p>
+								<table class="table table-bordered table-framed" id="sales_Table">
+									<thead>
+										<tr>
+											
+											<th class="" width="5%">Sr No.</th>
+											<th class="" width="25%">Product</th>
+											<th class="" width="10%">Ava.Stock</th> 
+											<th class="" width="10%">Qty</th>
+											<th class="" width="15%">Rate</th>
+											<th class="" width="15%">tax</th>
+											<th class="" width="15%">Total</th>
+											<th class="" width="5%">Action</th>
+											
+										</tr>
+									</thead>
+									<tbody  id="item_table">
+									<tr id="0" name="" style="cursor: pointer;"> 
+							                <td class="sno text-center">1</td>
+						            		<td>
 													<div class="m-input-icon m-input-icon--right">
 														<select class="form-control m-input product_id" onchange="calculation(0)" name="purchaseitemModel[0].product.id" id="product_id0">
 															<option value="0">select Product</option>
 														</select>
 													</div>
-												</div>
-												<div class="col-lg-2">
-													<label> Ava.Stock: </label>
+												</td>
+												<td>
 													<div class="m-input-icon m-input-icon--right">
-														<input type="text" name="" id="avl_stock0" class="form-control m-input">
-
-
+														<input type="text" name="" id="avl_stock0" readonly="readonly" class="form-control m-input">
 													</div>
-
-
-												</div>
-												<div class="col-lg-2">
-													<label> Qnty: </label>
+												</td>
+												<td>				
 													<div class="m-input-icon m-input-icon--right">
 														<input type="text" name="purchaseitemModel[0].quantity" id="quantity_id0" class="form-control m-input quantity_id" value="0">
 												</div>
-
-
-												</div>
-												<div class="col-lg-2">
-													<label> Rate: </label>
+												</td>
+												<td>
 													<div class="m-input-icon m-input-icon--right">
 														<input type="text" name="purchaseitemModel[0].rate" id="rate_id0" class="form-control m-input rate_id" value="0">
 
+													</div>
+												</td>
+												<td>
+													<div class="m-input-icon m-input-icon--right">
+														<input type="text" name="tax" id="tax0" class="form-control m-input rate_id" value="0">
+														<input type="hidden" name="taxRate" id="taxRate0" class="form-control m-input rate_id" value="0">
 
 													</div>
-
-
-												</div>
-												<div class="col-lg-2">
-													<label> Total: </label>
+												</td>
+												<td>
 													<div class="m-input-icon m-input-icon--right">
 														<input type="text" name="purchaseitemModel[0].total" id="total_id0" class="form-control m-input total_id" value="0">
-
-
 													</div>
-
-
-												</div>
-												<div class="col-lg-2">
-													<label> Action </label>
+													</td>		
+													<td>
 													<div class="m-input-icon m-input-icon--right">
 														<a class="btn btn-danger delete-pro" data-remove=""><i class="fa fa-trash-o"></i></a>
 													</div>
-
-
-												</div>
-											</div>
-										</div>
+													</td>
+													</tr>
+													</tbody>
+													</table>
 									</div>
+									</div>
+									
 
 
 									<!-- model -->
 
 
-									<div data-list="">
+									<!-- <div data-list="">
 										<div data-item="template" class="m--hide">
 
 
@@ -234,14 +238,14 @@
 
 
 													<div class="m-input-icon m-input-icon--right">
-														<input type="text" name="" id="avl_stock{index}" class="form-control m-input avlstock_id">
+														<input type="text" name="" id="avl_stock{index}" readonly="readonly" class="form-control m-input avlstock_id">
 
 
 													</div>
 
 
 												</div>
-												<div class="col-lg-2">
+												<div class="col-lg-1">
 
 
 													<div class="m-input-icon m-input-icon--right">
@@ -257,6 +261,16 @@
 
 													<div class="m-input-icon m-input-icon--right">
 														<input type="text" name="purchaseitemModel[{index}].rate" id="rate_id{index}" class="form-control m-input rate_id" value="0">
+
+
+													</div>
+
+
+												</div>
+												<div class="col-lg-1">
+													
+													<div class="m-input-icon m-input-icon--right">
+														<input type="text" name="tax{index}" id="tax{index}" class="form-control m-input rate_id" value="0">
 
 
 													</div>
@@ -287,7 +301,7 @@
 
 
 										</div>
-									</div>
+									</div> -->
 
 
 
@@ -353,7 +367,10 @@
 			</div>
 		</div>
 	</div>
-
+<div class="product_id" id="productListDIV" style="display: none;">
+		<option value="">Select product</option>
+		
+	</div>
 
 	<!-- end:: Body -->
 
@@ -388,7 +405,6 @@
 	});
 	
 	var index = 0, productId=1;
-	
 
 	$( document ).ready(function() {
 	    console.log( "ready!" );
@@ -548,7 +564,7 @@
 	    $("#save_purchase").click(function() 
 	    	{
 
-	    	if($("#purchase_form").find("[data-item]").not(".m--hide").length == 0) 
+	    	if($("#purchase_form").find("tr").not(".m--hide").length == 0) 
 	    	{
 	    	toastr.error("","add minimum one product");
 	    	return false;
@@ -566,40 +582,67 @@
 
 });
 	function addProduct() {
+		
+		index++;	
+			$("#item_table")
+				.append('<tr id="'+index+'" name="row'+index+'" style="cursor:pointer;">' 
+		             	+   '<td class="sno text-center">'+index+1+'</td>'
+	            		+'<td><div class="m-input-icon m-input-icon--right">'
+						+'<select class="form-control m-input product_id" onchange="calculation('+index+')" name="purchaseitemModel['+index+'].product.id" id="product_id'+index+'">'
+						+ document.getElementById("productListDIV").innerHTML
+						+'</select></div></td>'
+						+'<td><div class="m-input-icon m-input-icon--right">'
+						+'<input type="text" name="" id="avl_stock'+index+'" readonly="readonly" class="form-control m-input">'
+						+'</div></td>'
+						+'<td><div class="m-input-icon m-input-icon--right">'
+						+'<input type="text" name="purchaseitemModel['+index+'].quantity" id="quantity_id'+index+'" class="form-control m-input quantity_id" value="0">'
+						+'</div></td>'
+						+'<td><div class="m-input-icon m-input-icon--right">'
+						+'<input type="text" name="purchaseitemModel['+index+'].rate" id="rate_id'+index+'" class="form-control m-input rate_id" value="0">'
+						+'</div></td>'
+						+'<td><div class="m-input-icon m-input-icon--right">'
+						+'<input type="text" name="tax" id="tax'+index+'" class="form-control m-input rate_id" value="0"></div></td>'
+						+'<input type="hidden" name="taxRate" id="taxRate'+index+'" class="form-control m-input rate_id" value="0">'
+						+'<td><div class="m-input-icon m-input-icon--right">'
+						+'<input type="text" name="purchaseitemModel['+index+'].total" id="total_id'+index+'" class="form-control m-input total_id" value="0">'
+						+'</div></td>'		
+						+'<td><div class="m-input-icon m-input-icon--right">'
+						+'<a class="btn btn-danger delete-pro" data-remove=""><i class="fa fa-trash-o"></i></a></div></td>'
+						+'</tr>');
+	/* 
+	    	 $productItemTemplate=$("#purchase_form").find("[data-item='template']").clone();
+	    	 
+
+	    	$productItemTemplate.removeClass("m--hide").attr("data-item",productId);
+	    	$productItemTemplate.find("input[type='text'],input[type='hidden'],select,textarea,span").each(function ()
+	    	{
+	    	n=$(this).attr("id");
+	    	n ? $(this).attr("id",n.replace(/{index}/g,productId)) : "";
+	    	n=$(this).attr("onchange");
+	    	n ? $(this).attr("onchange",n.replace(/{index}/g,productId)) : "";
+	    	n=$(this).attr("name");
+	    	n ? $(this).attr("name",n.replace(/{index}/g,productId)) : "";
+
+	    	//$(this).attr("onchange") ? $(this).attr("onchange",$(this).attr("onchange").replace(/{index}/g,productId)) : "";
+	    	});
+	    	
+
+	    	console.log($productItemTemplate);
+
+	    	$("#purchase_form").find("[data-list]").append($productItemTemplate);
+	    	productId++; */
+	    	
+
+	    	setProductSrNo();
+	    	}
 	
-
-    	 $productItemTemplate=$("#purchase_form").find("[data-item='template']").clone();
-    	 
-
-    	$productItemTemplate.removeClass("m--hide").attr("data-item",productId);
-    	$productItemTemplate.find("input[type='text'],input[type='hidden'],select,textarea,span").each(function ()
-    	{
-    	n=$(this).attr("id");
-    	n ? $(this).attr("id",n.replace(/{index}/g,productId)) : "";
-    	n=$(this).attr("onchange");
-    	n ? $(this).attr("onchange",n.replace(/{index}/g,productId)) : "";
-    	n=$(this).attr("name");
-    	n ? $(this).attr("name",n.replace(/{index}/g,productId)) : "";
-
-    	//$(this).attr("onchange") ? $(this).attr("onchange",$(this).attr("onchange").replace(/{index}/g,productId)) : "";
-    	});
-    	
-
-    	console.log($productItemTemplate);
-
-    	$("#purchase_form").find("[data-list]").append($productItemTemplate);
-    	productId++;
-    	
-
-    	setProductSrNo();
-    	}
 	function setProductSrNo() 
 	{
-	var $productItem=$("#purchase_form").find("[data-item]").not(".m--hide");
-	var i = 1;
-	$productItem.each(function (){
-	//$(this).find("[data-index]").html(++i));
-	});
+		 $("td.sno").each(function(index,element){                 
+	            $(element).text(index + 1);
+	            
+	         });
+		
 	}
 	
 
@@ -619,26 +662,47 @@
 
 	$("#quantity_id"+j).val(0);
     	
-
+  
     	var id1 = $("#product_id"+j).val();
     	console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     	
     	$.get("findByIdproduct/"+id1,  // url
 	      function (data, status) {  
     	console.log(data);
+    	console.log(data.taxmodel.tax);
     	 $("#rate_id"+j).val(data.salesPrice);
+    	 $("#tax"+j).val(data.taxmodel.tax+"%");
+    	 $("#taxRate"+j).val(data.taxmodel.taxRate);
+    	});
     	
-
-    });
+    	 $.get("findProductStock/"+id1,  // url
+   		      function (data, status) {  
+   	    	console.log("avl stock ="+data);
+   	    	 $("#avl_stock"+j).val(data);
+   	    	 
+    	 });
 	   
 
     	$("#quantity_id"+j).keyup(function(){ 
 	$("#total_id"+j).empty();
 	
 
-	  var q=$("#quantity_id"+j).val();
-	  var p=$("#rate_id"+j).val();
-	  $("#total_id"+j).val(q*p);
+	var qty=$("#quantity_id"+j).val();
+	  var rate=$("#rate_id"+j).val();
+	  var tax=$("#taxRate"+j).val();
+	  
+	  
+	  
+	  
+	  var taxable_value,tax_amount,total;
+	  taxable_value=qty*rate;
+	  
+	  tax_amount=((parseFloat(taxable_value)*parseFloat(tax))/100);
+	console.log(taxable_value+"  "+tax_amount)
+	total=parseFloat(taxable_value)+parseFloat(tax_amount);
+	
+	$("#total_id"+j).val(total);
+	
 	  
 
 	  grandTotal();
@@ -651,14 +715,37 @@
 	$("#total_id"+j).empty();
 	
 
-	  var q=$("#quantity_id"+j).val();
-	  var p=$("#rate_id"+j).val();
-	  $("#total_id"+j).val(q*p);
-	  grandTotal();
+	var qty=$("#quantity_id"+j).val();
+	  var rate=$("#rate_id"+j).val();
+	  var tax=$("#taxRate"+j).val();
+	  
+	  var taxable_value,tax_amount,total;
+	  taxable_value=qty*rate;
+	  
+	  tax_amount=((parseFloat(taxable_value)*parseFloat(tax))/100);
+	console.log(taxable_value+"  "+tax_amount)
+	total=parseFloat(taxable_value)+parseFloat(tax_amount);
+	
+	$("#total_id"+j).val(total);
+		  grandTotal();
 	});
 	     }
 	function grandTotal(){
-	console.log("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]]]");
+		
+		var total=0 ;
+		$("#grandtotal_id").empty();
+		$("tbody tr").each(function(){
+			var id =$(this).attr("id");
+			console.log("id="+id);
+			console.log($("#total_id"+id).val());
+			 total = parseFloat(total) + parseFloat($("#total_id"+id).val());
+		});
+		
+		console.log("=gt="+total);
+		 
+		 $("#grandtotal_id").val(total);
+		 
+	/* console.log("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]]]");
 	var no5 = parseFloat($("#purchase_form").find("[data-item]").not(".m--hide").length);
 	console.log(no5);
 	var total = 0;
@@ -689,7 +776,7 @@
 	total = parseFloat(total) + parseFloat(no3);
 	}
 	console.log(total);
-	 $("#grandtotal_id").val(total);
+	 $("#grandtotal_id").val(total); */
 	}
 	
 

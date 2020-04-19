@@ -92,6 +92,9 @@
 											<th>
 												Tax
 											</th>
+											<th>
+												Tax Rate
+											</th>
 											
 											<th>
 												Action
@@ -125,10 +128,18 @@
 										<form id="tax_data">
 											<div class="form-group">
 												<label for="recipient-name" class="form-control-label">
-													Tax:
+													Tax Name:
 												</label>
 												<div class="input-group">
 												<input type="text" class="form-control" id="taxname" name="tax">
+												</div>
+												</div>
+											<div class="form-group">
+												<label for="recipient-name" class="form-control-label">
+													Tax Rate:
+												</label>
+												<div class="input-group">
+												<input type="text" class="form-control" id="taxRate" name="taxRate">
 												<div class="input-group-append">
 														<span class="input-group-text" id="basic-addon2">
 															%
@@ -166,11 +177,21 @@
 											<div class="form-group">
 											<input type="hidden" class="form-control" id="taxid" name="id">
 												<label for="recipient-name" class="form-control-label">
-													Tax:
+													Tax Name:
 												</label>
 											   
 												<div class="input-group">
 												<input type="text" class="form-control" id="tax_name" name="tax">
+												</div>
+												</div>
+											<div class="form-group">
+											
+												<label for="recipient-name" class="form-control-label">
+													Tax Rate:
+												</label>
+											   
+												<div class="input-group">
+												<input type="text" class="form-control" id="tax_Rate" name="taxRate">
 												<div class="input-group-append">
 														<span class="input-group-text" id="basic-addon2">
 															%
@@ -238,6 +259,9 @@ $(document).ready(function()
 			    {
 				      data : 'tax',
 				}, 
+				{
+				      data : 'taxRate',
+				}, 
 				
 			     {
 				      data : 'id',
@@ -285,7 +309,7 @@ $('.submit_button').on('click',function()
 							
 							$("#taxid").val(data3.id);
 							$('#tax_name').val(data3.tax);
-							
+							$("#tax_Rate").val(data3.taxRate);
 							
 						}
 					});

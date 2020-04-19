@@ -116,7 +116,15 @@ public class SalesController
 	return ProductRepo.findById(id);
 	}
 	
-	
+	@GetMapping("/findProductStock/{id}")
+	@ResponseBody
+	public long findProductStock(@PathVariable long id, Model m ,HttpServletRequest request)
+	{
+		Long userId = (Long) request.getSession().getAttribute("UserId");
+		long qty=stockRepo.findqty(id, userId);
+		
+	return qty;
+	}
 	 
 	@GetMapping("/manageSales")
 	public String manageSales()

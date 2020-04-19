@@ -25,6 +25,9 @@ public class TaxModel {
 	@Column(name="Tax",nullable = false)
 	private String tax;
 	
+	@Column(name="tax_rate",nullable = false)
+	private long taxRate;
+	
 	
 	@Column(name="isdeleted",nullable = false)
 	private boolean flag;
@@ -55,6 +58,12 @@ public class TaxModel {
 	}
 	public void setId(long id) {
 		this.id = id;
+	}
+	public long getTaxRate() {
+		return taxRate;
+	}
+	public void setTaxRate(long taxRate) {
+		this.taxRate = taxRate;
 	}
 	
 	
