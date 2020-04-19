@@ -71,22 +71,21 @@ public class ForgetTokenService
 
 	        List<ForgetToken> forgetTokens = forgetTokenRepo.findByToken(token);
 	        if (forgetTokens.isEmpty()) {
-	            return "404";
+	            return "/404";
 	        }
 
 	        ForgetToken forgetToken = forgetTokens.get(0);
 	        if (forgetToken.getExpiredDateTime().isBefore(LocalDateTime.now())) {
-	            return "500";
+	            return "/500";
 	        }
 
 	        if ((forgetToken.getStatus()).equalsIgnoreCase("VERIFIED")) {
-	            return "500";
+	            return "/500";
 	        }
 	        
 	        forgetToken.setConfirmedDateTime(LocalDateTime.now());
 	        forgetToken.setStatus(VerificationToken.STATUS_VERIFIED);
 	        session.setAttribute("userID",forgetToken.getUser().getId());
-	        
 //	        System.out.println("===========================");
 //	        System.out.println(forgetToken.getUser().getId());
 //	       

@@ -25,6 +25,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!--begin::Web font -->
 		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+		
 		<script>
           WebFont.load({
             google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
@@ -37,6 +38,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--begin::Base Styles -->
 		<link href="/../../../assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="/../../../assets/demo/default/base/style.bundle.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="/assets/vendors/formvalidation/css/formValidation.min.css">		
 		<!--end::Base Styles -->
 		<link rel="shortcut icon" href="/assets/demo/default/media/img/logo/5a729504-9b87-43d3-8385-9d86b297f6a1_200x200.png" />
 	</head>
@@ -66,12 +68,14 @@ License: You must have a valid license purchased only from themeforest(the above
 											<input class="form-control m-input" type="password"  name="password" placeholder="Password" id="password" autocomplete="off">
 										</div>
 										<div class="form-group m-form__group">
-											<input class="form-control m-input" type="password" placeholder="Confirm Password" name="rpassword" id="rpassword">
+											<input class="form-control m-input" type="password" placeholder="Confirm Password" name="rpassword" id="rpassword" onKeyUp="checkPassword()">
 										</div>
-										<div>
+										<div class="m--font-danger" id="divCheckPasswordMatch">
+										</div>
+										<div class="m-login__form-action">
+											
 											<input type="submit" value="Reset Password"  class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air" id="submit_button1">
-												
-												<!-- </button> -->
+											
 										</div>
 									</form>
 								</div>
@@ -106,11 +110,65 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--begin::Page Snippets -->
 		<script src="/../../../assets/snippets/custom/pages/user/login.js" type="text/javascript"></script>
 		<!--end::Page Snippets -->
+		<script src="/assets/vendors/formvalidation/js/FormValidation.min.js"></script>
+		<script src="/assets/vendors/formvalidation/js/framework/Bootstrap.min.js"></script>
 		<script type="text/javascript">
+		
+		 function checkPassword() {
+		        var password = $('#password').val();
+		        var newPassword = $('#rpassword').val();
+
+		        if (password != newPassword) {
+		        	 $("#divCheckPasswordMatch").html("Passwords do not match!");
+
+		        } else {
+		        	 $("#divCheckPasswordMatch").html("");
+		        }
+		    }
+		
+		
 		$(document).ready(function(){
 			console.log("READY");
 			
 			
+
+			 $('#change_pass1').formValidation({
+
+				 framework : 'bootstrap',
+					live:'disabled',
+					excluded : ":disabled",
+					button:{
+
+						selector : "#submit_button1",
+						disabled : "disabled",
+					},
+						icon : null,
+						fields: {
+							password: {
+				                validators: {
+				                    notEmpty: {
+				                        message: 'The password is required'
+				                    },
+				                    stringLength: {
+				                        min: 6,
+				                        message: 'The password must have at least 8 characters'
+				                    }
+				                }
+				            },
+		                      rpassword:{
+					                validators: {
+					                    notEmpty: {
+					                        message: 'The password is required'
+					                    },
+					                    stringLength: {
+					                        min: 6,
+					                        message: 'The password must have at least 8 characters'
+					                    }
+					                }
+					            },
+		                      },
+			 });
+			 checkPassword();
 			
 			});
 		 
