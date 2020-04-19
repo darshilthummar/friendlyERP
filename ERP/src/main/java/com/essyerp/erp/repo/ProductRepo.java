@@ -24,4 +24,7 @@ public interface ProductRepo extends JpaRepository<ProductModel, Long>,DataTable
 	
 	@Query(value="SELECT * FROM product_tbl WHERE user_id=?1 and is_delete=0",nativeQuery=true)
 	List<ProductModel> findProductData(Long UserID);
+
+	@Query(value="SELECT purchase_price FROM product_tbl WHERE user_id=?2 and is_delete=0 and id=?1" ,nativeQuery=true)
+	public String getpurchasePrice(long id, Long userId);
 }

@@ -1,12 +1,15 @@
 package com.essyerp.erp.controller.sale;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -167,8 +170,18 @@ public class SalesController
 			
 		}
 		
+		 Date todayDate=new Date();
+		 DateFormat dateFormat=new SimpleDateFormat("dd-MM-yyyy");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+		 
+		
 			sm.getSalesItemModel().forEach((si->{
 			si.setSalesModel(sm);
+			
+			
+			si.setPurchaseRate(Long.parseLong(ProductRepo.getpurchasePrice(si.getProduct().getId(),userId)));
+			si.setCreatedOn(dateFormat.format(todayDate));
+			si.setUserid(userId);
 			
 			if(allRequestParams.get("new").equals("1"))
 			{	
@@ -196,7 +209,7 @@ public class SalesController
 				StockTransaction.setDescription("Sales product");
 				StockTransaction.setUserid(userId);
 				
-				Date todayDate=new Date();
+				
 				StockTransaction.setTransactionDate(todayDate);
 				
 				stockTransactionRepo.save(StockTransaction);

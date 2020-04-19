@@ -15,6 +15,7 @@ import com.essyerp.erp.model.login.User;
 import com.essyerp.erp.repo.CustomerRepo;
 import com.essyerp.erp.repo.ProductRepo;
 import com.essyerp.erp.repo.PurchaseRepo;
+import com.essyerp.erp.repo.SalesItemRepo;
 import com.essyerp.erp.repo.SalesRepo;
 import com.essyerp.erp.repo.StockRepo;
 import com.essyerp.erp.repo.logrepo.UserRepository;
@@ -42,6 +43,9 @@ public class IndextController
 	
 	@Autowired
 	StockRepo stockRepo;
+	
+	@Autowired
+	SalesItemRepo salesItemRepo;
 
 	
 	@GetMapping("/login")
@@ -64,6 +68,8 @@ public class IndextController
 		view.addObject("totalStock", stockRepo.countStock(userId));
 		view.addObject("CaseInHand", salesRepo.caseCount("Cash Payment",userId));
 		view.addObject("CaseInBank", salesRepo.caseCount("Bank Payment",userId));
+		view.addObject("totalProfit" ,salesItemRepo.countProfit(userId));
+		System.err.println("totalProfit "+salesItemRepo.countProfit(userId));
 		return view;
 	}
 	

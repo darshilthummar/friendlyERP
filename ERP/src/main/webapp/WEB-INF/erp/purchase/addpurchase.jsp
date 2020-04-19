@@ -554,7 +554,7 @@
 	console.log("hello");
 	var r = confirm("are u sure want to delete");
 	if(r==true){
-	$(this).closest("[data-item]").remove();
+		$(this).closest("tr").remove();
 	  grandTotal();
 	setProductSrNo();
 	//setTotalQty();
