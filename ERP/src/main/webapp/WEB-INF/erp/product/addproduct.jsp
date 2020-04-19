@@ -69,7 +69,7 @@ Product details
 </div>
 </div>
 <!--begin::Form-->
-<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" name="addproduct" method="post" action="addproduct/save">
+<form class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed" name="addproduct" id="addproduct" method="post" action="addproduct/save">
 <div class="m-portlet__body">
 <!-- <div class="form-group m-form__group row">
 <div class="col-lg-4">
@@ -220,7 +220,7 @@ Please enter your address
 <div class="row">
 <div class="col-lg-4"></div>
 <div class="col-lg-8">
-<input type="submit" value="Submit" class="btn btn-primary">
+<input type="submit" value="Submit" id="saveproduct" class="btn btn-primary">
 <button type="reset" class="btn btn-secondary">
 Cancel
 </button>
@@ -253,7 +253,72 @@ Cancel
 $(document).ready(function()
 		{
 	
-	
+	$('#addproduct').formValidation({
+
+		 framework : 'bootstrap',
+			live:'disabled',
+			excluded : ":disabled",
+			button:{
+
+				selector : "#saveproduct",
+				disabled : "disabled",
+			},
+				icon : null,
+				fields: {
+					pname: {
+						validators: {
+                   notEmpty: {
+                          message: 'Product name is Require'
+                      }
+						}
+					},
+                     categorymodel:{
+                  	   validators:{
+                    	 notEmpty: {
+                      	    message: 'category name is required'
+                     				}
+                     			}
+                     },
+                     subcategorymodel: {
+              	validators: {
+                  	 notEmpty: {
+                      	    message: 'subcategory is required'
+                     				}
+         						}
+         				},
+         				unitmodel: {
+              validators: {
+                   notEmpty: {
+                          message: 'unit is required'
+                      }
+                     }
+                     },
+
+                     purchasePrice: {
+                  	   validators: {
+                  	 notEmpty: {
+                      	    message: 'purchase price is required'
+                     				}	
+         						}
+         				},
+         				
+         				salesPrice:{
+         					validators: {
+                  	 notEmpty: {
+                      	    message: 'MRP is required'
+                     				}	
+         						}
+         				},
+         				taxmodel:{
+         					validators: {
+                  	 notEmpty: {
+                      	    message: 'this fild is require'
+                     				}	
+         						}
+         				}
+
+         		},
+	 });
 	
 $.get("/allcategory", function(data, status){
 	console.log(data);

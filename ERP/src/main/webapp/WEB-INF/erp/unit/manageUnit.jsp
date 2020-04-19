@@ -142,7 +142,7 @@
 										
 									</div>
 									<div class="modal-footer">
-								    	<button type="button" class="btn btn-primary submit_button" id="submit_button" data-dismiss="modal">Submit</button>
+								    	<button type="button" class="btn btn-primary submit_button" id="submit_button">Submit</button>
 
 									</div>
 								</div>
@@ -213,6 +213,38 @@
 $(document).ready(function()
 		{
 	
+	
+	 $('#unit_data').formValidation({
+
+		 framework : 'bootstrap',
+			live:'disabled',
+			excluded : ":disabled",
+			button:{
+
+				selector : ".submit_button",
+				disabled : "disabled",
+			},
+				icon : null,
+				fields: {
+					unitname: {
+		                validators: {
+		                    notEmpty: {
+		                        message: 'Enter unitname'
+		                    }
+		                }
+					},
+					unitcode: {
+			                validators: {
+			                    notEmpty: {
+			                        message: 'Enter code'
+			                    }
+			                }
+		            }
+                 }
+	 });
+	
+	
+	
 	 var table = $('#unit_table').DataTable({
 	    	//'scrollX': true,
 	    	'stateSave': true,
@@ -253,8 +285,16 @@ $(document).ready(function()
 			    ]
 			});
 	
-$('.submit_button').on('click',function()
+	
+$('#submit_button').on('click',function()
 		{
+	 if ($('#unit_data').data('formValidation').isValid() == null) {
+			$('#unit_data').data('formValidation').validate();
+			//("#submit_button").prop('disabled', true);
+		
+	 }
+	 if($('#unit_data').data('formValidation').isValid() == true) {
+		//	$("#product_table").find("[data-table-item='template']").remove();
 			var value = $("#unit_data").serialize();
 			$.ajax(
 			{
@@ -263,13 +303,16 @@ $('.submit_button').on('click',function()
 				data:value,
 				success: function(data1)
 				{
-					console.log(data1);
+					//console.log(data1);
 					
 					 document.getElementById("unit_data").reset();
+					 $('#m_modal_5').modal('toggle');
 					 table.draw();
 				}
 			});
+		}
 			
+	 
 		});	
 		
 		

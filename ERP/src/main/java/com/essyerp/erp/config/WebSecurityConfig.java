@@ -41,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				.antMatchers("/location/**", "/assets/**", "/image/**", "/img/**","/css/**","/images/**","/fonts/**", "/public/**",
-				"/resources/public/**", "/resources/**", "/swagger-resources/**", "/registration/**","/friendlyERP/**","/email")
+				"/resources/public/**", "/resources/**", "/swagger-resources/**", "/registration/**","/friendlyERP/**","/forgetpassword/**","/forgetpass/**")
 				.permitAll()
 				.antMatchers("/login").permitAll()
 //				.antMatchers("/index").access("hasRole('ROLE_ADMIN')")

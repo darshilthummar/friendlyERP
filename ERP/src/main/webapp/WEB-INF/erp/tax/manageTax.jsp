@@ -151,7 +151,7 @@
 										
 									</div>
 									<div class="modal-footer">
-								    	<button type="button" class="btn btn-primary submit_button" id="submit_button" data-dismiss="modal">Submit</button>
+								    	<button type="button" class="btn btn-primary submit_button" id="submit_button" >Submit</button>
 
 									</div>
 								</div>
@@ -233,6 +233,31 @@
 $(document).ready(function()
 		{
 	
+	
+	 $('#tax_data').formValidation({
+
+		 framework : 'bootstrap',
+			live:'disabled',
+			excluded : ":disabled",
+			button:{
+
+				selector : ".submit_button",
+				disabled : "disabled",
+			},
+				icon : null,
+				fields: {
+					tax: {
+		                validators: {
+		                    notEmpty: {
+		                        message: 'Enter tax'
+		                    }
+		                }
+		            }
+                 }
+	 });
+	
+	
+	
 	 var table = $('#tax_table').DataTable({
 	    	//'scrollX': true,
 	    	'stateSave': true,
@@ -273,9 +298,16 @@ $(document).ready(function()
 			    ]
 			});
 	
-$('.submit_button').on('click',function()
+	 
+$('#submit_button').on('click',function()
 		{
-			var value = $("#tax_data").serialize();
+	 if ($('#tax_data').data('formValidation').isValid() == null) {
+			$('#tax_data').data('formValidation').validate();
+		
+	 }
+	 if($('#tax_data').data('formValidation').isValid() == true) {
+		var value = $("#tax_data").serialize();
+			
 			$.ajax(
 			{
 				type:"POST",
@@ -283,14 +315,14 @@ $('.submit_button').on('click',function()
 				data:value,
 				success: function(data1)
 				{
-					console.log(data1);
 					
 					 document.getElementById("tax_data").reset();
+					 $('#m_modal_5').modal('toggle');
 					 table.draw();
 				}
 			});
-			
-		});	
+	 }
+		});
 		
 		
 		
