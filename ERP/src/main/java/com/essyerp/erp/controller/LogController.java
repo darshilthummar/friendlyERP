@@ -2,7 +2,6 @@ package com.essyerp.erp.controller;
 
 
 
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -10,7 +9,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.essyerp.erp.model.login.ForgetForm;
-import com.essyerp.erp.model.login.ForgetToken;
 import com.essyerp.erp.model.login.User;
 import com.essyerp.erp.model.login.VerificationForm;
 import com.essyerp.erp.repo.logrepo.FrogetTokenRepo;
@@ -107,6 +104,13 @@ public class LogController
 		
 	}
 	
+	
+//	@GetMapping("/accessdenied")
+//	public String getAccess()
+//	{
+//		return "/403";
+//	}
+//	
 	
 }
 

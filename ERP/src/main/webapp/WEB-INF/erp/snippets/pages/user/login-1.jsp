@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <!-- 
 Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 4
@@ -67,6 +70,14 @@ License: You must have a valid license purchased only from themeforest(the above
 										</div>
 										<div class="form-group m-form__group">
 											<input class="form-control m-input m-login__form-input--last" type="password" id="login_password" placeholder="Password" name="password">
+										</div>
+										<div class="form-group m-form__group">
+										<c:if test="${param.error ne null}">
+											<div class="m--font-danger">Invalid username and password.</div>
+										</c:if>
+										<c:if test="${param.logout ne null}">
+											<div class="m--font-success">You have been logged out.</div>
+										</c:if>
 										</div>
 										<div class="row m-login__form-sub">
 											<div class="col m--align-left">
@@ -204,6 +215,47 @@ License: You must have a valid license purchased only from themeforest(the above
 		<script src="/../../../assets/snippets/custom/pages/user/login.js" type="text/javascript"></script>
 		<!--end::Page Snippets -->
 		<script type="text/javascript">
+		$(document).ready(function(){
+			console.log("READY");
+			
+				
+				
+				 $('#signin').formValidation({
+
+					 framework : 'bootstrap',
+						live:'disabled',
+						excluded : ":disabled",
+						button:{
+
+							selector : "#m_login_signin_submit",
+							disabled : "disabled",
+						},
+							icon : null,
+							fields: {
+								password: {
+					                validators: {
+					                    notEmpty: {
+					                        message: 'The password is required'
+					                    },
+					                    stringLength: {
+					                        min: 8,
+					                        message: 'The password must have at least 8 characters'
+					                    }
+					                }
+					            },
+					            username:{
+						                validators: {
+						                    notEmpty: {
+						                        message: 'The Username is required'
+						                    }
+						                }
+						            },
+			                      },
+				 });
+				
+				
+			
+			});
 		
 		</script>
 	</body>
