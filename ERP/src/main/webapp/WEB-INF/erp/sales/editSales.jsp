@@ -181,7 +181,7 @@
 									<c:set var="srNo" value="${srNo+1}" scope="page"></c:set>
 									 	<tr id="${srNo}" name="${salesItemModel.id}" style="cursor: pointer;"> 
 							                <td class="sno text-center"></td>
-						            		<td>
+						            		<td S>
 						            		<input type="hidden" name="salesItemModel[${srNo}].id" value="${salesItemModel.id}">
 												<div class="form-group" style="margin-bottom: 0px;">
 													<div class="m-input-icon m-input-icon--right">										
