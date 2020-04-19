@@ -252,6 +252,13 @@ $(document).ready(function()
 		                        message: 'Enter tax'
 		                    }
 		                }
+		            },
+		            taxRate: {
+		                validators: {
+		                    notEmpty: {
+		                        message: 'Enter taxrate'
+		                    }
+		                }
 		            }
                  }
 	 });
