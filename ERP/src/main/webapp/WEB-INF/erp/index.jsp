@@ -267,7 +267,7 @@
 												
 												<span style="padding-top: -10px;padding-left: 33%;"><img alt="" height="100px" width="100px" src="/assets/app/media/img/client-logos/ProfitLogo.png" id="demo2">
 												<span class="m-widget24__stats " style="color: #b03f3f;">
-													$$
+													${totalProfit}
 												</span>
 												<div class="progress m-progress--sm" style="margin: 10px 0px 5px 0px;">
 													<div class="progress-bar " role="progressbar" style="width: 100%; background-color: #b03f3f;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
