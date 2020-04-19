@@ -51,7 +51,7 @@ public class CustomLoginFailureHandler implements AuthenticationFailureHandler {
 		message="Invalid User Name or Password";
 		}
 		
-		System.out.println("-----"+request.getParameter("userName"));
+		System.out.println("-----"+request.getParameter("username")+"------"+message);
 		response.sendRedirect(String.format("/login?error=%s", message));
 		
 		
