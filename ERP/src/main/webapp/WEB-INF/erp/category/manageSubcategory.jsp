@@ -135,7 +135,7 @@
 												<label for="recipient-name" class="form-control-label">
 													Select Category:
 												</label>
-											   <select class="form-control" name="categorymodel.id" style="width: 100%;" id="categoryid" >
+											   <select class="form-control" name="categorymodel.id" style="width: 100%;" id="categoryid" required>
 															   <option value="0">select Category</option>
 															   
 															 </select>	
@@ -145,7 +145,7 @@
 										
 									</div>
 									<div class="modal-footer">
-								    	<button type="button" class="btn btn-primary submit_button" id="submit_button" data-dismiss="modal">Submit</button>
+								    	<button type="button" class="btn btn-primary submit_button" id="submit_button" >Submit</button>
 
 									</div>
 								</div>
@@ -192,7 +192,7 @@
 										
 									</div>
 									<div class="modal-footer">
-								    	<button type="button" class="btn btn-primary edit_button" id="edit_button" data-dismiss="modal">Submit</button>
+								    	<button type="button" class="btn btn-primary edit_button" id="edit_button" data-dismiss="modal" >Submit</button>
 
 									</div>
 								</div>
@@ -221,6 +221,30 @@
 <script type="text/javascript">
 $(document).ready(function()
 		{
+	
+	/* START VALIDATION OF ADD CATEGROY */
+	$('#subcategory_data').formValidation({
+
+		 framework : 'bootstrap',
+			live:'disabled',
+			excluded : ":disabled",
+			button:{
+				selector : "#submit_button",
+				disabled : "disabled",
+			},
+				icon : null,
+				fields: {
+					subcategoryname: {
+						validators: {
+                   notEmpty: {
+                          message: 'The Subcategoryname is required'
+                      }
+                     }
+                    }
+         		}
+	 });
+	/* END VALIDATION */
+	
 	
 	/* category list */
 	$.get("/allcategory", function(data, status){
@@ -285,6 +309,12 @@ $(document).ready(function()
 	
 $('.submit_button').on('click',function()
 		{
+	 if ($('#subcategory_data').data('formValidation').isValid() == null) {
+			$('#subcategory_data').data('formValidation').validate();
+	 }
+	 
+	 if ($('#subcategory_data').data('formValidation').isValid() == true) {
+	
 			var value = $("#subcategory_data").serialize();
 			$.ajax(
 			{
@@ -296,10 +326,12 @@ $('.submit_button').on('click',function()
 					console.log(data1);
 					
 					 document.getElementById("subcategory_data").reset();
+					 $('#m_modal_5').modal('toggle');
+
 					 table.draw();
 				}
 			});
-			
+	 }	
 		});	
 		
 		

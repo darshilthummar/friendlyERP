@@ -133,7 +133,7 @@
 										
 									</div>
 									<div class="modal-footer">
-									<input type="submit" value="Submit" id="submit_button" class="btn btn-primary submit_button" data-dismiss="modal">
+									<input type="submit" value="Submit" id="submit_button" class="btn btn-primary submit_button" >
 <!-- 								    	<button type="button" class="btn btn-primary submit_button" id="submit_button" data-dismiss="modal">Submit</button>
  -->
 									</div>
@@ -281,11 +281,13 @@ $(document).ready(function()
 $('#submit_button').on('click',function()
 		{
 	
-	 var value = $("#addcategory").serialize();
 	 
 	 if ($('#addcategory').data('formValidation').isValid() == null) {
 			$('#addcategory').data('formValidation').validate();
-		
+	 }
+	 if ($('#addcategory').data('formValidation').isValid() == true) {
+		 var value = $("#addcategory").serialize();
+	
 			$.ajax(
 			{
 				type:"POST",
@@ -296,6 +298,8 @@ $('#submit_button').on('click',function()
 					console.log(data1);
 					
 					 document.getElementById("addcategory").reset();
+					 $('#m_modal_5').modal('toggle');
+
 					 table.draw();
 				}
 			});
