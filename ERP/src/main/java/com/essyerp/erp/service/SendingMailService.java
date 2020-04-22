@@ -55,7 +55,7 @@ public class SendingMailService {
     
     public boolean sendForgetMail(String toEmail, String verificationCode) {
        
-    	User user= userrepo.findEmail(toEmail);
+    	User user= userrepo.findAtEmail(toEmail);
     	String username=user.getUsername();
     	String subject = "Reset your password";
         String body = "";

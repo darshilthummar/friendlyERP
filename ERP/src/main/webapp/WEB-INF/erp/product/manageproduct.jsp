@@ -81,7 +81,7 @@ Add Product
 <thead style="text-align: center;">
 <tr>
 <th>
-Id
+#
 </th>
 <th>
 Name
@@ -166,7 +166,15 @@ var table = $('#product_table').DataTable(
      }
 }
   
-]
+],
+
+columnDefs:[{
+	targets: 0,
+	orderable: !1,
+	render: function(a, e, t, n){
+		return (n.row+1);
+	}
+}]
  });
 
 // for delete----------------------------------------------
@@ -230,7 +238,7 @@ console.log(data);
 		   "hideMethod": "fadeOut"
 		 };
 
-		 toastr.success('press for undo <button type="button" class="btn btn-outline-light btn-sm m-btn m-btn--air m-btn--wide" style="margin-left:20%" data-id="'+id1+'" id="btn">Yes</button>', "Undo");
+		 toastr.success('press for undo <button type="button" class="btn btn-outline-light btn-sm m-btn m-btn--air m-btn--wide" style="margin-left:20%" data-id="'+id1+'" id="btn">undo</button>', "Undo");
 		
 		  $("#btn").on('click',function(){
 			 

@@ -85,4 +85,17 @@ public class IndextController
 		return userRepo.findById(user).orElse(null);
 	}
 	
+	@RequestMapping("/contact")
+	public String contactUs()
+	{
+		
+		return "contactUs";
+	}
+	@RequestMapping("/aboutUs")
+	public String aboutUsMethod()
+	{
+		
+		return "aboutUs";
+	}
+	
 }

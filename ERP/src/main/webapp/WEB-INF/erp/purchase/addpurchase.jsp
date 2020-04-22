@@ -38,7 +38,7 @@
 			<div class="d-flex align-items-center">
 				<div class="mr-auto">
 					<h3 class="m-subheader__title m-subheader__title--separator">
-						Sales</h3>
+						Purchase</h3>
 					<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 						<li class="m-nav__item m-nav__item--home"><a href="#"
 							class="m-nav__link m-nav__link--icon"> <i
@@ -104,7 +104,7 @@
 										</div>
 										<label class="col-lg-2 col-form-label"> Date: </label>
 										<div class="col-lg-4">
-										<input type="text" class="form-control daterange-single" name="date" id="date_id"  >
+										<input type="date" class="form-control daterange-single" name="date" id="date_id"  >
 										<div class="form-control-feedback">
 											<i class="icon-calendar22" ></i>
 										</div>
@@ -196,7 +196,7 @@
 												</td>
 												<td>
 													<div class="m-input-icon m-input-icon--right">
-														<input type="text" name="purchaseitemModel[0].total" id="total_id0" class="form-control m-input total_id" value="0">
+														<input type="text" name="purchaseitemModel[0].total" id="total_id0" readonly="readonly" class="form-control m-input total_id" value="0">
 													</div>
 													</td>		
 													<td>
@@ -389,20 +389,31 @@
 
 	<jsp:include page="../basescript.jsp" />
 	<script src="/assets/vendors/formvalidation/js/FormValidation.min.js"></script>
-	<script src="/assets/app/js/select2.js"></script>
-	<script src="/assets/app/js/daterangepicker.js"></script>
+	<!-- <script src="/assets/app/js/select2.js"></script>
+	<script src="/assets/app/js/daterangepicker.js"></script> -->
 	<script
 		src="/assets/vendors/formvalidation/js/framework/Bootstrap.min.js"></script>
 	<!-- end::Body -->
 	<script type="text/javascript">
 	
-	$('.daterange-single').daterangepicker({
+	/* $('.daterange-single').daterangepicker({
 		singleDatePicker : true,
 		locale:{
 		format: 'YYYY-MM-DD' 
 		}
    
-	});
+	}); */
+	
+	var d = new Date();
+
+	var month = d.getMonth()+1;
+	var day = d.getDate();
+
+	var output = d.getFullYear() + '-' +
+	    (month<10 ? '0' : '') + month + '-' +
+	    (day<10 ? '0' : '') + day;
+	
+	$("#date_id").val(output);
 	
 	var index = 0, productId=1;
 
@@ -604,7 +615,7 @@
 						+'<input type="text" name="tax" id="tax'+index+'" class="form-control m-input rate_id" value="0"></div></td>'
 						+'<input type="hidden" name="taxRate" id="taxRate'+index+'" class="form-control m-input rate_id" value="0">'
 						+'<td><div class="m-input-icon m-input-icon--right">'
-						+'<input type="text" name="purchaseitemModel['+index+'].total" id="total_id'+index+'" class="form-control m-input total_id" value="0">'
+						+'<input type="text" name="purchaseitemModel['+index+'].total" id="total_id'+index+'" readonly="readonly" class="form-control m-input total_id" value="0">'
 						+'</div></td>'		
 						+'<td><div class="m-input-icon m-input-icon--right">'
 						+'<a class="btn btn-danger delete-pro" data-remove=""><i class="fa fa-trash-o"></i></a></div></td>'
@@ -662,7 +673,7 @@
 
 	$("#quantity_id"+j).val(0);
     	
-  
+	$("#grandtotal_id").val(0);
     	var id1 = $("#product_id"+j).val();
     	console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     	

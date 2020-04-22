@@ -68,7 +68,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											<input class="form-control m-input" type="password"  name="password" placeholder="Password" id="password" autocomplete="off">
 										</div>
 										<div class="form-group m-form__group">
-											<input class="form-control m-input" type="password" placeholder="Confirm Password" name="rpassword" id="rpassword" onKeyUp="checkPassword()">
+											<input class="form-control m-input" type="password" placeholder="Confirm Password" name="rpassword" id="rpassword">
 										</div>
 										<div class="m--font-danger" id="divCheckPasswordMatch">
 										</div>
@@ -114,7 +114,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<script src="/assets/vendors/formvalidation/js/framework/Bootstrap.min.js"></script>
 		<script type="text/javascript">
 		
-		 function checkPassword() {
+		 /* function checkPassword() {
 		        var password = $('#password').val();
 		        var newPassword = $('#rpassword').val();
 
@@ -170,8 +170,43 @@ License: You must have a valid license purchased only from themeforest(the above
 			 });
 			 checkPassword();
 			
-			});
+			}); */
 		 
+			
+			
+
+			$(document).ready(function(){
+				console.log("READY");
+				
+		        var validator = $("#change_pass1").validate({
+		            rules: {
+		                password: {
+		                    required: true,
+		                    minlength: 8
+
+		                },
+		                rpassword: {
+		                    equalTo: "#password"
+		                }
+		            },
+		            messages: {
+		                password: {
+		                    required: "The password is required",
+		                    minlength: "The password must have at least 8 characters"
+		                },
+		                rpassword: {
+		                    equalTo: "confirm Password is not same as password"
+		                }
+		            }
+		        });
+		       
+		   
+					
+						
+					
+					
+					
+				});
 		</script>
 	</body>
 	<!-- end::Body -->
