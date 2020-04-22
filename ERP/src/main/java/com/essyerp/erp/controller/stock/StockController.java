@@ -1,5 +1,6 @@
 package com.essyerp.erp.controller.stock;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +10,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
@@ -37,6 +39,9 @@ import com.essyerp.erp.repo.SalesRepo;
 import com.essyerp.erp.repo.StateRepo;
 import com.essyerp.erp.repo.StockRepo;
 import com.essyerp.erp.repo.StockTransactionRepo;
+import com.essyerp.erp.service.StockReportService;
+
+import net.sf.jasperreports.engine.JRException;
 
 @Controller
 @RequestMapping(value= {"/stock"})
@@ -70,6 +75,9 @@ public class StockController
 	
 	@Autowired
 	StockTransactionRepo stockTransactionRepo;
+	
+	@Autowired
+	StockReportService stockReportService;
 	
 	@GetMapping("/stockMaster")
 	public String stockMaster()
@@ -147,6 +155,23 @@ public class StockController
 		  return stockTransactionRepo.findAll(input,null,stock);
 	}
 	
+	@RequestMapping("/stockreport1")
+	@ResponseBody
+	public List<StockModel> Report() 
+	{
+		
+		return stockRepo.findStockData((long) 5);
+		
+	}
+	
+	@GetMapping("/stockreport/{formate}")
+	@ResponseBody
+	public String generateReport(@PathVariable String formate , HttpServletResponse response,HttpServletRequest request) throws JRException, IOException
+	{
+		
+		return stockReportService.exportReport(formate, response, request);
+		
+	}
 	
 	
 }

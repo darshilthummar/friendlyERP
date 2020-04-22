@@ -104,7 +104,7 @@
 										</div>
 										<label class="col-lg-2 col-form-label"> Date: </label>
 										<div class="col-lg-4">
-										<input type="text" class="form-control daterange-single" name="date" id="date_id"  >
+										<input type="date" class="form-control daterange-single" name="date" id="date_id"  >
 										<div class="form-control-feedback">
 											<i class="icon-calendar22" ></i>
 										</div>
@@ -174,30 +174,30 @@
 												</td>
 												<td>
 													<div class="m-input-icon m-input-icon--right">
-														<input type="text" name="" id="avl_stock0" readonly="readonly" class="form-control m-input">
+														<input type="text" name="" id="avl_stock0" readonly="readonly" class="form-control m-input" placeholder="0">
 													</div>
 												</td>
 												<td>				
 													<div class="m-input-icon m-input-icon--right">
-														<input type="text" name="salesItemModel[0].quantity" id="quantity_id0" class="form-control m-input quantity_id" value="0">
+														<input type="text" name="salesItemModel[0].quantity" id="quantity_id0" class="form-control m-input quantity_id1" placeholder="0">
 												</div>
 												</td>
 												<td>
 													<div class="m-input-icon m-input-icon--right">
-														<input type="text" name="salesItemModel[0].rate" id="rate_id0" class="form-control m-input rate_id" value="0">
+														<input type="text" name="salesItemModel[0].rate" id="rate_id0" class="form-control m-input rate_id" placeholder="0">
 
 													</div>
 												</td>
 												<td>
 													<div class="m-input-icon m-input-icon--right">
-														<input type="text" name="tax" id="tax0" class="form-control m-input rate_id" value="0">
-														<input type="hidden" name="taxRate" id="taxRate0" class="form-control m-input rate_id" value="0">
+														<input type="text" name="tax" id="tax0" class="form-control m-input rate_id" placeholder="0">
+														<input type="hidden" name="taxRate" id="taxRate0" class="form-control m-input rate_id">
 
 													</div>
 												</td>
 												<td>
 													<div class="m-input-icon m-input-icon--right">
-														<input type="text" name="salesItemModel[0].total" id="total_id0" class="form-control m-input total_id" value="0">
+														<input type="text" name="salesItemModel[0].total" id="total_id0" readonly="readonly" class="form-control m-input total_id" placeholder="0">
 													</div>
 													</td>		
 													<td>
@@ -300,20 +300,30 @@
 
 	<jsp:include page="../basescript.jsp" />
 	<script src="/assets/vendors/formvalidation/js/FormValidation.min.js"></script>
-	<script src="/assets/app/js/select2.js"></script>
-	<script src="/assets/app/js/daterangepicker.js"></script>
+	<!-- <script src="/assets/app/js/select2.js"></script>
+	<script src="/assets/app/js/daterangepicker.js"></script> -->
 	<script
 		src="/assets/vendors/formvalidation/js/framework/Bootstrap.min.js"></script>
 	<!-- end::Body -->
 	<script type="text/javascript">
 	
-	$('.daterange-single').daterangepicker({
+	/* $('.daterange-single').daterangepicker({
 		singleDatePicker : true,
 		locale:{
 		format: 'YYYY-MM-DD' 
 		}
    
-	});
+	}); */
+	var d = new Date();
+
+	var month = d.getMonth()+1;
+	var day = d.getDate();
+
+	var output = d.getFullYear() + '-' +
+	    (month<10 ? '0' : '') + month + '-' +
+	    (day<10 ? '0' : '') + day;
+	
+	$("#date_id").val(output);
 	
 	var index = 0, productId=1;
 	
@@ -321,7 +331,12 @@
 	$( document ).ready(function() {
 	    console.log( "ready!" );
 	
-
+	   
+	        
+	   
+	    
+	    
+	    
 	     /* $.get("/findAllCustomer", function(data, status){
 	    	console.log(data);
 	    	$.each(data,function(i,o){
@@ -504,19 +519,19 @@
 					+ document.getElementById("productListDIV").innerHTML
 					+'</select></div></td>'
 					+'<td><div class="m-input-icon m-input-icon--right">'
-					+'<input type="text" name="" id="avl_stock'+index+'" readonly="readonly" class="form-control m-input">'
+					+'<input type="text" name="" id="avl_stock'+index+'" readonly="readonly" class="form-control m-input" placeholder="0">'
 					+'</div></td>'
 					+'<td><div class="m-input-icon m-input-icon--right">'
-					+'<input type="text" name="salesItemModel['+index+'].quantity" id="quantity_id'+index+'" class="form-control m-input quantity_id" value="0">'
+					+'<input type="text" name="salesItemModel['+index+'].quantity" id="quantity_id'+index+'" class="form-control m-input quantity_id1" placeholder="0">'
 					+'</div></td>'
 					+'<td><div class="m-input-icon m-input-icon--right">'
-					+'<input type="text" name="salesItemModel['+index+'].rate" id="rate_id'+index+'" class="form-control m-input rate_id" value="0">'
+					+'<input type="text" name="salesItemModel['+index+'].rate" id="rate_id'+index+'" class="form-control m-input rate_id" placeholder="0">'
 					+'</div></td>'
 					+'<td><div class="m-input-icon m-input-icon--right">'
-					+'<input type="text" name="tax" id="tax'+index+'" class="form-control m-input rate_id" value="0"></div></td>'
-					+'<input type="hidden" name="taxRate" id="taxRate'+index+'" class="form-control m-input rate_id" value="0">'
+					+'<input type="text" name="tax" id="tax'+index+'" class="form-control m-input rate_id" placeholder="0"></div></td>'
+					+'<input type="hidden" name="taxRate" id="taxRate'+index+'" class="form-control m-input rate_id" placeholder="0">'
 					+'<td><div class="m-input-icon m-input-icon--right">'
-					+'<input type="text" name="salesItemModel['+index+'].total" id="total_id'+index+'" class="form-control m-input total_id" value="0">'
+					+'<input type="text" name="salesItemModel['+index+'].total" id="total_id'+index+'" readonly="readonly" class="form-control m-input total_id" placeholder="0">'
 					+'</div></td>'		
 					+'<td><div class="m-input-icon m-input-icon--right">'
 					+'<a class="btn btn-danger delete-pro" data-remove=""><i class="fa fa-trash-o"></i></a></div></td>'
@@ -573,11 +588,12 @@
 
 	  
 
-	    $("#rate_id"+j).val(0);
-	$("#total_id"+j).val(0);
+	    $("#rate_id"+j).val("");
+	$("#total_id"+j).val("");
 	
-
-	$("#quantity_id"+j).val(0);
+	$("#avl_stock"+j).val("");
+	$("#tax"+j).val("");
+	$("#quantity_id"+j).val("");
     	
 
     	var id1 = $("#product_id"+j).val();

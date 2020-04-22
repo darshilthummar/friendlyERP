@@ -144,23 +144,36 @@ Measurement:
 
 </div>
 <div class="col-lg-4">
+<label>
+Tax:
+</label>
+<div class="m-input-icon m-input-icon--right">
+<select class="form-control m-select2" name="taxmodel.id" id="taxid" >
+   <option value="0">select Tax</option>
+   </select>
+</div>
+<!-- <span class="m-form__help">
+Please enter your address
+</span> -->
+</div>
+<!-- <div class="col-lg-4">
 <label class="">
 Product image:
 </label>
 <div class="m-input-icon m-input-icon--right">
-<!-- <input type="text" name="city" id="city" class="form-control m-input" placeholder="city"> -->
+<input type="text" name="city" id="city" class="form-control m-input" placeholder="city">
                               <input type="file" name="image" class="form-control m-input" id="image" tabindex="" placeholder="upload product image">
 
-<!-- <span class="m-input-icon__icon m-input-icon__icon--right">
+<span class="m-input-icon__icon m-input-icon__icon--right">
 <span>
 <i class="la la-info-circle"></i>
 </span>
-</span> -->
+</span>
 </div>
-<!-- <span class="m-form__help">
+<span class="m-form__help">
 Please enter city
-</span> -->
-</div>
+</span>
+</div> -->
 <div class="col-lg-4">
 <label>
 Product description:
@@ -199,7 +212,7 @@ MRP:
 Please enter fax
 </span> -->
 </div>
-<div class="col-lg-4">
+<!-- <div class="col-lg-4">
 <label>
 Tax:
 </label>
@@ -208,10 +221,10 @@ Tax:
    <option value="0">select Tax</option>
    </select>
 </div>
-<!-- <span class="m-form__help">
+<span class="m-form__help">
 Please enter your address
-</span> -->
-</div>
+</span>
+</div> -->
 </div>
 
 </div>

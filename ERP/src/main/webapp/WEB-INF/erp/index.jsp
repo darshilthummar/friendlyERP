@@ -117,7 +117,7 @@
 												<br><br>
 												
 												
-												<span style="padding-top: -10px;padding-left: 33%;"><img alt="" height="100px" width="100px" src="/assets/app/media/img/client-logos/productLogo.png" id="demo2">
+												<span style="padding-top: -10px;padding-left: 33%;"><img alt="" height="100px" width="100px" src="/assets/app/media/img/client-logos/Product.png" id="demo2">
 												<span class="m-widget24__stats" style="color: #ef5d5d;">
 													${totalProduct}
 												</span>
@@ -221,7 +221,7 @@
 												<br><br>
 												
 												
-												<span style="padding-top: -10px;padding-left: 33%;"><img alt="" height="100px" width="100px" src="/assets/app/media/img/client-logos/CaseInHandLogo.png" id="demo2">
+												<span style="padding-top: -10px;padding-left: 33%;"><img alt="" height="100px" width="100px" src="/assets/app/media/img/client-logos/CashInHand.png" id="demo2">
 												<span class="m-widget24__stats " style="color: #73d147">
 													${CaseInHand}
 												</span>
@@ -243,7 +243,7 @@
 												<br><br>
 												
 												
-												<span style="padding-top: -10px;padding-left: 33%;"><img alt="" height="100px" width="100px" src="/assets/app/media/img/client-logos/BankLogo.png" id="demo2">
+												<span style="padding-top: -10px;padding-left: 33%;"><img alt="" height="100px" width="100px" src="/assets/app/media/img/client-logos/CashInBank.png" id="demo2">
 												<span class="m-widget24__stats " style="color: #0662ac;">
 													${CaseInBank}
 												</span>
@@ -265,14 +265,14 @@
 												<br><br>
 												
 												
-												<span style="padding-top: -10px;padding-left: 33%;"><img alt="" height="100px" width="100px" src="/assets/app/media/img/client-logos/ProfitLogo.png" id="demo2">
+												<span style="padding-top: -10px;padding-left: 33%;"><img alt="" height="100px" width="100px" src="/assets/app/media/img/client-logos/Profit.png" id="demo2">
 												<span class="m-widget24__stats " style="color: #b03f3f;">
 													${totalProfit}
 												</span>
 												<div class="progress m-progress--sm" style="margin: 10px 0px 5px 0px;">
 													<div class="progress-bar " role="progressbar" style="width: 100%; background-color: #b03f3f;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 												</div>
-													<p style="text-align: center;">Profit</p>
+													<p style="text-align: center;">Last 30 days Profit</p>
 												 
 												
 												</span>
@@ -293,7 +293,7 @@
 												</span>
 												<h3 class="m-portlet__head-text">
 													Purchase-Sales Graph
-													 <span style="color: #5a73f2;margin-left:200px;font-size:30px" id="year1"></span>
+													 <span style="color: rgb(11, 98, 164);margin-left:200px;font-size:30px" id="year1"></span>
 												</h3>
 												
 												
@@ -311,6 +311,7 @@
 									</div>
 									<div class="m-portlet__body" >
 										<div id="m_morris_3" style="height:500px" class="area-chart2"></div>
+										
 									</div>
 								</div>
 					</div>
@@ -327,22 +328,22 @@
 								2020 &copy; FriendlyERP
 							</span>
 						</div>
-						<div class="m-stack__item m-stack__item--right m-stack__item--middle m-stack__item--first">
+					 <div class="m-stack__item m-stack__item--right m-stack__item--middle m-stack__item--first">
 							<ul class="m-footer__nav m-nav m-nav--inline m--pull-right">
-								<li class="m-nav__item">
+								<!-- <li class="m-nav__item">
 									<a href="#" class="m-nav__link">
 										<span class="m-nav__link-text">
 											About
 										</span>
 									</a>
-								</li>
-								<li class="m-nav__item">
+								</li> -->
+								<!-- <li class="m-nav__item">
 									<a href="#"  class="m-nav__link">
 										<span class="m-nav__link-text">
 											Privacy
 										</span>
 									</a>
-								</li>
+								</li> -->
 								<li class="m-nav__item">
 									<a href="#" class="m-nav__link">
 										<span class="m-nav__link-text">
@@ -350,20 +351,20 @@
 										</span>
 									</a>
 								</li>
-								<li class="m-nav__item">
+								<!-- <li class="m-nav__item">
 									<a href="#" class="m-nav__link">
 										<span class="m-nav__link-text">
 											Purchase
 										</span>
 									</a>
-								</li>
+								</li> -->
 								<li class="m-nav__item m-nav__item">
 									<a href="#" class="m-nav__link" data-toggle="m-tooltip" title="Support Center" data-placement="left">
 										<i class="m-nav__link-icon flaticon-info m--icon-font-size-lg3"></i>
 									</a>
 								</li>
 							</ul>
-						</div>
+						</div> 
 					</div>
 				</div>
 			</footer>
@@ -405,6 +406,9 @@
 		resize: true
 		});
 		}
+		
+		
+		
 		/* var demo1 = function() {
 		        // BAR CHART
 		new Morris.Line({
@@ -472,6 +476,7 @@
 		// public functions
 		init : function() {
 		demo3();
+		
 		
 		}
 		};

@@ -75,15 +75,25 @@ var SnippetLogin = function() {
 													email: !0
 												},
 												password: {
-													required: !0
+													required: !0,
+													minlength: 8
 												},
 												rpassword: {
-													required: !0
+													required: !0,
+													equalTo: "#password"
 												},
 												agree: {
 													required: !0
 												}
-											}
+											},
+											messages: {
+												password: {
+								                    minlength: "The password must have at least 8 characters"
+								                },
+								                rpassword: {
+								                    equalTo: "confirm Password is not same as password"
+								                }
+								            }
 										}),
 										r.valid() && (
 											t.addClass("m-loader m-loader--right m-loader--light").attr("disabled", !0),

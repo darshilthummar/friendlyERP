@@ -51,7 +51,9 @@ public class LogController
 		String pss=user.getPassword();
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
 		user.setPassword(pe.encode(pss));
+		user.setImg("User.jpeg");
        userrepo.save(user);
+       
        verificationTokenService.createVerification(verificationForm.getEmail());
 
         return "redirect:/index";
