@@ -38,9 +38,9 @@
 	</pageHeader>
 	<columnHeader>
 		<band height="21">
-			<line>
+			<!-- <line>
 				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="fb8aa0bc-610c-4aa9-bc6b-1e1d852e13c6"/>
-			</line>
+			</line> -->
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="0" width="69" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="b72b7f9f-468f-4e72-b57f-132df92b79b8">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="99b885c2-8e28-451a-aa7d-ca4939bc37d2"/>
@@ -117,9 +117,9 @@
 	</columnHeader>
 	<detail>
 		<band height="20">
-			<line>
+			<!-- <line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="b44ce5e9-080f-4abc-892c-5bb6a0ac8859"/>
-			</line>
+			</line> -->
 			<textField textAdjust="StretchHeight">
 				<reportElement x="0" y="0" width="69" height="20" uuid="55d81da4-a9ae-4ca9-865e-e3d9fd2832f4">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="99b885c2-8e28-451a-aa7d-ca4939bc37d2"/>

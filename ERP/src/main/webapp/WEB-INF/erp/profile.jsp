@@ -12,7 +12,9 @@
 		
 		<style type="text/css">
 		
-		
+		.demo{
+		font-size: 12px;
+		}
 		#demo2:hover {
 		
     transform: scale(1.4);
@@ -90,14 +92,14 @@
 													</span>
 												</a>
 											</li>
-											<li class="m-nav__item">
+											<!-- <li class="m-nav__item">
 												<a href="../header/profile&amp;demo=default.html" class="m-nav__link">
 													<i class="m-nav__link-icon flaticon-share"></i>
 													<span class="m-nav__link-text">
 														Activity
 													</span>
 												</a>
-											</li>
+											</li> -->
 											<li class="m-nav__item">
 												<a href=""  class="m-nav__link edit" data-toggle="modal" data-target="#m_modal_5">
 													<i class="m-nav__link-icon flaticon-lock-1"></i>
@@ -106,14 +108,14 @@
 													</span>
 												</a>
 											</li>
-											<li class="m-nav__item">
+											<!-- <li class="m-nav__item">
 												<a href="../header/profile&amp;demo=default.html" class="m-nav__link">
 													<i class="m-nav__link-icon flaticon-lifebuoy"></i>
 													<span class="m-nav__link-text">
 														Support
 													</span>
 												</a>
-											</li>
+											</li> -->
 										</ul>
 										<div class="m-portlet__body-separator"></div>
 									</div>
@@ -288,18 +290,20 @@
 											<div class="form-gorup">
 											<span id='message'></span>
 											</div>
-											<div class="form-group">
-												<label for="recipient-name" class="form-control-label">
+											<label for="recipient-name" class="form-control-label">
 													Password:
 												</label>
+											<div class="form-group m-form__group demo">
+												
 												<div class="input-group">
 												<input type="password" class="form-control"  name="password" id="password">
 												</div>
 											</div>
-											<div class="form-group">
-												<label for="recipient-name" class="form-control-label">
+											<label for="recipient-name" class="form-control-label">
 													Confirm Password:
 												</label>
+											<div class="form-group m-form__group demo">
+												
 												<div class="input-group">
 												<input type="password" class="form-control" name="rpassword" id="rpassword">
 												</div>
@@ -308,7 +312,7 @@
 										
 									</div>
 									<div class="modal-footer">
-								    	<button type="button" class="btn btn-primary submit_button" id="changepass" >Submit</button>
+								    	<button type="button" class="btn btn-primary submit_button" id="changepass" onClick="validatePassword();">Submit</button>
 
 									</div>
 								</div>
@@ -333,12 +337,56 @@
 	</body>
 	<!-- end::Body -->
 	<script type="text/javascript">
+	function validatePassword() {
+		
+        var validator = $("#change_pass").validate({
+            rules: {
+                password: {
+                    required: true,
+                    minlength: 8
+
+                },
+                rpassword: {
+                    equalTo: "#password"
+                }
+            },
+            messages: {
+                password: {
+                    required: "The password is required",
+                    minlength: "The password must have at least 8 characters"
+                },
+                rpassword: {
+                    equalTo: "confirm Password is not same as password"
+                }
+            }
+        });
+        if (validator.form()) {
+        	 var value = $("#change_pass").serialize();
+				$.ajax(
+				{
+					type:"POST",
+					url:"/save",
+					data:value,
+					success: function(data1)
+					{
+						console.log("password has been changed");
+						document.getElementById("change_pass").reset();
+						 $('#m_modal_5').modal('toggle');
+					}
+				});
+        }
+    }
 		$(document).ready(function(){
 			console.log("READY");
 			
 				
+			
+			
+			
+		});
+			
 				
-				 $('#change_pass').formValidation({
+				 /* $('#change_pass').formValidation({
 
 					 framework : 'bootstrap',
 						live:'disabled',
@@ -363,13 +411,7 @@
 					            },
 			                      rpassword:{
 						                validators: {
-						                    notEmpty: {
-						                        message: 'The password is required'
-						                    },
-						                    stringLength: {
-						                        min: 8,
-						                        message: 'The password must have at least 8 characters'
-						                    }
+						                	 equalTo: '#password'
 						                }
 						            },
 			                      },
@@ -399,7 +441,7 @@
 						});
 					}
 					});	 
-			});
+			}); */
 		
 		</script>
 </html>
