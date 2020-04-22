@@ -71,10 +71,12 @@
 										</li>
 									</ul>
 								</div> -->
+								<a target="_blank" class="m-btn btn btn-success" href="/stock/stockreport/pdf" style="margin-top: 15px">PDF</a>
+							<a class="m-btn btn btn-warning" href="/stock/stockreport/xls" style="margin-top: 15px">XLS</a>
 							</div>
 							<div class="m-portlet__body">
 								<!--begin: Datatable -->
-								<table class="table table-striped- table-bordered table-hover table-checkable my_table_1" id="sales_table_1">
+								<table class="table table-striped- table-bordered table-hover table-checkable my_table_1" id="sales_table_1" style="text-align: center;">
 									<thead>
 										<tr>
 											

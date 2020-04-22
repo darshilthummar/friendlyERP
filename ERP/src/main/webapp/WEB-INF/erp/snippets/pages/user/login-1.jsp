@@ -193,15 +193,21 @@ License: You must have a valid license purchased only from themeforest(the above
 						</div>
 					</div>
 				</div>
+				
 				<div class="m-grid__item m-grid__item--fluid m-grid m-grid--center m-grid--hor m-grid__item--order-tablet-and-mobile-1	m-login__content" style="background-image: url(../../../assets/app/media/img/bg/bg-4.jpg)">
+					
 					<div class="m-grid__item m-grid__item--middle">
-						<h3 class="m-login__welcome">
-							Join Our Community
-						</h3>
+						<h4 class="m-login__welcome" style="color: white;font-family: inherit;">
+							Friendly ERP
+							
+						</h4>
 						<p class="m-login__msg">
 							
 						</p>
 					</div>
+					<h1 style="color: white;padding-left: 60px;font-size: 35px">
+							Join Our Community
+						</h1>
 				</div>
 			</div>
 		</div>
@@ -217,43 +223,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<script type="text/javascript">
 		$(document).ready(function(){
 			console.log("READY");
-			
-				
-				
-				 $('#signin').formValidation({
-
-					 framework : 'bootstrap',
-						live:'disabled',
-						excluded : ":disabled",
-						button:{
-
-							selector : "#m_login_signin_submit",
-							disabled : "disabled",
-						},
-							icon : null,
-							fields: {
-								password: {
-					                validators: {
-					                    notEmpty: {
-					                        message: 'The password is required'
-					                    },
-					                    stringLength: {
-					                        min: 8,
-					                        message: 'The password must have at least 8 characters'
-					                    }
-					                }
-					            },
-					            username:{
-						                validators: {
-						                    notEmpty: {
-						                        message: 'The Username is required'
-						                    }
-						                }
-						            },
-			                      },
-				 });
-				
-				
+		
 			
 			});
 		

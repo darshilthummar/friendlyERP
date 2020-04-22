@@ -61,7 +61,7 @@
 							</div>
 							<div class="m-portlet__body">
 								<!--begin: Datatable -->
-								<table class="table table-striped- table-bordered table-hover table-checkable my_table_1" id="sales_table_1">
+								<table class="table table-striped- table-bordered table-hover table-checkable my_table_1" id="sales_table_1" style="text-align: center;">
 									<thead>
 										<tr>
 											

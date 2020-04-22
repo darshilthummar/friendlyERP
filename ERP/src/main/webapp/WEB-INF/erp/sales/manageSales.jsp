@@ -74,7 +74,7 @@
 							</div>
 							<div class="m-portlet__body">
 								<!--begin: Datatable -->
-								<table class="table table-striped- table-bordered table-hover table-checkable my_table_1" id="sales_table_1">
+								<table class="table table-striped- table-bordered table-hover table-checkable my_table_1" id="sales_table_1"  style="text-align: center;">
 									<thead>
 										<tr>
 											
@@ -182,7 +182,7 @@
 							      data : 'id',
 							      render: function (data, type, row) 
 							      {
-							        return '<div class="row" style="padding-left:10px;"><a href="editSales/'+data+'" class="btn btn-warning edit" id="demo" data-id="'+data+'"><i class="fa fa-pencil"></i></a>  <a class="btn btn-danger delete-pro" data-id="'+data+'"><i class="fa fa-trash-o"></i></a></div>';
+							        return '<div class="row" style="padding-left:50%;">  <a class="btn btn-danger delete-pro" data-id="'+data+'"><i class="fa fa-trash-o"></i></a></div>';
 							      } 
 							} 
 						    ],
@@ -237,7 +237,7 @@
 									   "hideMethod": "fadeOut"
 									 };
 
-									 toastr.success('press for undo <button type="button" data-id="'+id1+'" id="btn">undo</button>', "Undo");
+								 toastr.success('press for undo <button type="button" class="btn btn-outline-light btn-sm m-btn m-btn--air m-btn--wide" style="margin-left:20%" data-id="'+id1+'" id="btn">undo</button>', "Undo");
 									
 									  $("#btn").on('click',function(){
 										 

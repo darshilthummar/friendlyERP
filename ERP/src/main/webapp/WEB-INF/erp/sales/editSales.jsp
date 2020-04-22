@@ -259,9 +259,9 @@
 												<input type="text" name="grandtotal" id="grandtotal_id" class="form-control m-input m-input--solid"	style="background-color: #E8F0FE;" readonly="readonly" value=${sales.grandtotal}>
 											</div>
 										</div>
-										<div class="col-lg-2">
+										<!-- <div class="col-lg-2">
 											<a class="btn btn-warning" id="btnrow"><i class="fa fa-plus"></i></a>
-										</div>
+										</div> -->
 									</div>
 								</div>
 							</div>
