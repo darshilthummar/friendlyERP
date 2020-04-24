@@ -15,17 +15,17 @@
 		
 		<!--end::Web font -->
         <!--begin::Base Styles -->
-		<link href="/assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
-		<link href="/assets/demo/default/base/style.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="<%=request.getContextPath()%>/assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="<%=request.getContextPath()%>/assets/demo/default/base/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Base Styles -->
 		<!--begin::Page Vendors -->
-		<link href="/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="<%=request.getContextPath()%>/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Page Vendors -->
-		<link href="/assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
-		<link href="/assets/demo/default/base/style.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="<%=request.getContextPath()%>/assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="<%=request.getContextPath()%>/assets/demo/default/base/style.bundle.css" rel="stylesheet" type="text/css" />
 		<link rel="shortcut icon" href="/assets/demo/default/media/img/logo/5a729504-9b87-43d3-8385-9d86b297f6a1_200x200.png" />
 		<!-- datatable -->
-	   <link href="/assets/vendors/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+	   <link href="<%=request.getContextPath()%>/assets/vendors/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 	   		
-				<link rel="stylesheet" href="/assets/vendors/formvalidation/css/formValidation.min.css">		
+				<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/vendors/formvalidation/css/formValidation.min.css">		
 		

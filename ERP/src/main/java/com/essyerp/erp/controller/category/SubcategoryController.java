@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
@@ -92,9 +93,9 @@ public class SubcategoryController {
 	
 	@RequestMapping("/findbySubcategory1/{id}")
 	@ResponseBody
-	public List<SubcategoryModel> findSubcategory(@PathVariable long id,HttpServletRequest request)
+	public List<SubcategoryModel> findSubcategory(@PathVariable long id,HttpSession session)
 	{
-		Long userId = (Long) request.getSession().getAttribute("UserId");
+		Long userId = (Long) session.getAttribute("UserId");
 		
 		return subcategoryRepo.findData(id,userId);
 	}

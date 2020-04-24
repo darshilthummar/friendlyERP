@@ -36,11 +36,11 @@ License: You must have a valid license purchased only from themeforest(the above
 		</script>
 		<!--end::Web font -->
         <!--begin::Base Styles -->
-		<link href="/../../../assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
-		<link href="/../../../assets/demo/default/base/style.bundle.css" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" href="/assets/vendors/formvalidation/css/formValidation.min.css">		
+		<link href="<%=request.getContextPath()%>/assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="<%=request.getContextPath()%>/assets/demo/default/base/style.bundle.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/vendors/formvalidation/css/formValidation.min.css">		
 		<!--end::Base Styles -->
-		<link rel="shortcut icon" href="/assets/demo/default/media/img/logo/5a729504-9b87-43d3-8385-9d86b297f6a1_200x200.png" />
+		<link rel="shortcut icon" href="<%=request.getContextPath()%>/assets/demo/default/media/img/logo/5a729504-9b87-43d3-8385-9d86b297f6a1_200x200.png" />
 	</head>
 	<!-- end::Head -->
     <!-- end::Body -->
@@ -103,15 +103,15 @@ License: You must have a valid license purchased only from themeforest(the above
 		</div>
 		<!-- end:: Page -->
     	<!--begin::Base Scripts -->
-		<script src="/../../../assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
-		<script src="/../../../assets/demo/default/base/scripts.bundle.js" type="text/javascript"></script>
+		<script src="<%=request.getContextPath()%>/assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
+		<script src="<%=request.getContextPath()%>/assets/demo/default/base/scripts.bundle.js" type="text/javascript"></script>
 		
 		<!--end::Base Scripts -->   
         <!--begin::Page Snippets -->
-		<script src="/../../../assets/snippets/custom/pages/user/login.js" type="text/javascript"></script>
+		<script src="<%=request.getContextPath()%>/assets/snippets/custom/pages/user/login.js" type="text/javascript"></script>
 		<!--end::Page Snippets -->
-		<script src="/assets/vendors/formvalidation/js/FormValidation.min.js"></script>
-		<script src="/assets/vendors/formvalidation/js/framework/Bootstrap.min.js"></script>
+		<script src="<%=request.getContextPath()%>/assets/vendors/formvalidation/js/FormValidation.min.js"></script>
+		<script src="<%=request.getContextPath()%>/assets/vendors/formvalidation/js/framework/Bootstrap.min.js"></script>
 		<script type="text/javascript">
 		
 		 /* function checkPassword() {
