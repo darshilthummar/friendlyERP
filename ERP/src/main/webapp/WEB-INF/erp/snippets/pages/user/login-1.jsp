@@ -23,25 +23,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<title>
 			FriendlyERP | Login Page
 		</title>
-		<meta name="description" content="Latest updates and statistic charts">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<!--begin::Web font -->
-		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
-		<script>
-          WebFont.load({
-            google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
-            active: function() {
-                sessionStorage.fonts = true;
-            }
-          });
-		</script>
-		<!--end::Web font -->
-        <!--begin::Base Styles -->
-		<link href="/../../../assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
-		<link href="/../../../assets/demo/default/base/style.bundle.css" rel="stylesheet" type="text/css" />
-		<!--end::Base Styles -->
-		<link rel="shortcut icon" href="/assets/demo/default/media/img/logo/5a729504-9b87-43d3-8385-9d86b297f6a1_200x200.png" />
+		<jsp:include page="../../../topscript.jsp"></jsp:include>
 	</head>
 	<!-- end::Head -->
     <!-- end::Body -->
@@ -213,12 +195,12 @@ License: You must have a valid license purchased only from themeforest(the above
 		</div>
 		<!-- end:: Page -->
     	<!--begin::Base Scripts -->
-		<script src="/../../../assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
-		<script src="/../../../assets/demo/default/base/scripts.bundle.js" type="text/javascript"></script>
+		<script src="<%=request.getContextPath()%>/../../../assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
+		<script src="<%=request.getContextPath()%>/../../../assets/demo/default/base/scripts.bundle.js" type="text/javascript"></script>
 		
 		<!--end::Base Scripts -->   
         <!--begin::Page Snippets -->
-		<script src="/../../../assets/snippets/custom/pages/user/login.js" type="text/javascript"></script>
+		<script src="<%=request.getContextPath()%>/../../../assets/snippets/custom/pages/user/login.js" type="text/javascript"></script>
 		<!--end::Page Snippets -->
 		<script type="text/javascript">
 		$(document).ready(function(){

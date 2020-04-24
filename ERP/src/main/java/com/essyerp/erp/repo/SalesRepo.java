@@ -1,10 +1,14 @@
 package com.essyerp.erp.repo;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.datatables.repository.DataTablesRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.essyerp.erp.model.sale.SalesItemModel;
 import com.essyerp.erp.model.sale.SalesModel;
 
 @Repository
@@ -24,5 +28,8 @@ public interface SalesRepo extends JpaRepository<SalesModel, Long>,DataTablesRep
 	@Query(value="select sum(sale_grand_total) from sales_tbl where is_delete=0 and payment_type=?1 and user_id=?2",nativeQuery=true)
 	public Long caseCount(String type,Long UserID);
 	//SELECT SUM(column_name)	FROM table_name	WHERE condition;
+	
+	@Query(value="SELECT * FROM sales_tbl WHERE id=?1 and user_id=?2 and is_delete = 0" ,nativeQuery=true)
+	Optional<SalesModel> findbySaleId(Long id,Long UserID);
 	
 }

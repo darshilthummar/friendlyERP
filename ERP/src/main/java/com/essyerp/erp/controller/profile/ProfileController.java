@@ -55,6 +55,7 @@ public class ProfileController
 		user.setEmail(email);
 		user.setPassword(pass);
 		user.setIsActive(active);
+		user.setImg("User.jpeg");
 		userRepo.save(user);
 		return "redirect:/profile";
 	}
