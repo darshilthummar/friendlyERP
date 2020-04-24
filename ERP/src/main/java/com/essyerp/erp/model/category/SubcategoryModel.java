@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreType;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 
-@Table(name="Subcategory_tbl")
+@Table(name="subcategory_tbl")
 
 public class SubcategoryModel {
 	

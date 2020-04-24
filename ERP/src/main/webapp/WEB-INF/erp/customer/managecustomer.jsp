@@ -95,13 +95,7 @@
 											<th>
 												PhoneNumber
 											</th>
-											<th>
-												Country
-											</th>
 											
-											<th>
-												State
-											</th>
 											<th>
 												City
 											</th>
@@ -182,12 +176,7 @@
 							{
 							      data : 'contact'
 							},
-							{
-							      data : 'country.country'
-							}, 
-							{
-							      data : 'state.state'
-							}, 
+							
 							{
 							      data : 'city.city'
 							}, 

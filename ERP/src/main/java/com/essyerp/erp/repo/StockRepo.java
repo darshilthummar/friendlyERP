@@ -36,7 +36,7 @@ public interface StockRepo extends JpaRepository<StockModel, Long>,DataTablesRep
 	@Query("update StockModel set qty=qty-?1  where isdelete=0 and product.id=?2 ")
 	public void updateSubStock(long qty,long id);
 
-	@Query(value="select qty from stock_tbl where is_delete=0 and Product_ID=?1 and user_id=?2",nativeQuery=true)
+	@Query(value="SELECT IFNULL( (select qty from stock_tbl where is_delete=0 and Product_ID=?1 and user_id=?2) ,'0') AS qty",nativeQuery=true)
 	public long findqty(long productId,Long UserID);
 	
 	

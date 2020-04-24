@@ -2,6 +2,7 @@ package com.essyerp.erp.repo;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.data.jpa.datatables.repository.DataTablesRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 
 import com.essyerp.erp.model.purchase.PurchaseModel;
+import com.essyerp.erp.model.sale.SalesModel;
 
 @Repository
 public interface PurchaseRepo extends JpaRepository<PurchaseModel, Long>,DataTablesRepository<PurchaseModel, Long> 
@@ -41,5 +43,8 @@ public interface PurchaseRepo extends JpaRepository<PurchaseModel, Long>,DataTab
 			"\n" + 
 			"",nativeQuery=true)
 	public List<Map<String,String>> getPurchaseAll(Long UserID,String year); 
+	
+	@Query(value="SELECT * FROM purchase_tbl WHERE id=?1 and user_id=?2 and is_delete = 0" ,nativeQuery=true)
+	Optional<PurchaseModel> findbyPurchaseId(Long id,Long UserID);
 	
 }
