@@ -12,6 +12,7 @@
 	<groupId>com.essyerp.erp</groupId>
 	<artifactId>ERP</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>ERP</name>
 	<description>Demo project for ERP</description>
 

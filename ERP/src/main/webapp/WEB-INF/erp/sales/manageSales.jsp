@@ -182,7 +182,7 @@
 							      data : 'id',
 							      render: function (data, type, row) 
 							      {
-							        return '<div class="row" style="padding-left:50%;">  <a class="btn btn-danger delete-pro" data-id="'+data+'"><i class="fa fa-trash-o"></i></a></div>';
+							        return '<div class="row" style="padding-left:30%;"> <a target="_blank" href="/sales/salesInvoice/'+data+'" class="btn btn-warning edit" id="demo" data-id="'+data+'"><i class="fa fa-file-text-o"></i></a> <a class="btn btn-danger delete-pro" data-id="'+data+'"><i class="fa fa-trash-o"></i></a></div>';
 							      } 
 							} 
 						    ],

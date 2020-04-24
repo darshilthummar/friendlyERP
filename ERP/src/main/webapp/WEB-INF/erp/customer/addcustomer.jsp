@@ -10,7 +10,7 @@
 		</title>
 		
 		<jsp:include page="../topscript.jsp"></jsp:include>
-<link rel="stylesheet" href="/assets/vendors/formvalidation/css/formValidation.min.css">		
+	
 	
 	</head>
 	<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
@@ -257,8 +257,7 @@
 		
 	<jsp:include page="../basescript.jsp" />
 	
-<script src="/assets/vendors/formvalidation/js/FormValidation.min.js"></script>
-		<script src="/assets/vendors/formvalidation/js/framework/Bootstrap.min.js"></script>
+
 	<!-- end::Body -->
 	<script type="text/javascript">
 	$( document ).ready(function() {
@@ -318,7 +317,8 @@
                         		},
                  stringLength: {
                        min: 10,
-                       message: 'The number must be less than 10 characters long'
+                       max: 10,
+                       message: 'The number must be 10 digits long'
                    			},
                       		}
                       },

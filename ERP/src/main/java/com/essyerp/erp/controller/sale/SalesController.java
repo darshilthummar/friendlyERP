@@ -1,6 +1,7 @@
 package com.essyerp.erp.controller.sale;
 
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
@@ -46,8 +48,12 @@ import com.essyerp.erp.repo.SalesRepo;
 import com.essyerp.erp.repo.StateRepo;
 import com.essyerp.erp.repo.StockRepo;
 import com.essyerp.erp.repo.StockTransactionRepo;
+import com.essyerp.erp.service.SalesInvoice;
+import com.essyerp.erp.service.invoice;
 import com.essyerp.erp.service.sales.SalesService;
 import com.essyerp.erp.service.stock.StockService;
+
+import net.sf.jasperreports.engine.JRException;
 
 @Controller
 @RequestMapping(value= {"/sales"})
@@ -87,6 +93,9 @@ public class SalesController
 	
 	@Autowired
 	StockTransactionRepo stockTransactionRepo;
+	
+	@Autowired
+	SalesInvoice salesInvoice;
 	
 	@GetMapping("/addSales")
 	public ModelAndView addCustomer(HttpServletRequest request)
@@ -326,7 +335,15 @@ public class SalesController
 //				System.out.print(purchaseitemRepo.findById(id));
 				return salesRepo.findById(id);
 			}
-
+			
+			@GetMapping("/salesInvoice/{id}")
+			@ResponseBody
+			public String generateReport1(@PathVariable Long id , HttpServletResponse response,HttpServletRequest request) throws JRException, IOException
+			{
+				
+				return salesInvoice.exportReport2(id, response, request);
+				
+			}
 	
 	
 	

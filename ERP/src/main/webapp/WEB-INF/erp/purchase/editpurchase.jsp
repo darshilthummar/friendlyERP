@@ -10,8 +10,7 @@
 
 
 <jsp:include page="../topscript.jsp"></jsp:include>
-<link rel="stylesheet"
-	href="/assets/vendors/formvalidation/css/formValidation.min.css">
+
 <style type="text/css">
 .hide {
 	display: none;
@@ -299,11 +298,7 @@
 
 	<!-- end:: Page -->
 	<jsp:include page="../basescript.jsp" />
-	<script src="/assets/vendors/formvalidation/js/FormValidation.min.js"></script>
-	<script src="/assets/app/js/select2.js"></script>
-	<script src="/assets/app/js/daterangepicker.js"></script>
-	<script
-		src="/assets/vendors/formvalidation/js/framework/Bootstrap.min.js"></script>
+	
 	<!-- end::Body -->
 	<script type="text/javascript">
 	

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.essyerp.erp.model.purchase.PurchaseitemModel;
 import com.essyerp.erp.model.sale.SalesItemModel;
 
 @Repository
@@ -26,5 +27,8 @@ public interface SalesItemRepo extends JpaRepository<SalesItemModel, Long>,DataT
     
 	@Query(value="select SUM((rate * quantity) - (quantity * purchase_rate)) from sales_item_tbl where (STR_TO_DATE(created_on, '%d-%m-%Y'))>(CURRENT_DATE-30) and (STR_TO_DATE(created_on,'%d-%m-%Y'))<=CURRENT_DATE and is_delete=0 and user_id=?1",nativeQuery=true)
 	public Long countProfit(Long UserID);
+	
+	@Query(value="SELECT * FROM sales_item_tbl WHERE sales_id=?1 and user_id=?2 and is_delete = 0" ,nativeQuery=true)
+	List<SalesItemModel> findbysalesId(Long id,Long UserID);
 	
 }

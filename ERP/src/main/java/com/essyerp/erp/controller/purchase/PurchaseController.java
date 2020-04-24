@@ -2,6 +2,7 @@ package com.essyerp.erp.controller.purchase;
 
 
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
@@ -47,8 +49,11 @@ import com.essyerp.erp.repo.PurchaseitemRepo;
 import com.essyerp.erp.repo.StateRepo;
 import com.essyerp.erp.repo.StockRepo;
 import com.essyerp.erp.repo.StockTransactionRepo;
+import com.essyerp.erp.service.invoice;
 import com.essyerp.erp.service.purchase.PurchaseService;
 import com.essyerp.erp.service.stock.StockService;
+
+import net.sf.jasperreports.engine.JRException;
 
 @Controller
 @RequestMapping(value= {"/purchase"})
@@ -88,6 +93,9 @@ public class PurchaseController
   	
   	@Autowired
   	StockTransactionRepo stockTransactionRepo;
+  	
+  	@Autowired
+	invoice Invoice;
 	
 	@GetMapping("/addPurchase")
 	public ModelAndView addPurchase(HttpServletRequest request)
@@ -329,6 +337,16 @@ public class PurchaseController
 			{
 				Long userId = (Long) request.getSession().getAttribute("UserId");
 				return purchaseRepo.getPurchaseAll(userId, year);
+				
+			}
+			
+			
+			@GetMapping("/invoice/{id}")
+			@ResponseBody
+			public String generateReport1(@PathVariable Long id , HttpServletResponse response,HttpServletRequest request) throws JRException, IOException
+			{
+				
+				return Invoice.exportReport1(id, response, request);
 				
 			}
 }
