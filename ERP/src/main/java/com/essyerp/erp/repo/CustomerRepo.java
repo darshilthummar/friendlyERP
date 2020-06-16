@@ -25,4 +25,7 @@ public interface CustomerRepo extends JpaRepository<CustomerModel, Long>,DataTab
 	
 	@Query(value="SELECT * FROM customer_tbl WHERE user_id=?1 and flag=0",nativeQuery=true)
 	List<CustomerModel> findCustomerData(Long UserID);
+	
+	@Query(value="SELECT COUNT(email) FROM user where email=?1",nativeQuery=true)
+	int findemailData(String email);
 }
