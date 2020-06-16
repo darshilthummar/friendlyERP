@@ -88,7 +88,22 @@ public class CustomerController
 	}
 	
 	
-	
+	@RequestMapping("/emailCheck/{email}")
+	@ResponseBody
+	public String checkEmail(@PathVariable String email)
+	{
+		int n = customerRepo.findemailData(email);
+		
+		if(n==0)
+		{
+			return "true";
+		}
+		else
+		{
+			return "false";
+		}
+		
+	}
 	
 	 
 	

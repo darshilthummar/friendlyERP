@@ -101,7 +101,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											<input class="form-control m-input" type="text" placeholder="Username" name="username">
 										</div>
 										<div class="form-group m-form__group">
-											<input class="form-control m-input" type="text" placeholder="Email" name="email" autocomplete="off">
+											<input class="form-control m-input" type="text" placeholder="Email" id="email1" name="email" autocomplete="off">
 										</div>
 										<div class="form-group m-form__group">
 											<input class="form-control m-input" type="password" placeholder="Password" id="password" name="password">
@@ -205,7 +205,19 @@ License: You must have a valid license purchased only from themeforest(the above
 		<script type="text/javascript">
 		$(document).ready(function(){
 			console.log("READY");
-		
+			$("#email1").change(function(){
+				var email = $("#email1").val();
+				$.get("/emailCheck/"+email, function(data, status){
+			    	console.log(data);
+			    	if(data=='false')
+			    		{
+			    		alert("email is already exists");
+			    		$("#email1").val(null);
+			    		}
+			    	
+			      });
+				  /* alert("email is already exists"); */
+				});
 			
 			});
 		
