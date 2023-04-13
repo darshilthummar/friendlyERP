@@ -7,7 +7,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.1.9.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.essyerp.erp</groupId>
 	<artifactId>ERP</artifactId>
@@ -84,7 +84,7 @@
 		<dependency>
 			<groupId>com.github.darrachequesne</groupId>
 			<artifactId>spring-data-jpa-datatables</artifactId>
-			<version>5.0.0</version>
+			<version>5.2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
